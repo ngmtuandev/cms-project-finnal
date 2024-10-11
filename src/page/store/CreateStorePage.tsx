@@ -21,13 +21,13 @@ const CreateStorePage = () => {
     $createStore(value, {
       onSuccess: (response) => {
         if (response?.status === 200) {
-          message.success(MESSAGE.CREATE_STORE_SUCCESS);
+          messageApi.success(MESSAGE.CREATE_STORE_SUCCESS);
         } else {
-          message.error(MESSAGE.CREATE_STORE_FAILURE);
+          messageApi.error(MESSAGE.CREATE_STORE_FAILURE);
         }
       },
       onError() {
-        message.error(MESSAGE.CREATE_STORE_FAILURE);
+        messageApi.error(MESSAGE.CREATE_STORE_FAILURE);
       },
     });
   };
