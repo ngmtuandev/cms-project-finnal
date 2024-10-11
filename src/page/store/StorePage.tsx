@@ -5,9 +5,27 @@ import { Popconfirm, Space, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Loading } from "../../component";
 
+import { Input } from "antd";
+import type { GetProps } from "antd";
+
+type SearchProps = GetProps<typeof Input.Search>;
+
+const { Search } = Input;
+
 const StorePage = () => {
   const { isLoading, stores } = useGetAllStore();
   const [storeAll, setStoreAll] = useState([]);
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    if (!value) {
+      setStoreAll(stores);
+    } else {
+      const filteredStore = stores.filter((store: any) =>
+        store.storeCode.toLowerCase().includes(value.toLowerCase())
+      );
+      setStoreAll(filteredStore);
+    }
+  };
 
   useEffect(() => {
     setStoreAll(stores);
@@ -54,6 +72,11 @@ const StorePage = () => {
 
   return (
     <div>
+      <Search
+        placeholder="search code store code"
+        onSearch={onSearch}
+        style={{ width: 200, marginBottom: 20 }}
+      />
       <Table
         columns={columns}
         dataSource={storeAll}

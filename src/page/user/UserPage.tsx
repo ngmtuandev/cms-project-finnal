@@ -6,10 +6,28 @@ import { useEffect, useState } from "react";
 import { ROLE } from "../../utils/constant";
 import { Loading } from "../../component";
 
+import { Input } from "antd";
+import type { GetProps } from "antd";
+
+type SearchProps = GetProps<typeof Input.Search>;
+
+const { Search } = Input;
+
 const UserPage = () => {
   const { info, isLoading } = useGetAllUser();
 
   const [data, setData] = useState<any[]>([]);
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    if (!value) {
+      setData(info);
+    } else {
+      const filteredUser = info.filter((user: any) =>
+        user.userName.toLowerCase().includes(value.toLowerCase())
+      );
+      setData(filteredUser);
+    }
+  };
 
   useEffect(() => {
     if (info) {
@@ -90,6 +108,11 @@ const UserPage = () => {
 
   return (
     <div>
+      <Search
+        placeholder="search code store code"
+        onSearch={onSearch}
+        style={{ width: 200, marginBottom: 20 }}
+      />
       <Table
         columns={columns}
         dataSource={data}

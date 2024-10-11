@@ -1,13 +1,31 @@
 import { useEffect, useState } from "react";
-import { useGetAllMachine, useGetAllResult } from "../../hooks";
+import { useGetAllMachine } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Loading } from "../../component";
 
+import { Input } from "antd";
+import type { GetProps } from "antd";
+
+type SearchProps = GetProps<typeof Input.Search>;
+
+const { Search } = Input;
+
 const MachinePage = () => {
   const { isLoading, machines } = useGetAllMachine();
   const [machineAll, setMachineAll] = useState();
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    if (!value) {
+      setMachineAll(machines);
+    } else {
+      const filteredMachines = machines.filter((machine: any) =>
+        machine.codeMachine.toLowerCase().includes(value.toLowerCase())
+      );
+      setMachineAll(filteredMachines);
+    }
+  };
 
   useEffect(() => {
     if (machines) setMachineAll(machines);
@@ -53,6 +71,12 @@ const MachinePage = () => {
   ];
   return (
     <div>
+      <Search
+        placeholder="search code machine"
+        onSearch={onSearch}
+        style={{ width: 200, marginBottom: 20 }}
+      />
+
       <Table
         columns={columns}
         dataSource={machineAll}

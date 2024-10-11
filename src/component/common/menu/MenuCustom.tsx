@@ -26,7 +26,10 @@ const MenuCustom = ({ navigate }: any) => {
       key: path.MANAGER_STORE,
       icon: <ShopOutlined />,
       label: "Cửa hàng",
-      children: [{ key: path.MANAGER_STORE, label: "Quản lý cửa hàng" }],
+      children: [
+        { key: path.MANAGER_STORE, label: "Quản lý cửa hàng" },
+        { key: path.CREATE_STORE, label: "Tạo mới cửa hàng" },
+      ],
     },
     {
       key: path.MANAGER_SOLUTION,

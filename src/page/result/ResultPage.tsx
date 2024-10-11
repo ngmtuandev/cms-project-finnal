@@ -5,9 +5,27 @@ import { Popconfirm, Space, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Loading } from "../../component";
 
+import { Input } from "antd";
+import type { GetProps } from "antd";
+
+type SearchProps = GetProps<typeof Input.Search>;
+
+const { Search } = Input;
+
 const ResultPage = () => {
   const { isLoading, results } = useGetAllResult();
   const [resultAll, setResultAll] = useState();
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    if (!value) {
+      setResultAll(results);
+    } else {
+      const filteredResult = results.filter((result: any) =>
+        result.typeResult.toLowerCase().includes(value.toLowerCase())
+      );
+      setResultAll(filteredResult);
+    }
+  };
 
   useEffect(() => {
     if (results) setResultAll(results);
@@ -53,6 +71,12 @@ const ResultPage = () => {
   ];
   return (
     <div>
+      <Search
+        placeholder="search code result"
+        onSearch={onSearch}
+        style={{ width: 200, marginBottom: 20 }}
+      />
+
       <Table
         columns={columns}
         dataSource={resultAll}
