@@ -20,7 +20,10 @@ const MenuCustom = ({ navigate }: any) => {
       key: path.MANAGER_USER,
       icon: <UserOutlined />,
       label: "Nhân viên",
-      children: [{ key: path.MANAGER_USER, label: "Quản lý nhân viên" }],
+      children: [
+        { key: path.MANAGER_USER, label: "Quản lý nhân viên" },
+        { key: path.CREATE_USER, label: "Thêm nhân viên" },
+      ],
     },
     {
       key: path.MANAGER_STORE,
@@ -35,19 +38,29 @@ const MenuCustom = ({ navigate }: any) => {
       key: path.MANAGER_SOLUTION,
       icon: <SolutionOutlined />,
       label: "Giải pháp",
-      children: [{ key: path.MANAGER_SOLUTION, label: "Quản lý giải pháp" }],
+      children: [
+        { key: path.MANAGER_SOLUTION, label: "Quản lý giải pháp" },
+        { key: path.CREATE_SOLUTION, label: "Tạo mới giải pháp" },
+        { key: path.MANAGER_SOLUTION_REQUEST, label: "Yêu cầu tạo mới" },
+      ],
     },
     {
       key: path.MANAGER_RESULT,
       icon: <MedicineBoxOutlined />,
       label: "Kết quả",
-      children: [{ key: path.MANAGER_RESULT, label: "Quản lý kết quả" }],
+      children: [
+        { key: path.MANAGER_RESULT, label: "Quản lý kết quả" },
+        { key: path.CREATE_RESULT, label: "Tạo mới kết quả" },
+      ],
     },
     {
       key: path.MANAGER_MACHINE,
       icon: <ApiOutlined />,
       label: "Máy",
-      children: [{ key: path.MANAGER_MACHINE, label: "Quản lý máy" }],
+      children: [
+        { key: path.MANAGER_MACHINE, label: "Quản lý máy" },
+        { key: path.CREATE_MACHINE, label: "Tạo mới máy" },
+      ],
     },
     {
       key: path.MANAGER_RECORD_TRANSACTION,

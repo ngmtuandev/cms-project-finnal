@@ -19,6 +19,7 @@ export { default as CreateResultPage } from "./result/CreateResultPage";
 // Solution
 export { default as SolutionPage } from "./solution/SolutionPage";
 export { default as CreateSolutionPage } from "./solution/CreateSolutionPage";
+export { default as SolutionRequest } from "./solution/SolutionRequest";
 
 // Store
 export { default as StorePage } from "./store/StorePage";

@@ -4,4 +4,5 @@ export type TFilterRecord = {
   size?: number | string;
   startDate?: string;
   endDate?: string;
+  machineCode?: string;
 };

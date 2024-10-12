@@ -5,3 +5,13 @@
 .ant-spin-dot-item {
   background-color: white !important;
 }
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: "#FFA0BC";
+}

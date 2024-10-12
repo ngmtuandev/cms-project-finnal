@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useGetAllStore, useGetFilterRecord } from "../../hooks";
+import {
+  useGetAllMachine,
+  useGetAllStore,
+  useGetFilterRecord,
+} from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table, DatePicker, Select, Image } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -21,6 +25,8 @@ const RecordTransactionPage = () => {
     setEndDate,
     startDate,
     setStartDate,
+    machineCode,
+    setMachineCode,
   } = useFilterRecordStore();
   const { isLoading, records } = useGetFilterRecord({
     page,
@@ -28,15 +34,22 @@ const RecordTransactionPage = () => {
     storeCode,
     startDate,
     endDate,
+    machineCode,
   });
   const { stores } = useGetAllStore();
+  const { machines } = useGetAllMachine();
+
+  console.log("records =====> ", records);
 
   // state
   const [recordTransactionAll, setRecordTransactionAll] = useState();
   const [storeSelect, setStoreSelect] = useState([]);
+  const [machineSelect, setMachineSelect] = useState([]);
 
   useEffect(() => {
+    console.log("🚀 ~ RecordTransactionPage ~ records:", records);
     if (records) setRecordTransactionAll(records?.data);
+
     if (stores) {
       let storeConvert = stores?.map((item: any) => {
         return {
@@ -46,15 +59,17 @@ const RecordTransactionPage = () => {
       });
       setStoreSelect(storeConvert);
     }
-    // return () => {
-    //   setPage(1);
-    //   setEndDate(undefined);
-    //   setStartDate(undefined);
-    //   setStoreCode(undefined);
-    // };
-  }, [records, page]);
 
-  console.log("🚀 ~ RecordTransactionPage ~ stores:", storeSelect);
+    if (machines) {
+      let machineConvert = machines?.map((item: any) => {
+        return {
+          label: item?.codeMachine,
+          value: item?.codeMachine,
+        };
+      });
+      setMachineSelect(machineConvert);
+    }
+  }, [records, page, machines]);
 
   const columns: TableColumnsType<any> = [
     {
@@ -158,31 +173,39 @@ const RecordTransactionPage = () => {
       },
     },
     {
-      title: "Hành động",
-      dataIndex: "",
-      key: "actions",
-      render: (_, record: any) => (
-        <Space size="middle">
-          <EditOutlined
-            onClick={() => {
-              //   handleUpdate(record);
-            }}
-            className="text-xl cursor-pointer hover:text-blue-500"
-          />
-          <Popconfirm
-            title="Xóa người dùng"
-            description="Bạn có chắc muốn xóa người dùng này không?"
-            onConfirm={() => {
-              //   handleDelete(record);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
-          </Popconfirm>
-        </Space>
-      ),
+      title: "Số tiền",
+      dataIndex: "money",
+      key: "money",
+      render: (value: string) => {
+        return <span>{value}</span>;
+      },
     },
+    // {
+    //   title: "Hành động",
+    //   dataIndex: "",
+    //   key: "actions",
+    //   render: (_, record: any) => (
+    //     <Space size="middle">
+    //       <EditOutlined
+    //         onClick={() => {
+    //           //   handleUpdate(record);
+    //         }}
+    //         className="text-xl cursor-pointer hover:text-blue-500"
+    //       />
+    //       <Popconfirm
+    //         title="Xóa người dùng"
+    //         description="Bạn có chắc muốn xóa người dùng này không?"
+    //         onConfirm={() => {
+    //           //   handleDelete(record);
+    //         }}
+    //         okText="Yes"
+    //         cancelText="No"
+    //       >
+    //         <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
+    //       </Popconfirm>
+    //     </Space>
+    //   ),
+    // },
   ];
   return (
     <div>
@@ -202,6 +225,19 @@ const RecordTransactionPage = () => {
             />
           </div>
           <div className="flex flex-col">
+            <small className="text-gray-500 mb-1">Mã máy</small>
+            <Select
+              onChange={(value: string) => {
+                setMachineCode(value);
+              }}
+              defaultValue={storeCode}
+              style={{ width: 280 }}
+              allowClear
+              options={machineSelect}
+              placeholder="select filter store"
+            />
+          </div>
+          <div className="flex flex-col">
             <small className="text-gray-500 mb-1">Lọc theo ngày</small>
             <RangePicker
               onChange={(_, dateString) => {
@@ -217,11 +253,11 @@ const RecordTransactionPage = () => {
         dataSource={recordTransactionAll}
         loading={isLoading}
         pagination={{
-          current: records?.page,
+          current: +page + 1,
           pageSize: +size,
           total: 20,
           onChange: (page) => {
-            setPage(page);
+            setPage(page - 1);
           },
         }}
       />

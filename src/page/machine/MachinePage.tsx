@@ -42,32 +42,32 @@ const MachinePage = () => {
       dataIndex: "id",
       key: "id",
     },
-    {
-      title: "Hành động",
-      dataIndex: "",
-      key: "actions",
-      render: (_, record: any) => (
-        <Space size="middle">
-          <EditOutlined
-            onClick={() => {
-              //   handleUpdate(record);
-            }}
-            className="text-xl cursor-pointer hover:text-blue-500"
-          />
-          <Popconfirm
-            title="Xóa người dùng"
-            description="Bạn có chắc muốn xóa người dùng này không?"
-            onConfirm={() => {
-              //   handleDelete(record);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
-          </Popconfirm>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Hành động",
+    //   dataIndex: "",
+    //   key: "actions",
+    //   render: (_, record: any) => (
+    //     <Space size="middle">
+    //       <EditOutlined
+    //         onClick={() => {
+    //           //   handleUpdate(record);
+    //         }}
+    //         className="text-xl cursor-pointer hover:text-blue-500"
+    //       />
+    //       <Popconfirm
+    //         title="Xóa người dùng"
+    //         description="Bạn có chắc muốn xóa người dùng này không?"
+    //         onConfirm={() => {
+    //           //   handleDelete(record);
+    //         }}
+    //         okText="Yes"
+    //         cancelText="No"
+    //       >
+    //         <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
+    //       </Popconfirm>
+    //     </Space>
+    //   ),
+    // },
   ];
   return (
     <div>

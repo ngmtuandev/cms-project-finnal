@@ -4,9 +4,17 @@ import { TFilterRecord } from "../../type/TFilterRecord";
 import { useFilterRecordStore } from "../../store";
 
 export const useGetFilterRecord = (paramsFilter?: TFilterRecord) => {
-  const { page, storeCode, endDate, startDate } = useFilterRecordStore();
+  const { page, storeCode, endDate, startDate, machineCode } =
+    useFilterRecordStore();
   const { data, isLoading } = useQuery({
-    queryKey: ["filter-record", page, storeCode, endDate, startDate],
+    queryKey: [
+      "filter-record",
+      page,
+      storeCode,
+      endDate,
+      startDate,
+      machineCode,
+    ],
     queryFn: () => getAllRecordApi(paramsFilter),
     enabled: true,
   });

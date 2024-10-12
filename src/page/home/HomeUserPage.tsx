@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
-import { HeaderMobile, Loader } from "../../component";
+import {
+  HeaderMobile,
+  InputCustom,
+  Loader,
+  ModelCustom,
+} from "../../component";
 import { useAuthStore, useCreateRecordStore } from "../../store";
 import { Select, Button, Upload, message, Input } from "antd";
 import {
   useCreateRecordTransaction,
+  useCreateSolutionRequest,
   useGetAllMachine,
   useGetAllResult,
   useGetAllSolution,
 } from "../../hooks";
-import {
-  UploadOutlined,
-  CameraOutlined,
-  FileImageOutlined,
-} from "@ant-design/icons";
+import { UploadOutlined, CameraOutlined } from "@ant-design/icons";
+import { success } from "../../assets";
 import type { UploadProps } from "antd";
 import { URL_UPLOAD_IMAGE } from "../../utils/constant";
-import { MESSAGE } from "../../utils/message";
 import { TCreateRecordTransaction } from "../../type/TCreateRecord";
 import { withRouter } from "../../hocs";
 import path from "../../utils/path";
+import { useForm } from "react-hook-form";
+import { ButtomCustom } from "../../component";
+import { useCreateSolution } from "../../hooks";
+import { MESSAGE } from "../../utils/message";
 
 const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
@@ -37,6 +43,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const [machineSelect, setMachineSelect] = useState([]);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isLoader, setIsLoader] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // global state
   const {
@@ -56,6 +63,10 @@ const HomeUserPage = ({ navigate }: any) => {
 
   // message
   const [messageApi, contextHolder] = message.useMessage();
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     if (solutions) {
@@ -159,15 +170,48 @@ const HomeUserPage = ({ navigate }: any) => {
     });
   };
 
+  const { mutate: $createSolution } = useCreateSolutionRequest();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    formState: { errors: formErrors },
+    handleSubmit: handleSubmitForm,
+    // reset,
+  } = useForm();
+
+  const handleCreateSolution = (value: any) => {
+    setIsLoading(true);
+    $createSolution(value, {
+      onSuccess: (response) => {
+        if (response?.status === 200) {
+          messageApi.success(MESSAGE.CREATE_SOLUTION_REQUEST_SUCCESS);
+          setIsLoading(false);
+          setIsModalOpen(false);
+        } else {
+          messageApi.error(MESSAGE.CREATE_SOLUTION_REQUEST_FAIL);
+          setIsLoading(false);
+          setIsModalOpen(false);
+        }
+      },
+      onError() {
+        messageApi.error(MESSAGE.CREATE_SOLUTION_REQUEST_FAIL);
+        setIsLoading(false);
+        setIsModalOpen(false);
+      },
+    });
+  };
+
   return (
     <>
       {contextHolder}
       {isLoader && <Loader></Loader>}
-      <div className="w-screen flex flex-col h-screen bg-pink_light">
+      <div className="w-screen flex items-center flex-col h-screen bg-pink_light">
         <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
 
         {/* Upload Evident */}
-        <div className="w-full h-[40%] p-[20px]">
+        <div className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px]">
           <div className="w-[100%] text-6xl text-gray-500 h-[80%] flex justify-center items-center rounded-xl bg-white">
             {uploadedImageUrl ? (
               <img
@@ -176,7 +220,16 @@ const HomeUserPage = ({ navigate }: any) => {
                 className="max-w-full max-h-full object-contain"
               />
             ) : (
-              <FileImageOutlined />
+              <div className="flex flex-col justify-center items-center">
+                <img
+                  src={success}
+                  alt="image-evident"
+                  className="w-[40%] object-contain"
+                />
+                <span className="text-pink_main text-xl">
+                  Tải hình ảnh giao dịch!
+                </span>
+              </div>
             )}
           </div>
           <div className="flex justify-center gap-4 items-center my-4">
@@ -192,7 +245,7 @@ const HomeUserPage = ({ navigate }: any) => {
         </div>
 
         {/* Select Component */}
-        <div className="px-[20px] mt-6 flex gap-4 flex-col">
+        <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] mt-6 md:mt-0 lg:mt-0 xl:mt-0 flex gap-4 flex-col">
           {/* solution */}
           <div>
             <Select
@@ -274,15 +327,47 @@ const HomeUserPage = ({ navigate }: any) => {
         </div>
 
         {/* Button */}
-        <div className="px-[20px] mt-4">
-          <button
-            onClick={handleUploadRecord}
-            className="bg-pink_main px-[5rem] rounded-2xl text-white font-semibold flex justify-center items-center py-[0.4rem]"
-          >
-            Lưu
-          </button>
+        <div className="flex items-center justify-center">
+          <div className="px-[20px] mt-4">
+            <button
+              onClick={handleUploadRecord}
+              className="bg-pink_main px-[2rem] rounded-3xl text-white font-semibold flex justify-center items-center py-[0.4rem]"
+            >
+              Lưu
+            </button>
+          </div>
+          <div className="px-[20px] mt-4">
+            <button
+              onClick={toggleModal}
+              className="text-gray-500 text-sm rounded-3xl font-semibold flex justify-center items-center"
+            >
+              Tạo giải pháp
+            </button>
+          </div>
         </div>
       </div>
+      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+        <form
+          onSubmit={handleSubmitForm(handleCreateSolution)}
+          className="flex flex-col gap-4"
+        >
+          <InputCustom
+            register={register}
+            id="name"
+            errors={formErrors}
+            validate={{ required: "Vui lòng nhập tên của giải pháp" }}
+            label="Tên giải pháp"
+          ></InputCustom>
+          <InputCustom
+            register={register}
+            id="description"
+            errors={formErrors}
+            validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
+            label="Mô tả giải pháp"
+          ></InputCustom>
+          <ButtomCustom isLoading={isLoading} text="Gửi yêu cầu"></ButtomCustom>
+        </form>
+      </ModelCustom>
     </>
   );
 };

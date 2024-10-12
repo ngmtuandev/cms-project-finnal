@@ -16,4 +16,11 @@ export class MESSAGE {
   static CREATE_USER_FAILURE = "Tạo mới người dùng thất bại!";
   static CREATE_RESULT_SUCCESS = "Tạo mới kết quả thành công!";
   static CREATE_RESULT_FAILURE = "Tạo mới kết quả thất bại!";
+  static CREATE_SOLUTION_REQUEST_SUCCESS =
+    "Tạo yêu cầu giải pháp mới thành công!";
+  static CREATE_SOLUTION_REQUEST_FAIL = "Tạo yêu cầu giải pháp mới thành công!";
+  static CONFIRM_SOLUTION_REQUEST_SUCCESS =
+    "Xác nhận yêu cầu giải pháp mới thành công!";
+  static CONFIRM_SOLUTION_REQUEST_FAIL =
+    "Xác nhận yêu cầu giải pháp mới thành công!";
 }

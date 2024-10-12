@@ -5,3 +5,4 @@ export { default as MenuCustom } from "./common/menu/MenuCustom";
 export { default as Loading } from "./common/loading/Loading";
 export { default as HeaderMobile } from "./common/header/HeaderMobile";
 export { default as Loader } from "./common/loader/Loader";
+export { default as ModelCustom } from "./common/model/ModelCustom";

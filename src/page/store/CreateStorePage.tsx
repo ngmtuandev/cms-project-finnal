@@ -50,14 +50,14 @@ const CreateStorePage = () => {
               register={register}
               id="storeName"
               errors={formErrors}
-              validate={{ require: "Vui lòng nhập tên cửa hàng" }}
+              validate={{ required: "Vui lòng nhập tên cửa hàng" }}
               label="Tên cửa hàng"
             ></InputCustom>
             <InputCustom
               register={register}
               id="storeCode"
               errors={formErrors}
-              validate={{ require: "Vui lòng nhập mã cửa hàng" }}
+              validate={{ required: "Vui lòng nhập mã cửa hàng" }}
               label="Mã cửa hàng"
             ></InputCustom>
             <ButtomCustom text="Tạo mới"></ButtomCustom>

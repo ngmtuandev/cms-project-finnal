@@ -78,32 +78,32 @@ const UserPage = () => {
           <span className="font-semibold text-red_main">Không có cửa hàng</span>
         ),
     },
-    {
-      title: "Hành động",
-      dataIndex: "",
-      key: "actions",
-      render: (_, record: any) => (
-        <Space size="middle">
-          <EditOutlined
-            onClick={() => {
-              //   handleUpdate(record);
-            }}
-            className="text-xl cursor-pointer hover:text-blue-500"
-          />
-          <Popconfirm
-            title="Xóa người dùng"
-            description="Bạn có chắc muốn xóa người dùng này không?"
-            onConfirm={() => {
-              //   handleDelete(record);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
-          </Popconfirm>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Hành động",
+    //   dataIndex: "",
+    //   key: "actions",
+    //   render: (_, record: any) => (
+    //     <Space size="middle">
+    //       <EditOutlined
+    //         onClick={() => {
+    //           //   handleUpdate(record);
+    //         }}
+    //         className="text-xl cursor-pointer hover:text-blue-500"
+    //       />
+    //       <Popconfirm
+    //         title="Xóa người dùng"
+    //         description="Bạn có chắc muốn xóa người dùng này không?"
+    //         onConfirm={() => {
+    //           //   handleDelete(record);
+    //         }}
+    //         okText="Yes"
+    //         cancelText="No"
+    //       >
+    //         <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
+    //       </Popconfirm>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   return (
@@ -119,7 +119,7 @@ const UserPage = () => {
         loading={isLoading}
         pagination={{
           pageSize: 10,
-          total: data?.length,
+          total: 20,
         }}
       />
       {isLoading && <Loading />}

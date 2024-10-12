@@ -73,7 +73,7 @@ const LoginPage = ({ navigate }: any) => {
             register={register}
             id="userName"
             errors={formErrors}
-            validate={{ require: "Vui lòng nhập tên đăng nhập" }}
+            validate={{ required: "Vui lòng nhập tên đăng nhập" }}
             label="Tên đăng nhập"
           ></InputCustom>
           <InputCustom
@@ -82,7 +82,7 @@ const LoginPage = ({ navigate }: any) => {
             register={register}
             id="password"
             errors={formErrors}
-            validate={{ require: "Vui lòng nhập mật khẩu" }}
+            validate={{ required: "Vui lòng nhập mật khẩu" }}
           ></InputCustom>
           <div className="w-[100%]">
             <ButtomCustom isLoading={isLoading} text="Đăng nhập"></ButtomCustom>
