@@ -16,14 +16,13 @@ import {
 } from "../../hooks";
 import { UploadOutlined, CameraOutlined } from "@ant-design/icons";
 import { success } from "../../assets";
-import type { UploadProps } from "antd";
+import type { UploadFile, UploadProps } from "antd";
 import { URL_UPLOAD_IMAGE } from "../../utils/constant";
 import { TCreateRecordTransaction } from "../../type/TCreateRecord";
 import { withRouter } from "../../hocs";
 import path from "../../utils/path";
 import { useForm } from "react-hook-form";
 import { ButtomCustom } from "../../component";
-import { useCreateSolution } from "../../hooks";
 import { MESSAGE } from "../../utils/message";
 
 const HomeUserPage = ({ navigate }: any) => {
@@ -44,6 +43,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isLoader, setIsLoader] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [_, setFileList] = useState<UploadFile[]>();
 
   // global state
   const {
@@ -99,42 +99,94 @@ const HomeUserPage = ({ navigate }: any) => {
   }, [machines, solutions, results]);
 
   // Upload Image
-  const props: UploadProps = {
-    action: "//jsonplaceholder.typicode.com/posts/",
-    listType: "picture",
-    showUploadList: false,
-    onChange: async (info) => {
-      setIsLoader(true);
-      const { file } = info;
-      if (file.status === "done") {
-        const formData = new FormData();
-        formData.append("image", file.originFileObj! || file);
-
-        try {
-          const response = await fetch(URL_UPLOAD_IMAGE.URL, {
-            method: "POST",
-            body: formData,
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            setUploadedImageUrl(data?.data?.url);
-            messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
-            setIsLoader(false);
-          } else {
-            setIsLoader(false);
-            messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-          }
-        } catch (err) {
-          setIsLoader(false);
-          messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-        }
-      }
-    },
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    const fileListImages: any = [];
+    if (newFileList) {
+      newFileList.forEach((file: any) => {
+        const images = { filePath: file?.response?.url };
+        fileListImages.push(images);
+      });
+    }
+    setFileList(newFileList);
   };
 
+  const formData = new FormData();
+
+  const customUpload = async (options: any) => {
+    const { file } = options;
+
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(URL_UPLOAD_IMAGE.URL, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUploadedImageUrl(data?.data?.url);
+        messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
+        setIsLoader(false);
+      } else {
+        setIsLoader(false);
+        messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+      }
+    } catch (err) {
+      setIsLoader(false);
+      messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+    }
+  };
+
+  // const props: UploadProps = {
+  //   showUploadList: false,
+  //   onChange: async (info) => {
+  //     setIsLoader(true);
+  //     const { file } = info;
+  //     if (file.status === "done") {
+  //       formData.append("image", file.originFileObj! || file);
+
+  //       try {
+  //         const response = await fetch(URL_UPLOAD_IMAGE.URL, {
+  //           method: "POST",
+  //           body: formData,
+  //         });
+
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           setUploadedImageUrl(data?.data?.url);
+  //           messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
+  //           setIsLoader(false);
+  //         } else {
+  //           setIsLoader(false);
+  //           messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+  //         }
+  //       } catch (err) {
+  //         setIsLoader(false);
+  //         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+  //       }
+  //     }
+  //   },
+  // };
+
   // Upload Record
+
   const handleUploadRecord = async () => {
+    if (
+      !solution ||
+      !machine ||
+      !result ||
+      !typeTransaction ||
+      !uploadedImageUrl ||
+      !money ||
+      !typeTransaction ||
+      money == undefined ||
+      typeTransaction == undefined
+    ) {
+      messageApi.warning("VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN !");
+      return;
+    }
+
     const dataUploadInfo: TCreateRecordTransaction = {
       imageEvident: uploadedImageUrl,
       user: infoCurrent?.id,
@@ -207,12 +259,15 @@ const HomeUserPage = ({ navigate }: any) => {
     <>
       {contextHolder}
       {isLoader && <Loader></Loader>}
-      <div className="w-screen flex items-center flex-col h-screen bg-pink_light">
+      <div className="w-screen flex items-center flex-col min-h-screen bg-pink_light">
         <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
 
         {/* Upload Evident */}
-        <div className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px]">
-          <div className="w-[100%] text-6xl text-gray-500 h-[80%] flex justify-center items-center rounded-xl bg-white">
+        <div
+          className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center 
+        text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px]"
+        >
+          <div className="w-[100%] text-6xl text-gray-500 h-[80%] py-[30px] flex justify-center items-center rounded-xl bg-white">
             {uploadedImageUrl ? (
               <img
                 src={uploadedImageUrl}
@@ -224,9 +279,9 @@ const HomeUserPage = ({ navigate }: any) => {
                 <img
                   src={success}
                   alt="image-evident"
-                  className="w-[40%] object-contain"
+                  className="w-[30%] md:w-[40%] xl:w-[40%] lg:w-[40%] object-contain"
                 />
-                <span className="text-pink_main text-xl">
+                <span className="text-pink_main text-sm md:text-xl xl:text-xl lg:text-xl">
                   Tải hình ảnh giao dịch!
                 </span>
               </div>
@@ -234,7 +289,11 @@ const HomeUserPage = ({ navigate }: any) => {
           </div>
           <div className="flex justify-center gap-4 items-center my-4">
             <div>
-              <Upload showUploadList={false} {...props}>
+              <Upload
+                customRequest={customUpload}
+                onChange={handleChange}
+                showUploadList={false}
+              >
                 <Button icon={<UploadOutlined />}>Upload</Button>
               </Upload>
             </div>
@@ -245,7 +304,7 @@ const HomeUserPage = ({ navigate }: any) => {
         </div>
 
         {/* Select Component */}
-        <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] mt-6 md:mt-0 lg:mt-0 xl:mt-0 flex gap-4 flex-col">
+        <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] flex gap-4 flex-col">
           {/* solution */}
           <div>
             <Select

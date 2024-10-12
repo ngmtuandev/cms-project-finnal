@@ -6,6 +6,7 @@ const InputCustom = ({
   errors,
   validate,
   placeholder,
+  defaultValue,
   ...props
 }: any) => {
   return (
@@ -31,17 +32,22 @@ const InputCustom = ({
         </label>
       )}
       <input
+        defaultValue={defaultValue && defaultValue}
         type={type}
         id={id}
         style={{
           width: "100%",
-          height: "4.3vh",
+          height: "4.5vh",
           outline: "none",
           borderRadius: 20,
           paddingLeft: 10,
           borderWidth: "0.5px",
           paddingRight: 10,
           backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
         }}
         {...register(id, validate)}
         {...props}

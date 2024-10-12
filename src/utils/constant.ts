@@ -14,7 +14,7 @@ export class ROLE {
 export class RESULT {
   static SUCCESS = "SUCCESS";
   static PENDING = "PENDING";
-  static NOT_PRINTE = "NOT PRINTE";
+  static NOT_PRINTE = "NOT PRINTER";
   static FAIL = "FAIL";
   static PRINTER = "PRINTER";
 }

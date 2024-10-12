@@ -19,3 +19,7 @@ export * from "./solution-request/confirmSolutionRequestApi";
 export * from "./solution-request/createSolutionRequestApi";
 export * from "./solution-request/getAllSolutionRequestApi";
 export * from "./solution-request/rejectSolutionRequestApi";
+export * from "./solution/deleteSolutionApi";
+export * from "./store/deleteStoreApi";
+export * from "./user/deleteUserApi";
+export * from "./solution/updateSolutionApi";

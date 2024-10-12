@@ -1,7 +1,6 @@
 import api from "../../config/client.axios.api";
-import { TCreateUser } from "../../type/TCreateUser";
 
-export const createUserApi = async (createUserInfo?: TCreateUser) => {
-  const response = await api.post(`/admin/user`, createUserInfo);
+export const deleteUserApi = async (idUser: string) => {
+  const response = await api.delete(`/admin/user?idUser=${idUser}`);
   return response;
 };

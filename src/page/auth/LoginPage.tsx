@@ -4,7 +4,7 @@ import { ButtomCustom, InputCustom } from "../../component";
 import { useLogin } from "../../hooks";
 import { message } from "antd";
 import { MESSAGE } from "../../utils/message";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../../store";
 import { withRouter } from "../../hocs";
 import path from "../../utils/path";
@@ -16,6 +16,7 @@ const LoginPage = ({ navigate }: any) => {
 
   const setLogin = useAuthStore((state) => state.login);
   const setInfoCurrent = useAuthStore((state) => state.setInfoCurrent);
+  const token = useAuthStore((state) => state.token);
 
   const {
     register,
@@ -48,10 +49,17 @@ const LoginPage = ({ navigate }: any) => {
     });
   };
 
+  useEffect(() => {
+    if (token) navigate(path.HOME);
+  }, []);
+
   return (
     <>
       {contextHolder}
-      <div className="flex flex-col pt-[1.4rem] w-screen sm:px-[24px] px-[24px] md:px-[12px] md:items-center md:gap-12 lg:items-center md:justify-center lg:gap-12 lg:px-[12px] md:flex-row lg:flex-row h-screen bg-pink_light">
+      <div
+        className="flex flex-col pt-[1.4rem] w-screen sm:px-[24px] px-[24px] md:px-[12px] md:items-center md:gap-12 
+      lg:items-center md:justify-center lg:gap-12 lg:px-[12px] md:flex-row lg:flex-row min-h-screen bg-pink_light"
+      >
         <div className="flex md:w-[40%] lg:w-[40%] flex-col justify-center items-center my-4">
           <img
             className="md:mb-12 block md:hidden lg:hidden lg:mb-12 mb-10"

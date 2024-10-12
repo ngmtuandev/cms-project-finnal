@@ -15,3 +15,7 @@ export * from "./role/useGetAllRole";
 export * from "./solution-request/useConfirmSolutionRequest";
 export * from "./solution-request/useCreateSolutionRequest";
 export * from "./solution-request/useGetAllSolutionRequest";
+export * from "./solution/useDeleteSolution";
+export * from "./store/useDeleteStore";
+export * from "./user/useDeleteUser";
+export * from "./solution/useUpdateSolution";

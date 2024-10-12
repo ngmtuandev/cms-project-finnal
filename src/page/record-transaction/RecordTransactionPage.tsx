@@ -5,12 +5,11 @@ import {
   useGetFilterRecord,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table, DatePicker, Select, Image } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Space, Table, DatePicker, Select, Image } from "antd";
 import { Loading } from "../../component";
 import { useFilterRecordStore } from "../../store";
 import { RESULT } from "../../utils/constant";
-import { convertTimestampToDateTime } from "../../helper";
+import { convertTimestampToDateTime, formatCurrencyVND } from "../../helper";
 
 const { RangePicker } = DatePicker;
 
@@ -39,15 +38,12 @@ const RecordTransactionPage = () => {
   const { stores } = useGetAllStore();
   const { machines } = useGetAllMachine();
 
-  console.log("records =====> ", records);
-
   // state
   const [recordTransactionAll, setRecordTransactionAll] = useState();
   const [storeSelect, setStoreSelect] = useState([]);
   const [machineSelect, setMachineSelect] = useState([]);
 
   useEffect(() => {
-    console.log("🚀 ~ RecordTransactionPage ~ records:", records);
     if (records) setRecordTransactionAll(records?.data);
 
     if (stores) {
@@ -110,6 +106,7 @@ const RecordTransactionPage = () => {
           <Image src={url} width={"40%"} className="object-contain"></Image>
         );
       },
+      width: 300,
     },
     {
       title: "Kết quả",
@@ -177,7 +174,7 @@ const RecordTransactionPage = () => {
       dataIndex: "money",
       key: "money",
       render: (value: string) => {
-        return <span>{value}</span>;
+        return <span>{formatCurrencyVND(value)}</span>;
       },
     },
     // {

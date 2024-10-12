@@ -1,8 +1,10 @@
 import { Triangle } from "react-loader-spinner";
+import { logo } from "../../../assets";
 
 const Loader = () => {
   return (
-    <div className="z-1000 w-screen h-screen flex justify-center items-center">
+    <div className="z-1000 w-screen h-screen flex flex-col justify-center items-center">
+      <img className="mb-4" src={logo}></img>
       <Triangle
         visible={true}
         height="120"

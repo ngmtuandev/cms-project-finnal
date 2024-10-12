@@ -15,7 +15,15 @@ export class MESSAGE {
   static CREATE_USER_SUCCESS = "Tạo mới người dùng thành công!";
   static CREATE_USER_FAILURE = "Tạo mới người dùng thất bại!";
   static CREATE_RESULT_SUCCESS = "Tạo mới kết quả thành công!";
+  static DELETE_SOLUTION_SUCCESS = "Xóa giải pháp thành công!";
+  static DELETE_SOLUTION_FAILURE = "Xóa giải pháp thất bại!";
+  static DELETE_STORE_FAILURE = "Xóa cửa hàng thất bại!";
+  static DELETE_STORE_SUCCESS = "Xóa cửa hàng thành công!";
+  static DELETE_USER_SUCCESS = "Xoá người dùng thành công!";
+  static DELETE_USER_FAILURE = "Xóa người dùng thất bại!";
   static CREATE_RESULT_FAILURE = "Tạo mới kết quả thất bại!";
+  static UPDATE_SOLUTION_FAILURE = "Cập nhập giải pháp thất bại!";
+  static UPDATE_SOLUTION_SUCCESS = "Cập nhập giải pháp thành công!";
   static CREATE_SOLUTION_REQUEST_SUCCESS =
     "Tạo yêu cầu giải pháp mới thành công!";
   static CREATE_SOLUTION_REQUEST_FAIL = "Tạo yêu cầu giải pháp mới thành công!";

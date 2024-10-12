@@ -1,13 +1,14 @@
-import { useGetAllUser } from "../../hooks";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useDeleteUser, useGetAllUser } from "../../hooks";
+import { DeleteOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../utils/constant";
 import { Loading } from "../../component";
-
+import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
+import { MESSAGE } from "../../utils/message";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -17,6 +18,8 @@ const UserPage = () => {
   const { info, isLoading } = useGetAllUser();
 
   const [data, setData] = useState<any[]>([]);
+
+  const { mutate: $deleteUser } = useDeleteUser();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -29,11 +32,28 @@ const UserPage = () => {
     }
   };
 
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
     if (info) {
       setData(info);
     }
   }, [info]);
+
+  const handleDelete = (record: any) => {
+    $deleteUser(record?.id, {
+      onSuccess: (response) => {
+        if (response?.status === 200) {
+          messageApi.success(MESSAGE.DELETE_USER_SUCCESS);
+        } else {
+          messageApi.error(MESSAGE.DELETE_USER_FAILURE);
+        }
+      },
+      onError() {
+        messageApi.error(MESSAGE.DELETE_USER_FAILURE);
+      },
+    });
+  };
 
   const columns: TableColumnsType<any> = [
     {
@@ -78,36 +98,32 @@ const UserPage = () => {
           <span className="font-semibold text-red_main">Không có cửa hàng</span>
         ),
     },
-    // {
-    //   title: "Hành động",
-    //   dataIndex: "",
-    //   key: "actions",
-    //   render: (_, record: any) => (
-    //     <Space size="middle">
-    //       <EditOutlined
-    //         onClick={() => {
-    //           //   handleUpdate(record);
-    //         }}
-    //         className="text-xl cursor-pointer hover:text-blue-500"
-    //       />
-    //       <Popconfirm
-    //         title="Xóa người dùng"
-    //         description="Bạn có chắc muốn xóa người dùng này không?"
-    //         onConfirm={() => {
-    //           //   handleDelete(record);
-    //         }}
-    //         okText="Yes"
-    //         cancelText="No"
-    //       >
-    //         <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
-    //       </Popconfirm>
-    //     </Space>
-    //   ),
-    // },
+    {
+      title: "Hành động",
+      dataIndex: "",
+      key: "actions",
+      render: (_, record: any) =>
+        record?.role?.roleName == ROLE.ROLE_USER && (
+          <Space size="middle">
+            <Popconfirm
+              title="Xóa người dùng"
+              description="Bạn có chắc muốn xóa người dùng này không?"
+              onConfirm={() => {
+                handleDelete(record);
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <DeleteOutlined className="text-xl cursor-pointer text-pink_main" />
+            </Popconfirm>
+          </Space>
+        ),
+    },
   ];
 
   return (
     <div>
+      {contextHolder}
       <Search
         placeholder="search code store code"
         onSearch={onSearch}

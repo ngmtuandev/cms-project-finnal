@@ -15,3 +15,10 @@
   > .ant-menu-submenu-title {
   color: "#FFA0BC";
 }
+
+:where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  border-radius: 30rem;
+}

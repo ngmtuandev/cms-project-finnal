@@ -7,12 +7,12 @@ const SuccessPage = ({ navigate }: any) => {
   return (
     <div className="w-screen h-screen flex-col flex justify-center items-center bg-pink_light">
       <img src={success}></img>
-      <span className="my-4 font-semibold text-2xl text-pink_main">
+      <span className="my-4 font-semibold text-center text-xl text-pink_main">
         Lưu lại lịch sử giao dịch thành công!
       </span>
       <button
         onClick={() => navigate(path.HOME)}
-        className="font-semibold flex justify-center items-center gap-2"
+        className="font-semibold flex justify-center items-center text-gray-500 gap-1"
       >
         Quay lại <ArrowRightOutlined />
       </button>
