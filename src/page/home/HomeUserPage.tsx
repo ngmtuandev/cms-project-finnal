@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   HeaderMobile,
   InputCustom,
@@ -24,6 +24,7 @@ import path from "../../utils/path";
 import { useForm } from "react-hook-form";
 import { ButtomCustom } from "../../component";
 import { MESSAGE } from "../../utils/message";
+import Webcam from "react-webcam";
 
 const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
@@ -255,6 +256,34 @@ const HomeUserPage = ({ navigate }: any) => {
     });
   };
 
+  // Upload image on Camera Phone
+  const [isCameraOpen, setIsCameraOpen] = useState<any>(false);
+  const [imageSrc, setImageSrc] = useState<any>(null);
+  const videoRef = useRef<any>(null);
+  const canvasRef = useRef<any>(null);
+
+  const openCamera = async () => {
+    setIsCameraOpen(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef!.current.srcObject = stream;
+    } catch (err) {
+      console.error("Lỗi khi mở camera: ", err);
+    }
+  };
+
+  // Hàm chụp ảnh
+  const capturePhoto = () => {
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
+    canvas.width = video!.videoWidth;
+    canvas.height = video!.videoHeight;
+    const context = canvas!.getContext("2d");
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const image = canvas!.toDataURL("image/png");
+    setImageSrc(image);
+  };
+
   return (
     <>
       {contextHolder}
@@ -296,6 +325,25 @@ const HomeUserPage = ({ navigate }: any) => {
               >
                 <Button icon={<UploadOutlined />}>Upload</Button>
               </Upload>
+            </div>
+            <div>
+              {!isCameraOpen && <button onClick={openCamera}>Mở Camera</button>}
+
+              {isCameraOpen && (
+                <div>
+                  <video ref={videoRef} autoPlay playsInline width="100%" />
+                  <button onClick={capturePhoto}>Chụp ảnh</button>
+                </div>
+              )}
+
+              <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+
+              {imageSrc && (
+                <div>
+                  <h3>Ảnh vừa chụp:</h3>
+                  <img src={imageSrc} alt="Chụp từ camera" />
+                </div>
+              )}
             </div>
             <div>
               <Button icon={<CameraOutlined />}>Chụp</Button>

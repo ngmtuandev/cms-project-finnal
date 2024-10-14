@@ -83,6 +83,7 @@ const LoginPage = ({ navigate }: any) => {
             errors={formErrors}
             validate={{ required: "Vui lòng nhập tên đăng nhập" }}
             label="Tên đăng nhập"
+            height="6vh"
           ></InputCustom>
           <InputCustom
             label="Mật khẩu"
@@ -91,6 +92,7 @@ const LoginPage = ({ navigate }: any) => {
             id="password"
             errors={formErrors}
             validate={{ required: "Vui lòng nhập mật khẩu" }}
+            height="7vh"
           ></InputCustom>
           <div className="w-[100%]">
             <ButtomCustom isLoading={isLoading} text="Đăng nhập"></ButtomCustom>

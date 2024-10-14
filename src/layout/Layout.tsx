@@ -16,7 +16,9 @@ const Layout = ({ navigate }: any) => {
 
   useEffect(() => {
     if (!tokenUser || !token) {
-      navigate(path.SIGN_IN);
+      // Authentication
+      // navigate(path.LOGIN);
+      navigate(path.HOME);
     }
   }, [token, tokenUser]);
 

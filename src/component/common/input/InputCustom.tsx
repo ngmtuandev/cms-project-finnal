@@ -7,6 +7,7 @@ const InputCustom = ({
   validate,
   placeholder,
   defaultValue,
+  height,
   ...props
 }: any) => {
   return (
@@ -37,7 +38,7 @@ const InputCustom = ({
         id={id}
         style={{
           width: "100%",
-          height: "4.6vh",
+          height: height ? height : "4.6vh",
           outline: "none",
           borderRadius: 30,
           paddingLeft: 10,
