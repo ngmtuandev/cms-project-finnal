@@ -142,36 +142,36 @@ const HomeUserPage = ({ navigate }: any) => {
     }
   };
 
-  const props: UploadProps = {
-    showUploadList: false,
-    onChange: async (info) => {
-      setIsLoader(true);
-      const { file } = info;
-      if (file.status === "done") {
-        formData.append("image", file.originFileObj! || file);
+  // const props: UploadProps = {
+  //   showUploadList: false,
+  //   onChange: async (info) => {
+  //     setIsLoader(true);
+  //     const { file } = info;
+  //     if (file.status === "done") {
+  //       formData.append("image", file.originFileObj! || file);
 
-        try {
-          const response = await fetch(URL_UPLOAD_IMAGE.URL, {
-            method: "POST",
-            body: formData,
-          });
+  //       try {
+  //         const response = await fetch(URL_UPLOAD_IMAGE.URL, {
+  //           method: "POST",
+  //           body: formData,
+  //         });
 
-          if (response.ok) {
-            const data = await response.json();
-            setUploadedImageUrl(data?.data?.url);
-            messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
-            setIsLoader(false);
-          } else {
-            setIsLoader(false);
-            messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-          }
-        } catch (err) {
-          setIsLoader(false);
-          messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-        }
-      }
-    },
-  };
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           setUploadedImageUrl(data?.data?.url);
+  //           messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
+  //           setIsLoader(false);
+  //         } else {
+  //           setIsLoader(false);
+  //           messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+  //         }
+  //       } catch (err) {
+  //         setIsLoader(false);
+  //         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+  //       }
+  //     }
+  //   },
+  // };
 
   // Upload Record
 
