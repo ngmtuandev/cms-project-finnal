@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HeaderMobile,
   InputCustom,
@@ -24,10 +24,10 @@ import path from "../../utils/path";
 import { useForm } from "react-hook-form";
 import { ButtomCustom } from "../../component";
 import { MESSAGE } from "../../utils/message";
-// import Webcam from "react-webcam";
+import Webcam from "react-webcam";
 
-// const FACING_MODE_USER = { facingMode: "user" }; //Front Camera
-// const FACING_MODE_ENVIRONMENT = { facingMode: { exact: "environment" } }; //Back Camer
+const FACING_MODE_USER = { facingMode: "user" }; //Front Camera
+const FACING_MODE_ENVIRONMENT = { facingMode: { exact: "environment" } }; //Back Camer
 
 const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
@@ -142,36 +142,36 @@ const HomeUserPage = ({ navigate }: any) => {
     }
   };
 
-  // const props: UploadProps = {
-  //   showUploadList: false,
-  //   onChange: async (info) => {
-  //     setIsLoader(true);
-  //     const { file } = info;
-  //     if (file.status === "done") {
-  //       formData.append("image", file.originFileObj! || file);
+  const props: UploadProps = {
+    showUploadList: false,
+    onChange: async (info) => {
+      setIsLoader(true);
+      const { file } = info;
+      if (file.status === "done") {
+        formData.append("image", file.originFileObj! || file);
 
-  //       try {
-  //         const response = await fetch(URL_UPLOAD_IMAGE.URL, {
-  //           method: "POST",
-  //           body: formData,
-  //         });
+        try {
+          const response = await fetch(URL_UPLOAD_IMAGE.URL, {
+            method: "POST",
+            body: formData,
+          });
 
-  //         if (response.ok) {
-  //           const data = await response.json();
-  //           setUploadedImageUrl(data?.data?.url);
-  //           messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
-  //           setIsLoader(false);
-  //         } else {
-  //           setIsLoader(false);
-  //           messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-  //         }
-  //       } catch (err) {
-  //         setIsLoader(false);
-  //         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-  //       }
-  //     }
-  //   },
-  // };
+          if (response.ok) {
+            const data = await response.json();
+            setUploadedImageUrl(data?.data?.url);
+            messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
+            setIsLoader(false);
+          } else {
+            setIsLoader(false);
+            messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+          }
+        } catch (err) {
+          setIsLoader(false);
+          messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+        }
+      }
+    },
+  };
 
   // Upload Record
 
@@ -260,52 +260,52 @@ const HomeUserPage = ({ navigate }: any) => {
   };
 
   // Upload image on Camera Phone
-  // const webcamRef = React.useRef<any>(null);
-  // const [image, setImage] = useState<any>(null);
-  // const [videoConstraints, setVideoConstraints] =
-  //   useState<any>(FACING_MODE_USER);
+  const webcamRef = React.useRef<any>(null);
+  const [image, setImage] = useState<any>(null);
+  const [videoConstraints, setVideoConstraints] =
+    useState<any>(FACING_MODE_USER);
 
-  // const getListOfVideoInputs = async () => {
-  //   const mediaDevices = await navigator.mediaDevices.enumerateDevices();
-  //   return mediaDevices.filter((device) => device.kind === "videoinput");
-  // };
+  const getListOfVideoInputs = async () => {
+    const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+    return mediaDevices.filter((device) => device.kind === "videoinput");
+  };
 
-  // const switchCamera = async () => {
-  //   const videoInpuList = await getListOfVideoInputs();
-  //   if (videoInpuList.length > 1) {
-  //     const currectVideoConstraints = { ...videoConstraints };
+  const switchCamera = async () => {
+    const videoInpuList = await getListOfVideoInputs();
+    if (videoInpuList.length > 1) {
+      const currectVideoConstraints = { ...videoConstraints };
 
-  //     // If the current constraint is the front camera, switch to the back camera.
-  //     if (
-  //       JSON.stringify(currectVideoConstraints) ===
-  //       JSON.stringify(FACING_MODE_USER)
-  //     ) {
-  //       setVideoConstraints(FACING_MODE_ENVIRONMENT);
-  //     }
-  //     // If the current constraint is the back camera, switch to the front camera.
-  //     if (
-  //       JSON.stringify(currectVideoConstraints) ===
-  //       JSON.stringify(FACING_MODE_ENVIRONMENT)
-  //     ) {
-  //       setVideoConstraints(FACING_MODE_USER);
-  //     }
-  //   } else {
-  //     alert("Device have only one camera.");
-  //   }
-  // };
+      // If the current constraint is the front camera, switch to the back camera.
+      if (
+        JSON.stringify(currectVideoConstraints) ===
+        JSON.stringify(FACING_MODE_USER)
+      ) {
+        setVideoConstraints(FACING_MODE_ENVIRONMENT);
+      }
+      // If the current constraint is the back camera, switch to the front camera.
+      if (
+        JSON.stringify(currectVideoConstraints) ===
+        JSON.stringify(FACING_MODE_ENVIRONMENT)
+      ) {
+        setVideoConstraints(FACING_MODE_USER);
+      }
+    } else {
+      alert("Device have only one camera.");
+    }
+  };
 
-  // const capture = React.useCallback(() => {
-  //   const imageSrc = webcamRef.current!.getScreenshot();
-  //   setImage(imageSrc);
-  // }, [webcamRef, setImage]);
+  const capture = React.useCallback(() => {
+    const imageSrc = webcamRef.current!.getScreenshot();
+    setImage(imageSrc);
+  }, [webcamRef, setImage]);
 
-  // const retake = () => setImage(null);
+  const retake = () => setImage(null);
 
-  // const upload = () => {
-  //   // Do something with the image source, such as upload it to a server
-  //   alert("Your photo uploaded successfully!");
-  //   setImage(null);
-  // };
+  const upload = () => {
+    // Do something with the image source, such as upload it to a server
+    alert("Your photo uploaded successfully!");
+    setImage(null);
+  };
 
   return (
     <>
@@ -341,7 +341,7 @@ const HomeUserPage = ({ navigate }: any) => {
           </div>
 
           {/* Test open camera */}
-          {/* <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
+          <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
             <h3>Photo Capture In React</h3>
 
             <div className="w-full">
@@ -396,7 +396,7 @@ const HomeUserPage = ({ navigate }: any) => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           <div className="flex justify-center gap-4 items-center my-4">
             <div>
