@@ -259,11 +259,11 @@ const HomeUserPage = ({ navigate }: any) => {
     });
   };
 
-  // Upload image on Camera Phone
   const webcamRef = React.useRef<any>(null);
   const [image, setImage] = useState<any>(null);
   const [videoConstraints, setVideoConstraints] =
     useState<any>(FACING_MODE_USER);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
   const getListOfVideoInputs = async () => {
     const mediaDevices = await navigator.mediaDevices.enumerateDevices();
@@ -275,14 +275,12 @@ const HomeUserPage = ({ navigate }: any) => {
     if (videoInpuList.length > 1) {
       const currectVideoConstraints = { ...videoConstraints };
 
-      // If the current constraint is the front camera, switch to the back camera.
       if (
         JSON.stringify(currectVideoConstraints) ===
         JSON.stringify(FACING_MODE_USER)
       ) {
         setVideoConstraints(FACING_MODE_ENVIRONMENT);
       }
-      // If the current constraint is the back camera, switch to the front camera.
       if (
         JSON.stringify(currectVideoConstraints) ===
         JSON.stringify(FACING_MODE_ENVIRONMENT)
@@ -294,18 +292,48 @@ const HomeUserPage = ({ navigate }: any) => {
     }
   };
 
-  const capture = React.useCallback(() => {
+  const convertToBlobAndUpload = async (base64Image: string) => {
+    const res = await fetch(base64Image);
+    const blob = await res.blob();
+    return blob
+  };
+
+  const capture = React.useCallback(async () => {
     const imageSrc = webcamRef.current!.getScreenshot();
+    if (imageSrc) {
+      setImage(imageSrc);
+      const imgBlob = await convertToBlobAndUpload(imageSrc);
+
+      formData.append("image", imgBlob, "webcam-image.jpg");
+
+      try {
+        const response = await fetch(URL_UPLOAD_IMAGE.URL, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUploadedImageUrl(data?.data?.url);
+          messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
+          setIsLoader(false);
+        } else {
+          setIsLoader(false);
+          messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+        }
+      } catch (err) {
+        setIsLoader(false);
+        messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
+      }
+
+
+
+
+    }
     setImage(imageSrc);
   }, [webcamRef, setImage]);
 
   const retake = () => setImage(null);
-
-  const upload = () => {
-    // Do something with the image source, such as upload it to a server
-    alert("Your photo uploaded successfully!");
-    setImage(null);
-  };
 
   return (
     <>
@@ -326,7 +354,36 @@ const HomeUserPage = ({ navigate }: any) => {
                 alt="image-evident"
                 className="max-w-full max-h-full object-contain"
               />
-            ) : (
+            ) : isCameraOpen ? <div><Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+            /> <div className="w-full mt-5 md:w-1/2 flex justify-center items-center flex-wrap">
+                {image ? (
+                  <button
+                    className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                    onClick={retake}
+                  >
+                    Chụp lại
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      className="bg-pink_main text-white text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                      onClick={switchCamera}
+                    >
+                      Lật máy ảnh
+                    </button>
+                    <button
+                      className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                      onClick={capture}
+                    >
+                      Chụp
+                    </button>
+                  </>
+                )}
+              </div></div> : (
               <div className="flex flex-col justify-center items-center">
                 <img
                   src={success}
@@ -342,58 +399,9 @@ const HomeUserPage = ({ navigate }: any) => {
 
           {/* Test open camera */}
           <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
-            <h3>Photo Capture In React</h3>
-
             <div className="w-full">
-              <div className="flex justify-center">
-                <div className="w-full md:w-1/2 mb-3 md:mb-0 flex flex-col">
-                  {image ? (
-                    <img src={image} alt="Captured" />
-                  ) : (
-                    <Webcam
-                      audio={false}
-                      ref={webcamRef}
-                      screenshotFormat="image/jpeg"
-                      videoConstraints={videoConstraints}
-                    />
-                  )}
-                </div>
-              </div>
-
               <div className="flex justify-center mt-2">
-                <div className="w-full md:w-1/2 flex justify-center items-center flex-wrap">
-                  {image ? (
-                    <button
-                      className="btn btn-primary me-2 mb-2"
-                      onClick={retake}
-                    >
-                      Re-Take
-                    </button>
-                  ) : (
-                    <>
-                      <button
-                        className="bg-gray-500 text-white py-2 px-4 rounded me-2 mb-2"
-                        onClick={switchCamera}
-                      >
-                        Switch Camera
-                      </button>
-                      <button
-                        className="bg-blue-500 text-white py-2 px-4 rounded me-2 mb-2"
-                        onClick={capture}
-                      >
-                        Take Photo
-                      </button>
-                    </>
-                  )}
-                  {image && (
-                    <button
-                      className="bg-green-500 text-white py-2 px-4 rounded mb-2"
-                      onClick={upload}
-                    >
-                      Upload
-                    </button>
-                  )}
-                </div>
+
               </div>
             </div>
           </div>
@@ -408,32 +416,8 @@ const HomeUserPage = ({ navigate }: any) => {
                 <Button icon={<UploadOutlined />}>Upload</Button>
               </Upload>
             </div>
-            {/* test */}
-
-            {/* <div>
-              {isCameraOpen && (
-                <div>
-                  <video ref={videoRef} autoPlay playsInline width="100%" />
-                  <div>
-                    <button onClick={capturePhoto}>Chụp ảnh</button>
-                    <button onClick={toggleCamera}>
-                      Chuyển sang camera {isFrontCamera ? "sau" : "trước"}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-
-              {imageSrc && (
-                <div>
-                  <h3>Ảnh vừa chụp:</h3>
-                  <img src={imageSrc} alt="Chụp từ camera" />
-                </div>
-              )}
-            </div> */}
             <div>
-              <Button icon={<CameraOutlined />}>Chụp</Button>
+              <Button onClick={() => setIsCameraOpen(true)} icon={<CameraOutlined />}>Chụp</Button>
             </div>
           </div>
         </div>
