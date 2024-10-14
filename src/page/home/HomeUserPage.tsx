@@ -260,14 +260,28 @@ const HomeUserPage = ({ navigate }: any) => {
   const [imageSrc, setImageSrc] = useState<any>(null);
   const videoRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
+  const [isFrontCamera, setIsFrontCamera] = useState<any>(true);
 
   const openCamera = async () => {
     setIsCameraOpen(true);
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef!.current.srcObject = stream;
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: isFrontCamera ? "user" : "environment" },
+      });
+      videoRef.current.srcObject = stream;
     } catch (err) {
       console.error("Lỗi khi mở camera: ", err);
+    }
+  };
+
+  const toggleCamera = () => {
+    setIsFrontCamera((prev: any) => !prev);
+    // Nếu camera đang mở, cần dừng stream hiện tại và mở lại với camera mới
+    if (isCameraOpen) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track: any) => track.stop());
+      openCamera(); // Mở lại camera với lựa chọn mới
     }
   };
 
@@ -275,11 +289,11 @@ const HomeUserPage = ({ navigate }: any) => {
   const capturePhoto = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
-    canvas.width = video!.videoWidth;
-    canvas.height = video!.videoHeight;
-    const context = canvas!.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext("2d");
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const image = canvas!.toDataURL("image/png");
+    const image = canvas.toDataURL("image/png");
     setImageSrc(image);
   };
 
@@ -332,6 +346,9 @@ const HomeUserPage = ({ navigate }: any) => {
                 <div>
                   <video ref={videoRef} autoPlay playsInline width="100%" />
                   <button onClick={capturePhoto}>Chụp ảnh</button>
+                  <button onClick={toggleCamera}>
+                    Chuyển sang camera {isFrontCamera ? "sau" : "trước"}
+                  </button>
                 </div>
               )}
 
