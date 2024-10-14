@@ -24,7 +24,6 @@ import path from "../../utils/path";
 import { useForm } from "react-hook-form";
 import { ButtomCustom } from "../../component";
 import { MESSAGE } from "../../utils/message";
-import Webcam from "react-webcam";
 
 const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
