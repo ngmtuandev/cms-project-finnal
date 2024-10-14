@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HeaderMobile,
   InputCustom,
@@ -433,9 +433,7 @@ const HomeUserPage = ({ navigate }: any) => {
               )}
             </div> */}
             <div>
-              <Button onClick={openCamera} icon={<CameraOutlined />}>
-                Chụp
-              </Button>
+              <Button icon={<CameraOutlined />}>Chụp</Button>
             </div>
           </div>
         </div>
