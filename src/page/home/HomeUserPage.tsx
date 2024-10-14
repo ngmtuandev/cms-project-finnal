@@ -260,56 +260,6 @@ const HomeUserPage = ({ navigate }: any) => {
   };
 
   // Upload image on Camera Phone
-  const [isCameraOpen, setIsCameraOpen] = useState<any>(false);
-  const [isFrontCamera, setIsFrontCamera] = useState<any>(true); // State kiểm soát camera trước/sau
-  const [imageSrc, setImageSrc] = useState<any>(null);
-  const videoRef = useRef<any>(null);
-  const canvasRef = useRef<any>(null);
-
-  // Hàm yêu cầu mở camera với tùy chọn front/back
-  const openCamera = async () => {
-    setIsCameraOpen(true);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: isFrontCamera ? "user" : "environment" },
-      });
-      videoRef.current.srcObject = stream;
-    } catch (err) {
-      console.error("Lỗi khi mở camera: ", err);
-    }
-  };
-
-  // Hàm chuyển đổi giữa camera trước và sau
-  const toggleCamera = async () => {
-    setIsFrontCamera((prev: any) => !prev);
-    // Dừng stream hiện tại trước khi mở lại với camera khác
-    const stream = videoRef.current.srcObject;
-    const tracks = stream.getTracks();
-    tracks.forEach((track: any) => track.stop());
-
-    // Mở lại camera với facingMode mới (trước/sau)
-    try {
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: !isFrontCamera ? "user" : "environment" },
-      });
-      videoRef.current.srcObject = newStream;
-    } catch (err) {
-      console.error("Lỗi khi chuyển camera: ", err);
-    }
-  };
-
-  // Hàm chụp ảnh
-  const capturePhoto = () => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const context = canvas.getContext("2d");
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const image = canvas.toDataURL("image/png");
-    setImageSrc(image);
-  };
-
   const webcamRef = React.useRef<any>(null);
   const [image, setImage] = useState<any>(null);
   const [videoConstraints, setVideoConstraints] =
@@ -458,7 +408,9 @@ const HomeUserPage = ({ navigate }: any) => {
                 <Button icon={<UploadOutlined />}>Upload</Button>
               </Upload>
             </div>
-            <div>
+            {/* test */}
+
+            {/* <div>
               {isCameraOpen && (
                 <div>
                   <video ref={videoRef} autoPlay playsInline width="100%" />
@@ -479,7 +431,7 @@ const HomeUserPage = ({ navigate }: any) => {
                   <img src={imageSrc} alt="Chụp từ camera" />
                 </div>
               )}
-            </div>
+            </div> */}
             <div>
               <Button onClick={openCamera} icon={<CameraOutlined />}>
                 Chụp
