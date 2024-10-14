@@ -37,9 +37,9 @@ const InputCustom = ({
         id={id}
         style={{
           width: "100%",
-          height: "4.5vh",
+          height: "4.6vh",
           outline: "none",
-          borderRadius: 20,
+          borderRadius: 30,
           paddingLeft: 10,
           borderWidth: "0.5px",
           paddingRight: 10,

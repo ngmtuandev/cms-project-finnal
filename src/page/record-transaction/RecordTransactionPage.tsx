@@ -44,6 +44,7 @@ const RecordTransactionPage = () => {
   const [machineSelect, setMachineSelect] = useState([]);
 
   useEffect(() => {
+    console.log("🚀 ~ RecordTransactionPage ~ records:", records);
     if (records) setRecordTransactionAll(records?.data);
 
     if (stores) {
@@ -204,6 +205,15 @@ const RecordTransactionPage = () => {
     //   ),
     // },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page, storeCode, endDate, startDate, machineCode]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [storeCode, machineCode, endDate, startDate]);
+
   return (
     <div>
       <div className="mb-5">
@@ -252,7 +262,7 @@ const RecordTransactionPage = () => {
         pagination={{
           current: +page + 1,
           pageSize: +size,
-          total: 20,
+          total: +records?.totalPage * +size,
           onChange: (page) => {
             setPage(page - 1);
           },

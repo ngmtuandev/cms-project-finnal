@@ -259,13 +259,13 @@ const HomeUserPage = ({ navigate }: any) => {
     <>
       {contextHolder}
       {isLoader && <Loader></Loader>}
-      <div className="w-screen flex items-center flex-col min-h-screen bg-pink_light">
+      <div className="w-screen pb-[40px] flex items-center flex-col min-h-screen bg-pink_light">
         <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
 
         {/* Upload Evident */}
         <div
           className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center 
-        text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px]"
+        text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px] mt-20"
         >
           <div className="w-[100%] text-6xl text-gray-500 h-[80%] py-[30px] flex justify-center items-center rounded-xl bg-white">
             {uploadedImageUrl ? (

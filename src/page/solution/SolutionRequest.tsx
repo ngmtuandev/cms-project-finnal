@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   useConfirmSolutionRequest,
   useGetAllSolutionRequest,
+  useRejectSolutionRequest,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
@@ -21,6 +22,7 @@ const SolutionRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { mutate: $confirmSolutionRequest } = useConfirmSolutionRequest();
+  const { mutate: $rejectSolutionRequest } = useRejectSolutionRequest();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -57,6 +59,24 @@ const SolutionRequest = () => {
     });
   };
 
+  const handleRejectSolution = (record: any) => {
+    $rejectSolutionRequest(record.id, {
+      onSuccess: (response) => {
+        if (response?.status === 200) {
+          messageApi.success(MESSAGE.REJECT_SOLUTION_REQUEST_SUCCESS);
+          setIsLoading(false);
+        } else {
+          messageApi.error(MESSAGE.REJECT_SOLUTION_REQUEST_FAILURE);
+          setIsLoading(false);
+        }
+      },
+      onError() {
+        messageApi.error(MESSAGE.REJECT_SOLUTION_REQUEST_FAILURE);
+        setIsLoading(false);
+      },
+    });
+  };
+
   const columns: TableColumnsType<any> = [
     {
       title: "Tên giải pháp",
@@ -76,14 +96,23 @@ const SolutionRequest = () => {
         <Space size="middle">
           <Popconfirm
             title="Xác nhận giải pháp"
-            description="Bạn có chấp nhận giải pháp này không?"
             onConfirm={() => {
               handleConfirmSolution(record);
             }}
-            okText="Yes"
-            cancelText="No"
+            okText="Có"
+            cancelText="Không"
           >
             <button className="text-pink_main font-semibold">Xác nhận</button>
+          </Popconfirm>
+          <Popconfirm
+            title="Loại bỏ giải pháp"
+            onConfirm={() => {
+              handleRejectSolution(record);
+            }}
+            okText="Có"
+            cancelText="Không"
+          >
+            <button className="text-red_main font-semibold">Loại bỏ</button>
           </Popconfirm>
         </Space>
       ),

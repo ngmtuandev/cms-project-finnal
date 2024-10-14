@@ -57,7 +57,7 @@ const LoginPage = ({ navigate }: any) => {
     <>
       {contextHolder}
       <div
-        className="flex flex-col pt-[1.4rem] w-screen sm:px-[24px] px-[24px] md:px-[12px] md:items-center md:gap-12 
+        className="flex pb-[40px] flex-col pt-[1.4rem] w-screen sm:px-[24px] px-[24px] md:px-[12px] md:items-center md:gap-12 
       lg:items-center md:justify-center lg:gap-12 lg:px-[12px] md:flex-row lg:flex-row min-h-screen bg-pink_light"
       >
         <div className="flex md:w-[40%] lg:w-[40%] flex-col justify-center items-center my-4">

@@ -19,3 +19,4 @@ export * from "./solution/useDeleteSolution";
 export * from "./store/useDeleteStore";
 export * from "./user/useDeleteUser";
 export * from "./solution/useUpdateSolution";
+export * from "./solution-request/useRejectSolutionRequest";

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetAllMachine } from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Table } from "antd";
 import { Loading } from "../../component";
 
 import { Input } from "antd";

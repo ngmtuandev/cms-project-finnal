@@ -1,9 +1,8 @@
 import api from "../../config/client.axios.api";
-import { TCreateSolution } from "../../type/TCreateSolution";
 
-export const rejectSolutionRequestApi = async (
-  createSolution?: TCreateSolution
-) => {
-  const response = await api.post(`/public/solution-request`, createSolution);
+export const rejectSolutionRequestApi = async (solution_id: string) => {
+  const response = await api.post(
+    `/admin/solution-request/reject?solution_id=${solution_id}`
+  );
   return response;
 };

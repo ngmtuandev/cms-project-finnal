@@ -31,4 +31,8 @@ export class MESSAGE {
     "Xác nhận yêu cầu giải pháp mới thành công!";
   static CONFIRM_SOLUTION_REQUEST_FAIL =
     "Xác nhận yêu cầu giải pháp mới thành công!";
+  static REJECT_SOLUTION_REQUEST_SUCCESS =
+    "Từ chối yêu cầu giải pháp mới thành công!";
+  static REJECT_SOLUTION_REQUEST_FAILURE =
+    "Từ chối yêu cầu giải pháp mới thất bại!";
 }
