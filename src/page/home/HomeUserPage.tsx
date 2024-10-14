@@ -257,11 +257,12 @@ const HomeUserPage = ({ navigate }: any) => {
 
   // Upload image on Camera Phone
   const [isCameraOpen, setIsCameraOpen] = useState<any>(false);
+  const [isFrontCamera, setIsFrontCamera] = useState<any>(true); // State kiểm soát camera trước/sau
   const [imageSrc, setImageSrc] = useState<any>(null);
   const videoRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
-  const [isFrontCamera, setIsFrontCamera] = useState<any>(true);
 
+  // Hàm yêu cầu mở camera với tùy chọn front/back
   const openCamera = async () => {
     setIsCameraOpen(true);
     try {
@@ -274,14 +275,22 @@ const HomeUserPage = ({ navigate }: any) => {
     }
   };
 
-  const toggleCamera = () => {
+  // Hàm chuyển đổi giữa camera trước và sau
+  const toggleCamera = async () => {
     setIsFrontCamera((prev: any) => !prev);
-    // Nếu camera đang mở, cần dừng stream hiện tại và mở lại với camera mới
-    if (isCameraOpen) {
-      const stream = videoRef.current.srcObject;
-      const tracks = stream.getTracks();
-      tracks.forEach((track: any) => track.stop());
-      openCamera(); // Mở lại camera với lựa chọn mới
+    // Dừng stream hiện tại trước khi mở lại với camera khác
+    const stream = videoRef.current.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach((track: any) => track.stop());
+
+    // Mở lại camera với facingMode mới (trước/sau)
+    try {
+      const newStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: !isFrontCamera ? "user" : "environment" },
+      });
+      videoRef.current.srcObject = newStream;
+    } catch (err) {
+      console.error("Lỗi khi chuyển camera: ", err);
     }
   };
 
@@ -345,10 +354,12 @@ const HomeUserPage = ({ navigate }: any) => {
               {isCameraOpen && (
                 <div>
                   <video ref={videoRef} autoPlay playsInline width="100%" />
-                  <button onClick={capturePhoto}>Chụp ảnh</button>
-                  <button onClick={toggleCamera}>
-                    Chuyển sang camera {isFrontCamera ? "sau" : "trước"}
-                  </button>
+                  <div>
+                    <button onClick={capturePhoto}>Chụp ảnh</button>
+                    <button onClick={toggleCamera}>
+                      Chuyển sang camera {isFrontCamera ? "sau" : "trước"}
+                    </button>
+                  </div>
                 </div>
               )}
 
