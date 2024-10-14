@@ -5,4 +5,5 @@ export type TFilterRecord = {
   startDate?: string;
   endDate?: string;
   machineCode?: string;
+  typeResult?: string;
 };

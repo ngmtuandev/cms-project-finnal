@@ -71,9 +71,9 @@ const MachinePage = () => {
   return (
     <div>
       <Search
-        placeholder="search code machine"
+        placeholder="Tìm kiếm máy (theo mã)"
         onSearch={onSearch}
-        style={{ width: 200, marginBottom: 20 }}
+        style={{ width: 300, marginBottom: 20 }}
       />
 
       <Table

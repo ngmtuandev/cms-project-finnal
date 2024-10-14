@@ -89,9 +89,9 @@ const StorePage = () => {
     <div>
       {contextHolder}
       <Search
-        placeholder="search code store code"
+        placeholder="Tìm kiếm cửa hàng (theo mã code)"
         onSearch={onSearch}
-        style={{ width: 200, marginBottom: 20 }}
+        style={{ width: 300, marginBottom: 20 }}
       />
       <Table
         columns={columns}

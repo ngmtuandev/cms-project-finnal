@@ -125,9 +125,9 @@ const UserPage = () => {
     <div>
       {contextHolder}
       <Search
-        placeholder="search code store code"
+        placeholder="Tìm kiếm nhân viên (theo tên)"
         onSearch={onSearch}
-        style={{ width: 200, marginBottom: 20 }}
+        style={{ width: 300, marginBottom: 20 }}
       />
       <Table
         columns={columns}

@@ -123,7 +123,7 @@ const SolutionRequest = () => {
       {contextHolder}
       <div>
         <Search
-          placeholder="search code solution request of user"
+          placeholder="Tìm kiếm yêu cầu mới về giải pháp"
           onSearch={onSearch}
           style={{ width: 300, marginBottom: 20 }}
         />

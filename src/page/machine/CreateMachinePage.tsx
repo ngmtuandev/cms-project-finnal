@@ -83,7 +83,7 @@ const CreateMachinePage = () => {
               onChange={(value) => {
                 setStoreSelected(value);
               }}
-              style={{ width: 200 }}
+              style={{ width: 200, height: 44 }}
               onSearch={() => {}}
               options={storeSelect}
             />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   useGetAllMachine,
+  useGetAllResult,
   useGetAllStore,
   useGetFilterRecord,
 } from "../../hooks";
@@ -26,6 +27,8 @@ const RecordTransactionPage = () => {
     setStartDate,
     machineCode,
     setMachineCode,
+    typeResult,
+    setTypeResult,
   } = useFilterRecordStore();
   const { isLoading, records } = useGetFilterRecord({
     page,
@@ -34,17 +37,19 @@ const RecordTransactionPage = () => {
     startDate,
     endDate,
     machineCode,
+    typeResult,
   });
   const { stores } = useGetAllStore();
   const { machines } = useGetAllMachine();
+  const { results } = useGetAllResult();
 
   // state
   const [recordTransactionAll, setRecordTransactionAll] = useState();
   const [storeSelect, setStoreSelect] = useState([]);
   const [machineSelect, setMachineSelect] = useState([]);
+  const [resultSelect, setResultSelect] = useState([]);
 
   useEffect(() => {
-    console.log("🚀 ~ RecordTransactionPage ~ records:", records);
     if (records) setRecordTransactionAll(records?.data);
 
     if (stores) {
@@ -66,7 +71,17 @@ const RecordTransactionPage = () => {
       });
       setMachineSelect(machineConvert);
     }
-  }, [records, page, machines]);
+
+    if (results) {
+      let resultConvert = results?.map((item: any) => {
+        return {
+          label: item?.typeResult,
+          value: item?.typeResult,
+        };
+      });
+      setResultSelect(resultConvert);
+    }
+  }, [records, page, machines, typeResult]);
 
   const columns: TableColumnsType<any> = [
     {
@@ -228,7 +243,7 @@ const RecordTransactionPage = () => {
               style={{ width: 280 }}
               allowClear
               options={storeSelect}
-              placeholder="select filter store"
+              placeholder="Lọc theo cửa hàng"
             />
           </div>
           <div className="flex flex-col">
@@ -241,7 +256,20 @@ const RecordTransactionPage = () => {
               style={{ width: 280 }}
               allowClear
               options={machineSelect}
-              placeholder="select filter store"
+              placeholder="Lọc theo mã máy"
+            />
+          </div>
+          <div className="flex flex-col">
+            <small className="text-gray-500 mb-1">Loại kết quả</small>
+            <Select
+              onChange={(value: string) => {
+                setTypeResult(value);
+              }}
+              defaultValue={storeCode}
+              style={{ width: 280 }}
+              allowClear
+              options={resultSelect}
+              placeholder="Lọc theo loại kết quả"
             />
           </div>
           <div className="flex flex-col">

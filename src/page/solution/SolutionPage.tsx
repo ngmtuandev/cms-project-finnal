@@ -143,9 +143,9 @@ const SolutionPage = () => {
       <div>
         {contextHolder}
         <Search
-          placeholder="search code solution"
+          placeholder="Tìm kiếm giải pháp (theo mã)"
           onSearch={onSearch}
-          style={{ width: 200, marginBottom: 20 }}
+          style={{ width: 300, marginBottom: 20 }}
         />
         <Table
           columns={columns}

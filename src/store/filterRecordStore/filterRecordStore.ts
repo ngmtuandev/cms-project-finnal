@@ -7,11 +7,13 @@ interface FilterRecordState {
   endDate: any;
   storeCode: any;
   machineCode: any;
+  typeResult: any;
   setPage: (page: any) => void;
   setStoreCode: (storeCode: string | undefined | null) => void;
   setStartDate: (startDate: any) => void;
   setEndDate: (endDate: any) => void;
   setMachineCode: (machineCode: any) => void;
+  setTypeResult: (typeResult: any) => void;
 }
 
 export const useFilterRecordStore = create<FilterRecordState>((set) => ({
@@ -21,10 +23,15 @@ export const useFilterRecordStore = create<FilterRecordState>((set) => ({
   startDate: undefined,
   endDate: undefined,
   machineCode: undefined,
+  typeResult: undefined,
   setPage: (page: number | string) => set(() => ({ page: +page })),
   setStoreCode: (storeCode: string | undefined | null) =>
     set(() => ({ storeCode })),
   setStartDate: (startDate: any) => set(() => ({ startDate })),
   setEndDate: (endDate: any) => set(() => ({ endDate })),
   setMachineCode: (machineCode: any) => set(() => ({ machineCode })),
+  setTypeResult: (typeResult: any) =>
+    set(() => ({
+      typeResult,
+    })),
 }));

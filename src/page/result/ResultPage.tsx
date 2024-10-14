@@ -71,9 +71,9 @@ const ResultPage = () => {
   return (
     <div>
       <Search
-        placeholder="search code result"
+        placeholder="Tìm kiếm kết quả (theo mã)"
         onSearch={onSearch}
-        style={{ width: 200, marginBottom: 20 }}
+        style={{ width: 300, marginBottom: 20 }}
       />
 
       <Table

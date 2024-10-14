@@ -113,22 +113,22 @@ const CreateUserPage = () => {
             ></InputCustom>
             <div className="flex gap-6 items-center">
               <Select
-                placeholder="Select a role"
+                placeholder="Chọn quyền nhân viên"
                 optionFilterProp="label"
                 onChange={(value) => {
                   setRoleSelected(value);
                 }}
                 options={rolesSelect}
-                style={{ width: 200 }}
+                style={{ width: 200, height: 44 }}
               />
               <Select
                 showSearch
-                placeholder="Select a store"
+                placeholder="Chọn cửa hàng"
                 optionFilterProp="label"
                 onChange={(value) => {
                   setStoreSelected(value);
                 }}
-                style={{ width: 200 }}
+                style={{ width: 200, height: 44 }}
                 onSearch={() => {}}
                 options={storeSelect}
               />
