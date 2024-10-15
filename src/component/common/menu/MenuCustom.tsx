@@ -120,6 +120,9 @@ const MenuCustom = ({ navigate }: any) => {
     }
   };
 
+  // reponsive
+  // const isMobile = window.innerWidth < 768;
+
   return (
     <Menu
       onClick={({ key }) => {

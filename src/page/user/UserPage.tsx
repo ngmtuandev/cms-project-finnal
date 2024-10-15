@@ -72,11 +72,11 @@ const UserPage = () => {
       key: "status",
       render: (status: boolean) =>
         status ? (
-          <span className="bg-green_main py-[4px] px-[6px] text-white font-semibold rounded-2xl">
+          <span className="xl:bg-green_main xl:py-[4px] xl:px-[6px] xl:text-white text-green_main font-semibold rounded-2xl">
             Hoạt động
           </span>
         ) : (
-          <span className="bg-red_main px-[6px] py-[4px] text-white font-semibold rounded-2xl">
+          <span className="xl:bg-red_main xl:px-[6px] xl:py-[4px] xl:text-white text-red_main font-semibold rounded-2xl">
             Ngừng hoạt động
           </span>
         ),

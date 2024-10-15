@@ -24,7 +24,7 @@ const HomeAdminPage = ({ navigate }: any) => {
     <div>
       {contextHolder}
       <Header />
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div style={{ display: "flex", height: "100vh", paddingTop: 80 }}>
         <div style={{ width: "256px" }}>
           <MenuCustom />
         </div>

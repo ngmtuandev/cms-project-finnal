@@ -122,6 +122,7 @@ const HomeUserPage = ({ navigate }: any) => {
     formData.append("image", file);
 
     try {
+      setIsLoader(true);
       const response = await fetch(URL_UPLOAD_IMAGE.URL, {
         method: "POST",
         body: formData,
@@ -259,6 +260,8 @@ const HomeUserPage = ({ navigate }: any) => {
     });
   };
 
+  // capture use webcam
+
   const webcamRef = React.useRef<any>(null);
   const [image, setImage] = useState<any>(null);
   const [videoConstraints, setVideoConstraints] =
@@ -295,7 +298,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const convertToBlobAndUpload = async (base64Image: string) => {
     const res = await fetch(base64Image);
     const blob = await res.blob();
-    return blob
+    return blob;
   };
 
   const capture = React.useCallback(async () => {
@@ -325,10 +328,6 @@ const HomeUserPage = ({ navigate }: any) => {
         setIsLoader(false);
         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
       }
-
-
-
-
     }
     setImage(imageSrc);
   }, [webcamRef, setImage]);
@@ -354,36 +353,41 @@ const HomeUserPage = ({ navigate }: any) => {
                 alt="image-evident"
                 className="max-w-full max-h-full object-contain"
               />
-            ) : isCameraOpen ? <div><Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-            /> <div className="w-full mt-5 md:w-1/2 flex justify-center items-center flex-wrap">
-                {image ? (
-                  <button
-                    className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                    onClick={retake}
-                  >
-                    Chụp lại
-                  </button>
-                ) : (
-                  <>
-                    <button
-                      className="bg-pink_main text-white text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                      onClick={switchCamera}
-                    >
-                      Lật máy ảnh
-                    </button>
+            ) : isCameraOpen ? (
+              <div>
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={videoConstraints}
+                />{" "}
+                <div className="w-full mt-5 md:w-1/2 flex justify-center items-center flex-wrap">
+                  {image ? (
                     <button
                       className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                      onClick={capture}
+                      onClick={retake}
                     >
-                      Chụp
+                      Chụp lại
                     </button>
-                  </>
-                )}
-              </div></div> : (
+                  ) : (
+                    <>
+                      <button
+                        className="bg-pink_main text-white text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                        onClick={switchCamera}
+                      >
+                        Lật máy ảnh
+                      </button>
+                      <button
+                        className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                        onClick={capture}
+                      >
+                        Chụp
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ) : (
               <div className="flex flex-col justify-center items-center">
                 <img
                   src={success}
@@ -400,9 +404,7 @@ const HomeUserPage = ({ navigate }: any) => {
           {/* Test open camera */}
           <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
             <div className="w-full">
-              <div className="flex justify-center mt-2">
-
-              </div>
+              <div className="flex justify-center mt-2"></div>
             </div>
           </div>
 
@@ -417,7 +419,12 @@ const HomeUserPage = ({ navigate }: any) => {
               </Upload>
             </div>
             <div>
-              <Button onClick={() => setIsCameraOpen(true)} icon={<CameraOutlined />}>Chụp</Button>
+              <Button
+                onClick={() => setIsCameraOpen(true)}
+                icon={<CameraOutlined />}
+              >
+                Chụp
+              </Button>
             </div>
           </div>
         </div>
