@@ -92,8 +92,17 @@ const CreateUserPage = () => {
               register={register}
               id="userName"
               errors={formErrors}
+              validate={{
+                required: "Vui lòng nhập tên đăng nhập cho nhân viên",
+              }}
+              label="Tên đăng nhập"
+            ></InputCustom>
+            <InputCustom
+              register={register}
+              id="name"
+              errors={formErrors}
               validate={{ required: "Vui lòng nhập tên nhân viên" }}
-              label="Tên nhân viên (Cũng là tên đăng nhập)"
+              label="Tên nhân viên"
             ></InputCustom>
             <InputCustom
               register={register}

@@ -57,9 +57,14 @@ const UserPage = () => {
 
   const columns: TableColumnsType<any> = [
     {
-      title: "Họ tên",
+      title: "Tên đăng nhập",
       dataIndex: "userName",
       key: "userName",
+    },
+    {
+      title: "Tên nhân viên",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Trạng thái",

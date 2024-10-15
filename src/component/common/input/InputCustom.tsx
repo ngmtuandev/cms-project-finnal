@@ -33,14 +33,14 @@ const InputCustom = ({
         </label>
       )}
       <input
-        defaultValue={defaultValue && defaultValue}
+        defaultValue={defaultValue}
         type={type}
         id={id}
         style={{
           width: "100%",
           height: height ? height : "4.6vh",
           outline: "none",
-          borderRadius: 30,
+          borderRadius: 36,
           paddingLeft: 10,
           borderWidth: "0.5px",
           paddingRight: 10,

@@ -34,8 +34,8 @@ const SolutionPage = () => {
   const { mutate: $updateSolution } = useUpdateSolution();
 
   const toggleModal = (record: any) => {
-    setIsModalOpen(!isModalOpen);
     setSolutionUpdate(record);
+    setIsModalOpen(!isModalOpen);
   };
 
   const onSearch: SearchProps["onSearch"] = (value) => {
@@ -57,8 +57,18 @@ const SolutionPage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
+
+  // update data model
+  useEffect(() => {
+    if (solutionUpdate) {
+      reset({
+        name: solutionUpdate.name,
+        description: solutionUpdate.description,
+      });
+    }
+  }, [solutionUpdate, reset]);
 
   const handleDelete = (record: any) => {
     $deleteSolution(record?.id, {
@@ -94,7 +104,6 @@ const SolutionPage = () => {
         <Space size="middle">
           <Popconfirm
             title="Xóa giải pháp"
-            description="Bạn có chắc muốn xóa giải pháp này không?"
             onConfirm={() => {
               handleDelete(record);
             }}
