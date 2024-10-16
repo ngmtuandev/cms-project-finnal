@@ -67,7 +67,14 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <TransactionOutlined />,
       label: "Giao dịch",
       children: [
-        { key: path.MANAGER_RECORD_TRANSACTION, label: "Quản lý giao dịch" },
+        {
+          key: path.MANAGER_RECORD_TRANSACTION,
+          label: "Quản lý giao dịch",
+        },
+        {
+          key: path.ANALYSIS_RECORD_WITH_TYPE_RESULT,
+          label: "Phân tích theo kết quả",
+        },
       ],
     },
   ];

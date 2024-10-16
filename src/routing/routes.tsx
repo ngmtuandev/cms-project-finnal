@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
 import path from "../utils/path";
 import {
+  AnalysisTransactionWithTypeResult,
   CreateMachinePage,
   CreateResultPage,
   CreateSolutionPage,
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
           {
             path: path.MANAGER_RECORD_TRANSACTION,
             element: <RecordTransactionPage />,
+          },
+          {
+            path: path.ANALYSIS_RECORD_WITH_TYPE_RESULT,
+            element: <AnalysisTransactionWithTypeResult />,
           },
         ],
       },

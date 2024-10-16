@@ -12,6 +12,7 @@ const path = {
   MANAGER_SOLUTION: "manage-solution",
   MANAGER_RESULT: "manage-result",
   MANAGER_MACHINE: "manage-machine",
+  ANALYSIS_RECORD_WITH_TYPE_RESULT: "analysis-record-with-type-result",
   UPLOAD_RECORD_SUCCESS: "/upload-record-success",
   MANAGER_SOLUTION_REQUEST: "manage-solution-request",
   UPLOAD_RECORD_FAILURE: "/upload-record-failure",

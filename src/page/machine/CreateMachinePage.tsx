@@ -62,7 +62,7 @@ const CreateMachinePage = () => {
       {contextHolder}
       <div>
         <div>
-          <h3 className="font-bold uppercase text-gray-500">Tạo mới kết quả</h3>
+          <h3 className="font-bold uppercase text-gray-500">Tạo mới máy</h3>
         </div>
         <div className="mt-4">
           <form
@@ -78,7 +78,7 @@ const CreateMachinePage = () => {
             ></InputCustom>
             <Select
               showSearch
-              placeholder="Select a store"
+              placeholder="Chọn cửa hàng"
               optionFilterProp="label"
               onChange={(value) => {
                 setStoreSelected(value);

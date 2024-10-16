@@ -11,6 +11,7 @@ export { default as CreateUserPage } from "./user/CreateUserPage";
 
 // Record Transaction
 export { default as RecordTransactionPage } from "./record-transaction/RecordTransactionPage";
+export { default as AnalysisTransactionWithTypeResult } from "./record-transaction/AnalysisTransactionWithTypeResult";
 
 // Result
 export { default as ResultPage } from "./result/ResultPage";

@@ -101,7 +101,7 @@ const SolutionPage = () => {
       dataIndex: "",
       key: "actions",
       render: (_, record: any) => (
-        <Space size="middle">
+        <Space size="middle" className="flex ml-4">
           <Popconfirm
             title="Xóa giải pháp"
             onConfirm={() => {

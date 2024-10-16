@@ -23,3 +23,8 @@ export * from "./solution/deleteSolutionApi";
 export * from "./store/deleteStoreApi";
 export * from "./user/deleteUserApi";
 export * from "./solution/updateSolutionApi";
+export * from "./result/deleteResultApi";
+export * from "./machine/deleteMachineApi";
+export * from "./machine/updateMachineApi";
+export * from "./store/updateStoreApi";
+export * from "./record-transaction/getAnalysisWithTypeResult";

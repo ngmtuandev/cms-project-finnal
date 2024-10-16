@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDeleteStore, useGetAllStore } from "../../hooks";
+import { useDeleteStore, useGetAllStore, useUpdateStore } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
-import { Loading } from "../../component";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  ButtomCustom,
+  InputCustom,
+  Loading,
+  ModelCustom,
+} from "../../component";
 import { message } from "antd";
 
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
+import { useForm } from "react-hook-form";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -17,10 +23,55 @@ const { Search } = Input;
 const StorePage = () => {
   const { isLoading, stores } = useGetAllStore();
   const [storeAll, setStoreAll] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [storeUpdate, setStoreUpdate] = useState<any>();
 
   const { mutate: $deleteStore } = useDeleteStore();
+  const { mutate: $updateStore } = useUpdateStore();
 
   const [messageApi, contextHolder] = message.useMessage();
+
+  const {
+    register,
+    formState: { errors: formErrors },
+    handleSubmit: handleSubmitForm,
+    reset,
+  } = useForm();
+
+  const toggleModal = (record: any) => {
+    setStoreUpdate(record);
+    setIsModalOpen(!isModalOpen);
+  };
+
+  useEffect(() => {
+    if (storeUpdate) {
+      {
+        reset({
+          storeName: storeUpdate?.storeName,
+          storeCode: storeUpdate?.storeCode,
+        });
+      }
+    }
+  }, [reset, storeUpdate]);
+
+  const handleUpdateStore = (value: any) => {
+    $updateStore(
+      { ...value },
+      {
+        onSuccess: (response) => {
+          if (response?.status === 200) {
+            messageApi.success(MESSAGE.UPDATE_STORE_SUCCESS);
+          } else {
+            messageApi.error(MESSAGE.UPDATE_STORE_FAILURE);
+          }
+        },
+        onError() {
+          messageApi.error(MESSAGE.UPDATE_STORE_FAILURE);
+        },
+      }
+    );
+    setIsModalOpen(false);
+  };
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -68,7 +119,7 @@ const StorePage = () => {
       dataIndex: "",
       key: "actions",
       render: (_, record: any) => (
-        <Space size="middle">
+        <Space size="middle" className="flex ml-4">
           <Popconfirm
             title="Xóa cửa hàng"
             description="Bạn có chắc muốn xóa cửa hàng này không?"
@@ -80,6 +131,12 @@ const StorePage = () => {
           >
             <DeleteOutlined className="text-xl cursor-pointer text-pink_main " />
           </Popconfirm>
+          <EditOutlined
+            onClick={() => {
+              toggleModal(record);
+            }}
+            className="text-xl cursor-pointer text-pink_main"
+          />
         </Space>
       ),
     },
@@ -103,6 +160,30 @@ const StorePage = () => {
         }}
       />
       {isLoading && <Loading />}
+      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+        <form
+          onSubmit={handleSubmitForm(handleUpdateStore)}
+          className="flex flex-col gap-4"
+        >
+          <InputCustom
+            register={register}
+            id="storeName"
+            defaultValue={storeUpdate?.storeName}
+            errors={formErrors}
+            validate={{ required: "Vui lòng nhập tên của giải pháp" }}
+            label="Tên giải pháp"
+          ></InputCustom>
+          <InputCustom
+            register={register}
+            id="storeCode"
+            defaultValue={storeUpdate?.storeName}
+            errors={formErrors}
+            validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
+            label="Mô tả giải pháp"
+          ></InputCustom>
+          <ButtomCustom isLoading={isLoading} text="Cập nhập"></ButtomCustom>
+        </form>
+      </ModelCustom>
     </div>
   );
 };

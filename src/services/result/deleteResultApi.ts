@@ -1,9 +1,9 @@
 import api from "../../config/client.axios.api";
 
-export const deleteSolutionApi = async (solution_id: string) => {
-  const response = await api.post(`/admin/solution`, {
+export const deleteResultApi = async (idResult: string) => {
+  const response = await api.delete(`/admin/result`, {
     params: {
-      solution_id,
+      idResult,
     },
   });
   return response;

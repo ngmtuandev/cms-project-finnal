@@ -20,3 +20,8 @@ export * from "./store/useDeleteStore";
 export * from "./user/useDeleteUser";
 export * from "./solution/useUpdateSolution";
 export * from "./solution-request/useRejectSolutionRequest";
+export * from "./result/useDeleteResult";
+export * from "./machine/useDeleteMachie";
+export * from "./machine/useUpdateMachine";
+export * from "./store/useUpdateStore";
+export * from "./record-transaction/useGetAnalysisWithTypeResult";

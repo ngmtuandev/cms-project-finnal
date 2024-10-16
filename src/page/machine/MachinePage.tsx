@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
-import { useGetAllMachine } from "../../hooks";
+import {
+  useDeleteMachine,
+  useGetAllMachine,
+  useUpdateMachine,
+} from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Table } from "antd";
-import { Loading } from "../../component";
-
+import { Popconfirm, Space, Table } from "antd";
+import {
+  ButtomCustom,
+  InputCustom,
+  Loading,
+  ModelCustom,
+} from "../../component";
+import { MESSAGE } from "../../utils/message";
+import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useForm } from "react-hook-form";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -14,6 +26,51 @@ const { Search } = Input;
 const MachinePage = () => {
   const { isLoading, machines } = useGetAllMachine();
   const [machineAll, setMachineAll] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [machineUpdate, setMachineUpdate] = useState<any>();
+
+  const { mutate: $updateMachine } = useUpdateMachine();
+
+  const {
+    register,
+    formState: { errors: formErrors },
+    handleSubmit: handleSubmitForm,
+    reset,
+  } = useForm();
+
+  const toggleModal = (record: any) => {
+    setMachineUpdate(record);
+    setIsModalOpen(!isModalOpen);
+  };
+
+  useEffect(() => {
+    reset({
+      codeMachine: machineUpdate?.codeMachine,
+    });
+  }, [reset, machineUpdate]);
+
+  const handleUpdateMachine = (value: any) => {
+    $updateMachine(
+      { id: machineUpdate?.id, ...value },
+      {
+        onSuccess: (response) => {
+          if (response?.status === 200) {
+            messageApi.success(MESSAGE.UPDATE_MACHINE_SUCCESS);
+          } else {
+            messageApi.error(MESSAGE.UPDATE_MACHINE_FAILURE);
+          }
+        },
+        onError() {
+          messageApi.error(MESSAGE.UPDATE_MACHINE_FAILURE);
+        },
+      }
+    );
+    setIsModalOpen(false);
+  };
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const { mutate: $deleteMachine } = useDeleteMachine();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -24,6 +81,21 @@ const MachinePage = () => {
       );
       setMachineAll(filteredMachines);
     }
+  };
+
+  const handleDelete = (record: any) => {
+    $deleteMachine(record?.id, {
+      onSuccess: (response) => {
+        if (response?.status === 200) {
+          messageApi.success(MESSAGE.DELETE_MACHINE_SUCCESS);
+        } else {
+          messageApi.error(MESSAGE.DELETE_MACHINE_FAILURE);
+        }
+      },
+      onError() {
+        messageApi.error(MESSAGE.DELETE_MACHINE_FAILURE);
+      },
+    });
   };
 
   useEffect(() => {
@@ -41,35 +113,35 @@ const MachinePage = () => {
       dataIndex: "id",
       key: "id",
     },
-    // {
-    //   title: "Hành động",
-    //   dataIndex: "",
-    //   key: "actions",
-    //   render: (_, record: any) => (
-    //     <Space size="middle">
-    //       <EditOutlined
-    //         onClick={() => {
-    //           //   handleUpdate(record);
-    //         }}
-    //         className="text-xl cursor-pointer hover:text-blue-500"
-    //       />
-    //       <Popconfirm
-    //         title="Xóa người dùng"
-    //         description="Bạn có chắc muốn xóa người dùng này không?"
-    //         onConfirm={() => {
-    //           //   handleDelete(record);
-    //         }}
-    //         okText="Yes"
-    //         cancelText="No"
-    //       >
-    //         <DeleteOutlined className="text-xl cursor-pointer hover:text-blue-500" />
-    //       </Popconfirm>
-    //     </Space>
-    //   ),
-    // },
+    {
+      title: "Hành động",
+      dataIndex: "",
+      key: "actions",
+      render: (_, record: any) => (
+        <Space size="middle">
+          <Popconfirm
+            title="Xóa máy này"
+            onConfirm={() => {
+              handleDelete(record);
+            }}
+            okText="Có"
+            cancelText="Không"
+          >
+            <DeleteOutlined className="text-xl cursor-pointer text-pink_main" />
+          </Popconfirm>
+          <EditOutlined
+            onClick={() => {
+              toggleModal(record);
+            }}
+            className="text-xl cursor-pointer text-pink_main"
+          />
+        </Space>
+      ),
+    },
   ];
   return (
     <div>
+      {contextHolder}
       <Search
         placeholder="Tìm kiếm máy (theo mã)"
         onSearch={onSearch}
@@ -86,6 +158,22 @@ const MachinePage = () => {
         }}
       />
       {isLoading && <Loading />}
+      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+        <form
+          onSubmit={handleSubmitForm(handleUpdateMachine)}
+          className="flex flex-col gap-4"
+        >
+          <InputCustom
+            register={register}
+            id="codeMachine"
+            defaultValue={machineUpdate?.codeMachine}
+            errors={formErrors}
+            validate={{ required: "Vui lòng nhập max code máy" }}
+            label="Mã code của máy"
+          ></InputCustom>
+          <ButtomCustom isLoading={isLoading} text="Cập nhập"></ButtomCustom>
+        </form>
+      </ModelCustom>
     </div>
   );
 };
