@@ -11,17 +11,6 @@ const AnalysisTransactionWithTypeResult = () => {
   const { analysisRecord } = useGetAnalysisWithTypeResult();
   const [isLoader, setIsLoader] = useState(false);
 
-  console.log(
-    "🚀 ~ AnalysisTransactionWithTypeResult ~ analysisRecord:",
-    analysisRecord
-  );
-  setTimeout(() => {
-    console.log(
-      "--------------------------- AAAA ---------------",
-      analysisRecord
-    );
-  }, 2000);
-
   const { startDate, endDate } = useFilterRecordStore();
 
   const [chartData, setChartData] = useState({
@@ -65,6 +54,7 @@ const AnalysisTransactionWithTypeResult = () => {
                 "#f3ba2f",
                 "#FFE3EC",
                 "#FF4040",
+                "#4285F4",
               ],
               borderColor: "gray",
               borderWidth: 1,
