@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { ButtomCustom } from "../../component";
 import { MESSAGE } from "../../utils/message";
 import Webcam from "react-webcam";
+import { formatMoneyInput } from "../../helper";
 
 const FACING_MODE_USER = { facingMode: "user" }; //Front Camera
 const FACING_MODE_ENVIRONMENT = { facingMode: { exact: "environment" } }; //Back Camer
@@ -48,6 +49,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const [isLoader, setIsLoader] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [_, setFileList] = useState<UploadFile[]>();
+  const [moneyDisplay, setMoneyDisplay] = useState<any>();
 
   // global state
   const {
@@ -235,7 +237,7 @@ const HomeUserPage = ({ navigate }: any) => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   const handleCreateSolution = (value: any) => {
@@ -333,6 +335,19 @@ const HomeUserPage = ({ navigate }: any) => {
   }, [webcamRef, setImage]);
 
   const retake = () => setImage(null);
+
+  // Check input money
+  const handleChangeInputMoney = (e: any) => {
+    const inputValue = e.target.value.replace(/\D/g, "");
+    if (isNaN(parseInt(e.target.value))) {
+      messageApi.warning(MESSAGE.VALID_NUMBER);
+      setMoneyDisplay("");
+    } else {
+      const numericValue = parseInt(inputValue);
+      setMoney(numericValue);
+      setMoneyDisplay(formatMoneyInput(inputValue));
+    }
+  };
 
   return (
     <>
@@ -491,14 +506,18 @@ const HomeUserPage = ({ navigate }: any) => {
               onChange={(value: any) => setTypeTransaction(value)}
             />
           </div>
+          {/* Money Transaction & Status Transaction */}
           <div className=" flex justify-between gap-4 items-center">
+            {/* Money */}
             <Input
               className="text-gray-600"
               width={"50%"}
               prefix="đ"
               suffix="VNĐ"
-              onChange={(value: any) => setMoney(value.target.value)}
+              value={moneyDisplay}
+              onChange={(value: any) => handleChangeInputMoney(value)}
             />
+            {/* Status */}
             <Select
               placeholder="Trạng thái"
               style={{ width: "50%" }}

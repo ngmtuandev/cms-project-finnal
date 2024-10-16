@@ -44,4 +44,5 @@ export class MESSAGE {
   static REJECT_SOLUTION_REQUEST_FAILURE =
     "Từ chối yêu cầu giải pháp mới thất bại!";
   static NOT_AUTHORIZATION = "Bạn không có quyền truy cập trang này!";
+  static VALID_NUMBER = "Vui lòng nhập số tiền phù hợp!";
 }
