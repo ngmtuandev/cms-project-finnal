@@ -26,3 +26,4 @@ export * from "./machine/useUpdateMachine";
 export * from "./store/useUpdateStore";
 export * from "./record-transaction/useGetAnalysisWithTypeResult";
 export * from "./machine/useGetMachineByStore";
+export * from "./solution/useGetAllSolutionWithCondition";

@@ -1,5 +1,6 @@
 import { logo } from "../../../assets";
 import { useAuthStore } from "../../../store";
+import { LogoutOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const handleLogout = useAuthStore((state) => state.logout);
@@ -11,16 +12,17 @@ const Header = () => {
     >
       <div>
         <img
-          className="md:w-[200px] lg:w-[200px] xl:w-[200px] w-[140px] sm:w-[100px] "
+          className="md:w-[200px] lg:w-[200px] xl:w-[200px] w-[140px] sm:w-[140px] "
           src={logo}
         ></img>
       </div>
       <div>
         <span
           onClick={() => handleLogout()}
-          className="font-bold text-[12px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-pink-500 cursor-pointer"
+          className="font-semibold flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-pink_main cursor-pointer"
         >
           Đăng xuất
+          <LogoutOutlined />
         </span>
       </div>
     </div>

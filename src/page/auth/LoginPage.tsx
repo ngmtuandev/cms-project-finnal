@@ -22,6 +22,7 @@ const LoginPage = ({ navigate }: any) => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
+    control,
     // reset,
   } = useForm();
 
@@ -83,7 +84,7 @@ const LoginPage = ({ navigate }: any) => {
             errors={formErrors}
             validate={{ required: "Vui lòng nhập tên đăng nhập" }}
             label="Tên đăng nhập"
-            height="5.6vh"
+            height="4.6vh"
           ></InputCustom>
           <InputCustom
             label="Mật khẩu"
@@ -92,7 +93,7 @@ const LoginPage = ({ navigate }: any) => {
             id="password"
             errors={formErrors}
             validate={{ required: "Vui lòng nhập mật khẩu" }}
-            height="5.6vh"
+            height="4.6vh"
           ></InputCustom>
           <div className="w-[100%]">
             <ButtomCustom isLoading={isLoading} text="Đăng nhập"></ButtomCustom>

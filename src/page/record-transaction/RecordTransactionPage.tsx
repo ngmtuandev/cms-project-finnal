@@ -289,6 +289,7 @@ const RecordTransactionPage = () => {
             columns={columns}
             dataSource={recordTransactionAll}
             loading={isLoading}
+            showHeader={true}
             pagination={{
               current: +page + 1,
               pageSize: +size,

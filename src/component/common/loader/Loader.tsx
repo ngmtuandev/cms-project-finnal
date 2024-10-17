@@ -3,7 +3,7 @@ import { logo } from "../../../assets";
 
 const Loader = () => {
   return (
-    <div className="z-1000 w-screen ml-0 xl:-ml-40 lg:-ml-40 overflow-hidden h-screen flex flex-col justify-center items-center">
+    <div className="z-1000 w-screen xl:-ml-40 lg:-ml-40 overflow-hidden h-screen flex flex-col justify-center items-center">
       <img className="mb-4" src={logo}></img>
       <Triangle
         visible={true}

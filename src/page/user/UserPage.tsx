@@ -153,7 +153,7 @@ const UserPage = () => {
             dataSource={data}
             loading={isLoading}
             pagination={{
-              pageSize: 10,
+              pageSize: 8,
               total: 300,
             }}
           />

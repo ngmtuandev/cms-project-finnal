@@ -83,3 +83,88 @@
 .ant-checkbox-input {
   accent-color: "red";
 }
+
+/* Menu Custom */
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  background-color: #ffe3ec;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  font-weight: 600;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  color: "red" !important;
+  font-weight: 600;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: #fd78a0;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title::after {
+  color: #000000;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-vryruh).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  color: #000000;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  border: 1px solid #ffa0bc;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-select .ant-select-arrow {
+  color: #ffa0bc;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-select
+  .ant-select-selection-placeholder {
+  color: #ffa0bc;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-picker-outlined {
+  border-color: #ffa0bc;
+  color: #ffa0bc !important;
+}
+
+:where(.css-dev-only-do-not-override-vryruh).ant-picker
+  .ant-picker-input
+  > input::placeholder {
+  color: #ffa0bc;
+}
+
+.anticon .anticon-swap-right > svg {
+  color: #ffa0bc;
+}

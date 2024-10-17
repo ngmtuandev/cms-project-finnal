@@ -1,3 +1,7 @@
+import { Input } from "antd";
+import { useState } from "react";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+
 const InputCustom = ({
   label,
   id,
@@ -8,8 +12,16 @@ const InputCustom = ({
   placeholder,
   defaultValue,
   height,
+  suffix,
+  control,
   ...props
 }: any) => {
+  const [isPasswordSibility, setIsPasswordSibility] = useState(false);
+
+  const togglePasswordSibility = () => {
+    setIsPasswordSibility(!isPasswordSibility);
+  };
+
   return (
     <div
       style={{
@@ -17,6 +29,7 @@ const InputCustom = ({
         flexDirection: "column",
         width: "100%",
         marginBottom: 8,
+        position: "relative",
       }}
     >
       {label && (
@@ -34,25 +47,35 @@ const InputCustom = ({
       )}
       <input
         defaultValue={defaultValue}
-        type={type}
+        type={isPasswordSibility && type === "password" ? "text" : type}
         id={id}
         style={{
           width: "100%",
           height: height ? height : "4.6vh",
           outline: "none",
           borderRadius: 36,
+          borderColor: "#FFA0BC",
+          borderWidth: 1,
           paddingLeft: 10,
-          borderWidth: "0.5px",
           paddingRight: 10,
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          alignContent: "center",
         }}
         {...register(id, validate)}
         {...props}
-      />
+      ></input>
+      {type === "password" && (
+        <span
+          style={{
+            cursor: "pointer",
+            paddingRight: 4,
+            position: "absolute",
+            top: "50%",
+            right: 10,
+          }}
+          onClick={togglePasswordSibility}
+        >
+          {isPasswordSibility ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+        </span>
+      )}
       {errors && errors[id] && (
         <small
           style={{

@@ -5,14 +5,18 @@ import {
   Loader,
   ModelCustom,
 } from "../../component";
-import { useAuthStore, useCreateRecordStore } from "../../store";
+import {
+  useAuthStore,
+  useConditionSolutionStore,
+  useCreateRecordStore,
+} from "../../store";
 import { Select, Button, Upload, message, Input } from "antd";
 import {
   useCreateRecordTransaction,
   useCreateSolutionRequest,
   useGetAllMachine,
   useGetAllResult,
-  useGetAllSolution,
+  useGetAllSolutionWithCondition,
   useGetMachineByStore,
 } from "../../hooks";
 import { UploadOutlined, CameraOutlined } from "@ant-design/icons";
@@ -29,6 +33,7 @@ import Webcam from "react-webcam";
 import { formatMoneyInput } from "../../helper";
 import { Checkbox } from "antd";
 import { toast } from "react-toastify";
+import { vn } from "../../assets";
 
 const FACING_MODE_USER = { facingMode: "user" }; //Front Camera
 const FACING_MODE_ENVIRONMENT = { facingMode: { exact: "environment" } }; //Back Camer
@@ -37,14 +42,14 @@ const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
 
   // api create
-  const { mutate: $createRecord, isPending } = useCreateRecordTransaction();
+  const { mutate: $createRecord } = useCreateRecordTransaction();
 
   // data api
   const { machines } = useGetAllMachine();
   const { machinesOfStore } = useGetMachineByStore(
     infoCurrent?.store?.storeCode
   );
-  const { solutions } = useGetAllSolution();
+  const { solutionCondition } = useGetAllSolutionWithCondition();
   const { results } = useGetAllResult();
 
   // state
@@ -74,6 +79,12 @@ const HomeUserPage = ({ navigate }: any) => {
     setIsSuccess,
   } = useCreateRecordStore();
 
+  const { setIsActive } = useConditionSolutionStore();
+
+  useEffect(() => {
+    setIsActive(true);
+  }, []);
+
   // message
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -82,8 +93,8 @@ const HomeUserPage = ({ navigate }: any) => {
   };
 
   useEffect(() => {
-    if (solutions) {
-      let solutionConvert = solutions?.map((item: any) => {
+    if (solutionCondition) {
+      let solutionConvert = solutionCondition?.map((item: any) => {
         return {
           label: item?.name,
           value: item?.id,
@@ -109,7 +120,7 @@ const HomeUserPage = ({ navigate }: any) => {
       });
       setResultSelect(resultConvert);
     }
-  }, [machines, solutions, results]);
+  }, [machines, solutionCondition, results]);
 
   // Upload Image
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -158,39 +169,6 @@ const HomeUserPage = ({ navigate }: any) => {
     setResult(undefined);
     setTypeTransaction(undefined);
   }, []);
-
-  // const props: UploadProps = {
-  //   showUploadList: false,
-  //   onChange: async (info) => {
-  //     setIsLoader(true);
-  //     const { file } = info;
-  //     if (file.status === "done") {
-  //       formData.append("image", file.originFileObj! || file);
-
-  //       try {
-  //         const response = await fetch(URL_UPLOAD_IMAGE.URL, {
-  //           method: "POST",
-  //           body: formData,
-  //         });
-
-  //         if (response.ok) {
-  //           const data = await response.json();
-  //           setUploadedImageUrl(data?.data?.url);
-  //           messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
-  //           setIsLoader(false);
-  //         } else {
-  //           setIsLoader(false);
-  //           messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-  //         }
-  //       } catch (err) {
-  //         setIsLoader(false);
-  //         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
-  //       }
-  //     }
-  //   },
-  // };
-
-  // Upload Record
 
   const handleUploadRecord = async () => {
     if (isSubmitting) {
@@ -264,7 +242,7 @@ const HomeUserPage = ({ navigate }: any) => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    reset,
+    // reset,
   } = useForm();
 
   const handleCreateSolution = (value: any) => {
@@ -534,10 +512,10 @@ const HomeUserPage = ({ navigate }: any) => {
           {/* Money */}
           <div>
             <Input
-              className="text-gray-600"
+              className="text-gray-600 text-pink_main"
               width={"50%"}
-              prefix="đ"
-              suffix="VNĐ"
+              prefix="VNĐ"
+              suffix={<img width={20} src={vn}></img>}
               value={moneyDisplay}
               onChange={(value: any) => handleChangeInputMoney(value)}
             />

@@ -153,7 +153,7 @@ const MenuCustom = ({ navigate }: any) => {
         scrollbarWidth: "thin",
         scrollbarColor: "unset",
       }}
-      className="flex w-screen xl:flex-col lg:flex-col overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
+      className="sm:flex-col w-screen xl:flex-col lg:flex-col overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
        scroll-smooth xl:h-screen lg:h-screen min-h-[10px]"
       items={items}
     />
