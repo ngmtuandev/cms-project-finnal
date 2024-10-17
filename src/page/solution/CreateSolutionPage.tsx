@@ -4,6 +4,7 @@ import { useCreateSolution } from "../../hooks";
 import { message } from "antd";
 import { MESSAGE } from "../../utils/message";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateSolutionPage = () => {
   // api
@@ -17,19 +18,27 @@ const CreateSolutionPage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   const handleCreateSolution = (value: any) => {
+    console.log("🚀 ~ handleCreateSolution ~ value:", value);
+    const { name, description } = value;
+    if (!name || !description) {
+      toast.warn(MESSAGE.PLEASE_FILL_INPUT);
+      return;
+    }
     setIsLoading(true);
     $createSolution(value, {
       onSuccess: (response) => {
         if (response?.status === 200) {
           messageApi.success(MESSAGE.CREATE_SOLUTION_SUCCESS);
           setIsLoading(false);
+          reset();
         } else {
           messageApi.error(MESSAGE.CREATE_SOLUTION_FAILURE);
           setIsLoading(false);
+          // reset();
         }
       },
       onError() {

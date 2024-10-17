@@ -7,7 +7,7 @@ export const useUpdateSolution = () => {
     mutationFn: (updateInfo: any) => updateSolutionApi(updateInfo),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["all-solution"],
+        queryKey: ["all-solution-condition"],
       });
     },
   });

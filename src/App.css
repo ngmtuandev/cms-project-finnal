@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .ant-spin-dot-item {
   background-color: white !important;
 }
@@ -33,4 +54,23 @@
 
 :where(.css-dev-only-do-not-override-vryruh).ant-picker {
   border-radius: 60vh;
+}
+
+/* Check box css */
+.custom-checkbox .ant-checkbox {
+  transform: scale(1.5); /* Phóng to checkbox */
+  margin-right: 8px; /* Khoảng cách giữa ô checkbox và chữ */
+}
+
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1890ff; /* Màu khi checkbox được chọn */
+}
+
+.custom-checkbox .ant-checkbox-inner {
+  width: 200px; /* Chiều rộng của checkbox */
+  height: 200px; /* Chiều cao của checkbox */
+}
+
+.custom-checkbox .ant-checkbox-wrapper {
+  font-size: 16px; /* Kích thước chữ */
 }

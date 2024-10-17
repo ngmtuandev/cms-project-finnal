@@ -1,6 +1,7 @@
 export class MESSAGE {
   static LOGIN_SUCCESS = "Đăng nhập thành công!";
   static LOGIN_FAIL = "Đăng nhập thất bại!";
+  static PLEASE_FILL_INPUT = "Vui lòng nhập đầy đủ thông tin!";
   static ERROR_CALL_API_LONG_TIME = "Lỗi gọi dữ liệu quá lâu!";
   static UPLOAD_IMAGE_SUCCESS = "Tải hình ảnh thành công!";
   static UPLOAD_IMAGE_FAILURE = "Tải hình ảnh thất bại!";
@@ -38,7 +39,7 @@ export class MESSAGE {
   static CONFIRM_SOLUTION_REQUEST_SUCCESS =
     "Xác nhận yêu cầu giải pháp mới thành công!";
   static CONFIRM_SOLUTION_REQUEST_FAIL =
-    "Xác nhận yêu cầu giải pháp mới thành công!";
+    "Xác nhận yêu cầu giải pháp mới thất bại!";
   static REJECT_SOLUTION_REQUEST_SUCCESS =
     "Từ chối yêu cầu giải pháp mới thành công!";
   static REJECT_SOLUTION_REQUEST_FAILURE =

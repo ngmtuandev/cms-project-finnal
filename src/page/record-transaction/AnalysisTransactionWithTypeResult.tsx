@@ -63,29 +63,36 @@ const AnalysisTransactionWithTypeResult = () => {
         });
       }
       setIsLoader(false);
-    }, 3000);
+    }, 2000);
   }, [analysisRecord, startDate, endDate]);
 
   return (
-    <div>
-      {isLoader && <Loader></Loader>}
-      {!isLoader && (
-        <>
-          <div className="flex flex-col w-[20%]">
-            <small className="text-gray-500 mb-1">Lọc theo ngày</small>
-            <RangePicker
-              onChange={(_, dateString) => {
-                setEndDate(dateString[1]);
-                setStartDate(dateString[0]);
-              }}
-            />
-          </div>
-          <div className="App">
-            <ChartConfig chartData={chartData} />{" "}
-          </div>
-        </>
+    <>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div>
+          {!isLoader && (
+            <>
+              <div className="flex flex-col w-[20%]">
+                <small className="text-gray-500 mb-1">Lọc theo ngày</small>
+                <RangePicker
+                  onChange={(_, dateString) => {
+                    setEndDate(dateString[1]);
+                    setStartDate(dateString[0]);
+                  }}
+                />
+              </div>
+              <div className="App">
+                <ChartConfig chartData={chartData} />{" "}
+              </div>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

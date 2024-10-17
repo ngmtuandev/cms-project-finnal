@@ -21,7 +21,7 @@ const CreateMachinePage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const CreateMachinePage = () => {
           if (response?.status === 200) {
             messageApi.success(MESSAGE.CREATE_MACHINE_SUCCESS);
             setIsLoading(false);
+            reset();
           } else {
             messageApi.error(MESSAGE.CREATE_MACHINE_FAILURE);
             setIsLoading(false);

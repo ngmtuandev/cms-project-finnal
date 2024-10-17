@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDeleteResult, useGetAllResult } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
-import { Loading } from "../../component";
+import { Loader, Loading } from "../../component";
 import { MESSAGE } from "../../utils/message";
 import { message } from "antd";
 import { Input } from "antd";
@@ -16,6 +16,7 @@ const { Search } = Input;
 const ResultPage = () => {
   const { isLoading, results } = useGetAllResult();
   const [resultAll, setResultAll] = useState();
+  const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $deleteResult } = useDeleteResult();
 
@@ -82,26 +83,42 @@ const ResultPage = () => {
       ),
     },
   ];
-  return (
-    <div>
-      {contextHolder}
-      <Search
-        placeholder="Tìm kiếm kết quả (theo mã)"
-        onSearch={onSearch}
-        style={{ width: 300, marginBottom: 20 }}
-      />
 
-      <Table
-        columns={columns}
-        dataSource={resultAll}
-        loading={isLoading}
-        pagination={{
-          pageSize: 10,
-          total: results?.length,
-        }}
-      />
-      {isLoading && <Loading />}
-    </div>
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 500);
+  }, []);
+
+  return (
+    <>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div>
+          {contextHolder}
+          <Search
+            placeholder="Tìm kiếm kết quả (theo mã)"
+            onSearch={onSearch}
+            style={{ width: 300, marginBottom: 20 }}
+          />
+
+          <Table
+            columns={columns}
+            dataSource={resultAll}
+            loading={isLoading}
+            pagination={{
+              pageSize: 10,
+              total: results?.length,
+            }}
+          />
+          {isLoading && <Loading />}
+        </div>
+      )}
+    </>
   );
 };
 

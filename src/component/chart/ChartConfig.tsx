@@ -8,7 +8,7 @@ const ChartConfig = ({ chartData }: any) => {
       className="chart-container"
       style={{
         width: "100%",
-        height: "700px",
+        height: "460px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

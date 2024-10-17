@@ -4,7 +4,7 @@ import type { TableColumnsType } from "antd";
 import { Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../utils/constant";
-import { Loading } from "../../component";
+import { Loader, Loading } from "../../component";
 import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
@@ -18,6 +18,7 @@ const UserPage = () => {
   const { info, isLoading } = useGetAllUser();
 
   const [data, setData] = useState<any[]>([]);
+  const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $deleteUser } = useDeleteUser();
 
@@ -126,25 +127,40 @@ const UserPage = () => {
     },
   ];
 
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 500);
+  }, []);
+
   return (
-    <div>
-      {contextHolder}
-      <Search
-        placeholder="Tìm kiếm nhân viên (theo tên)"
-        onSearch={onSearch}
-        style={{ width: 300, marginBottom: 20 }}
-      />
-      <Table
-        columns={columns}
-        dataSource={data}
-        loading={isLoading}
-        pagination={{
-          pageSize: 10,
-          total: 20,
-        }}
-      />
-      {isLoading && <Loading />}
-    </div>
+    <>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div>
+          {contextHolder}
+          <Search
+            placeholder="Tìm kiếm nhân viên (theo tên)"
+            onSearch={onSearch}
+            style={{ width: 300, marginBottom: 20 }}
+          />
+          <Table
+            columns={columns}
+            dataSource={data}
+            loading={isLoading}
+            pagination={{
+              pageSize: 10,
+              total: 300,
+            }}
+          />
+          {isLoading && <Loading />}
+        </div>
+      )}
+    </>
   );
 };
 

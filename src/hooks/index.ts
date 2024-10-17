@@ -25,3 +25,4 @@ export * from "./machine/useDeleteMachie";
 export * from "./machine/useUpdateMachine";
 export * from "./store/useUpdateStore";
 export * from "./record-transaction/useGetAnalysisWithTypeResult";
+export * from "./machine/useGetMachineByStore";

@@ -9,6 +9,7 @@ import { Popconfirm, Space, Table } from "antd";
 import {
   ButtomCustom,
   InputCustom,
+  Loader,
   Loading,
   ModelCustom,
 } from "../../component";
@@ -28,6 +29,7 @@ const MachinePage = () => {
   const [machineAll, setMachineAll] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [machineUpdate, setMachineUpdate] = useState<any>();
+  const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $updateMachine } = useUpdateMachine();
 
@@ -109,6 +111,11 @@ const MachinePage = () => {
       key: "codeMachine",
     },
     {
+      title: "Cửa hàng",
+      dataIndex: "storeCode",
+      key: "storeCode",
+    },
+    {
       title: "Mã (id)",
       dataIndex: "id",
       key: "id",
@@ -139,42 +146,61 @@ const MachinePage = () => {
       ),
     },
   ];
-  return (
-    <div>
-      {contextHolder}
-      <Search
-        placeholder="Tìm kiếm máy (theo mã)"
-        onSearch={onSearch}
-        style={{ width: 300, marginBottom: 20 }}
-      />
 
-      <Table
-        columns={columns}
-        dataSource={machineAll}
-        loading={isLoading}
-        pagination={{
-          pageSize: 10,
-          total: machines?.length,
-        }}
-      />
-      {isLoading && <Loading />}
-      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
-        <form
-          onSubmit={handleSubmitForm(handleUpdateMachine)}
-          className="flex flex-col gap-4"
-        >
-          <InputCustom
-            register={register}
-            id="codeMachine"
-            defaultValue={machineUpdate?.codeMachine}
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập max code máy" }}
-            label="Mã code của máy"
-          ></InputCustom>
-          <ButtomCustom isLoading={isLoading} text="Cập nhập"></ButtomCustom>
-        </form>
-      </ModelCustom>
-    </div>
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 500);
+  }, []);
+  return (
+    <>
+      {" "}
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div>
+          {contextHolder}
+          <Search
+            placeholder="Tìm kiếm máy (theo mã)"
+            onSearch={onSearch}
+            style={{ width: 300, marginBottom: 20 }}
+          />
+
+          <Table
+            columns={columns}
+            dataSource={machineAll}
+            loading={isLoading}
+            pagination={{
+              pageSize: 10,
+              total: machines?.length,
+            }}
+          />
+          {isLoading && <Loading />}
+          <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+            <form
+              onSubmit={handleSubmitForm(handleUpdateMachine)}
+              className="flex flex-col gap-4"
+            >
+              <InputCustom
+                register={register}
+                id="codeMachine"
+                defaultValue={machineUpdate?.codeMachine}
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập max code máy" }}
+                label="Mã code của máy"
+              ></InputCustom>
+              <ButtomCustom
+                isLoading={isLoading}
+                text="Cập nhập"
+              ></ButtomCustom>
+            </form>
+          </ModelCustom>
+        </div>
+      )}
+    </>
   );
 };
 

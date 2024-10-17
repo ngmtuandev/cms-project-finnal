@@ -7,7 +7,7 @@ export const useDeleteSolution = () => {
     mutationFn: (idSolution: string) => deleteSolutionApi(idSolution),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["all-solution"],
+        queryKey: ["all-solution-condition"],
       });
     },
   });

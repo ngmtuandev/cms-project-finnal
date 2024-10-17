@@ -28,3 +28,5 @@ export * from "./machine/deleteMachineApi";
 export * from "./machine/updateMachineApi";
 export * from "./store/updateStoreApi";
 export * from "./record-transaction/getAnalysisWithTypeResult";
+export * from "./machine/getMachineByStore";
+export * from "./solution/getAllSolutionWithConditionApi";

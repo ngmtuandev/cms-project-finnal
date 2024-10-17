@@ -10,6 +10,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import {
   ButtomCustom,
   InputCustom,
+  Loader,
   Loading,
   ModelCustom,
 } from "../../component";
@@ -18,6 +19,8 @@ import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
 import { useForm } from "react-hook-form";
+import { useGetAllSolutionWithCondition } from "../../hooks/solution/useGetAllSolutionWithCondition";
+import { useConditionSolutionStore } from "../../store";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -25,13 +28,19 @@ const { Search } = Input;
 
 const SolutionPage = () => {
   const { isLoading, solutions } = useGetAllSolution();
+  const { solutionCondition } = useGetAllSolutionWithCondition();
   const [solutionAll, setSolutionAll] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [solutionUpdate, setSolutionUpdate] = useState<any>();
+  const [isLoader, setIsLoader] = useState(false);
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const { mutate: $deleteSolution } = useDeleteSolution();
   const { mutate: $updateSolution } = useUpdateSolution();
+
+  // store zustand
+  const { setIsActive } = useConditionSolutionStore();
 
   const toggleModal = (record: any) => {
     setSolutionUpdate(record);
@@ -50,8 +59,9 @@ const SolutionPage = () => {
   };
 
   useEffect(() => {
-    if (solutions) setSolutionAll(solutions);
-  }, [solutions]);
+    setIsActive(true);
+    if (solutionCondition) setSolutionAll(solutionCondition);
+  }, [solutionCondition]);
 
   const {
     register,
@@ -147,50 +157,68 @@ const SolutionPage = () => {
     );
   };
 
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 500);
+  }, []);
+
   return (
     <>
-      <div>
-        {contextHolder}
-        <Search
-          placeholder="Tìm kiếm giải pháp (theo mã)"
-          onSearch={onSearch}
-          style={{ width: 300, marginBottom: 20 }}
-        />
-        <Table
-          columns={columns}
-          dataSource={solutionAll}
-          loading={isLoading}
-          pagination={{
-            pageSize: 10,
-            total: solutions?.length,
-          }}
-        />
-        {isLoading && <Loading />}
-      </div>
-      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
-        <form
-          onSubmit={handleSubmitForm(handleUpdateSolution)}
-          className="flex flex-col gap-4"
-        >
-          <InputCustom
-            register={register}
-            id="name"
-            defaultValue={solutionUpdate?.name}
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập tên của giải pháp" }}
-            label="Tên giải pháp"
-          ></InputCustom>
-          <InputCustom
-            register={register}
-            id="description"
-            defaultValue={solutionUpdate?.description}
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
-            label="Mô tả giải pháp"
-          ></InputCustom>
-          <ButtomCustom isLoading={isLoading} text="Cập nhập"></ButtomCustom>
-        </form>
-      </ModelCustom>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <>
+          <div>
+            {contextHolder}
+            <Search
+              placeholder="Tìm kiếm giải pháp (theo mã)"
+              onSearch={onSearch}
+              style={{ width: 300, marginBottom: 20 }}
+            />
+            <Table
+              columns={columns}
+              dataSource={solutionAll}
+              loading={isLoading}
+              pagination={{
+                pageSize: 10,
+                total: solutions?.length,
+              }}
+            />
+            {isLoading && <Loading />}
+          </div>
+          <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+            <form
+              onSubmit={handleSubmitForm(handleUpdateSolution)}
+              className="flex flex-col gap-4"
+            >
+              <InputCustom
+                register={register}
+                id="name"
+                defaultValue={solutionUpdate?.name}
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập tên của giải pháp" }}
+                label="Tên giải pháp"
+              ></InputCustom>
+              <InputCustom
+                register={register}
+                id="description"
+                defaultValue={solutionUpdate?.description}
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
+                label="Mô tả giải pháp"
+              ></InputCustom>
+              <ButtomCustom
+                isLoading={isLoading}
+                text="Cập nhập"
+              ></ButtomCustom>
+            </form>
+          </ModelCustom>
+        </>
+      )}
     </>
   );
 };

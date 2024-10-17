@@ -17,7 +17,7 @@ const CreateResultPage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   const handleCreateResult = (value: any) => {
@@ -27,6 +27,7 @@ const CreateResultPage = () => {
         if (response?.status === 200) {
           messageApi.success(MESSAGE.CREATE_RESULT_SUCCESS);
           setIsLoading(false);
+          reset();
         } else {
           messageApi.error(MESSAGE.CREATE_RESULT_FAILURE);
           setIsLoading(false);

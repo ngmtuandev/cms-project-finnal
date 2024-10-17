@@ -13,6 +13,7 @@ import {
   useGetAllMachine,
   useGetAllResult,
   useGetAllSolution,
+  useGetMachineByStore,
 } from "../../hooks";
 import { UploadOutlined, CameraOutlined } from "@ant-design/icons";
 import { success } from "../../assets";
@@ -26,6 +27,8 @@ import { ButtomCustom } from "../../component";
 import { MESSAGE } from "../../utils/message";
 import Webcam from "react-webcam";
 import { formatMoneyInput } from "../../helper";
+import { Checkbox } from "antd";
+import { toast } from "react-toastify";
 
 const FACING_MODE_USER = { facingMode: "user" }; //Front Camera
 const FACING_MODE_ENVIRONMENT = { facingMode: { exact: "environment" } }; //Back Camer
@@ -34,10 +37,13 @@ const HomeUserPage = ({ navigate }: any) => {
   const { infoCurrent } = useAuthStore();
 
   // api create
-  const { mutate: $createRecord } = useCreateRecordTransaction();
+  const { mutate: $createRecord, isPending } = useCreateRecordTransaction();
 
   // data api
   const { machines } = useGetAllMachine();
+  const { machinesOfStore } = useGetMachineByStore(
+    infoCurrent?.store?.storeCode
+  );
   const { solutions } = useGetAllSolution();
   const { results } = useGetAllResult();
 
@@ -50,6 +56,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [_, setFileList] = useState<UploadFile[]>();
   const [moneyDisplay, setMoneyDisplay] = useState<any>();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // global state
   const {
@@ -84,8 +91,8 @@ const HomeUserPage = ({ navigate }: any) => {
       });
       setSolutionSelect(solutionConvert);
     }
-    if (machines) {
-      let machinesConvert = machines?.map((item: any) => {
+    if (machinesOfStore) {
+      let machinesConvert = machinesOfStore?.map((item: any) => {
         return {
           label: item?.codeMachine,
           value: item?.id,
@@ -145,6 +152,13 @@ const HomeUserPage = ({ navigate }: any) => {
     }
   };
 
+  useEffect(() => {
+    setMachine(undefined);
+    setSolution(undefined);
+    setResult(undefined);
+    setTypeTransaction(undefined);
+  }, []);
+
   // const props: UploadProps = {
   //   showUploadList: false,
   //   onChange: async (info) => {
@@ -179,6 +193,11 @@ const HomeUserPage = ({ navigate }: any) => {
   // Upload Record
 
   const handleUploadRecord = async () => {
+    if (isSubmitting) {
+      toast.warning("Dont spam");
+      return;
+    }
+
     if (
       !solution ||
       !machine ||
@@ -190,7 +209,7 @@ const HomeUserPage = ({ navigate }: any) => {
       money == undefined ||
       typeTransaction == undefined
     ) {
-      messageApi.warning("VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN !");
+      toast.warning("VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN !");
       return;
     }
 
@@ -207,6 +226,7 @@ const HomeUserPage = ({ navigate }: any) => {
     };
 
     setIsLoader(true);
+    setIsSubmitting(true);
     $createRecord(dataUploadInfo, {
       onSuccess: (response) => {
         if (response?.status == 200) {
@@ -215,16 +235,23 @@ const HomeUserPage = ({ navigate }: any) => {
             navigate(path.UPLOAD_RECORD_SUCCESS);
             setIsLoader(false);
           }, 2000);
+          setMachine(undefined);
+          setSolution(undefined);
+          setResult(undefined);
+          setTypeTransaction(undefined);
+          setIsSubmitting(false);
         } else {
           messageApi.error(MESSAGE.CREATE_RECORD_FAILURE);
           setTimeout(() => {
             navigate(path.UPLOAD_RECORD_FAILURE);
             setIsLoader(false);
           }, 2000);
+          setIsSubmitting(false);
         }
       },
       onError: () => {
         messageApi.error(MESSAGE.CREATE_RECORD_FAILURE);
+        setIsSubmitting(false);
       },
     });
   };
@@ -446,6 +473,32 @@ const HomeUserPage = ({ navigate }: any) => {
 
         {/* Select Component */}
         <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] flex gap-4 flex-col">
+          {/* type transaction */}
+          <div className="flex gap-10">
+            <Checkbox
+              style={{
+                fontSize: 16,
+                fontWeight: "normal",
+                color: "gray",
+                marginLeft: 10,
+              }}
+              value={"ERROR"}
+              checked={typeTransaction == "ERROR"}
+              onChange={() => setTypeTransaction("ERROR")}
+              className="custom-checkbox"
+            >
+              Giao dịch lỗi
+            </Checkbox>
+            <Checkbox
+              style={{ fontSize: 16, fontWeight: "normal", color: "gray" }}
+              value={"TRANSFER"}
+              checked={typeTransaction == "TRANSFER"}
+              onChange={() => setTypeTransaction("TRANSFER")}
+              className="custom-checkbox"
+            >
+              Chuyển khoản
+            </Checkbox>
+          </div>
           {/* solution */}
           <div>
             <Select
@@ -460,22 +513,6 @@ const HomeUserPage = ({ navigate }: any) => {
                   .localeCompare((optionB?.label ?? "").toLowerCase())
               }
               options={solutionSelect}
-            />
-          </div>
-          {/* result */}
-          <div>
-            <Select
-              showSearch
-              style={{ width: "100%" }}
-              placeholder="Chọn kết quả giao dịch"
-              optionFilterProp="label"
-              filterSort={({ optionA, optionB }: any) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              onChange={(value: any) => setResult(value)}
-              options={resultSelect}
             />
           </div>
           {/* Machine */}
@@ -494,8 +531,48 @@ const HomeUserPage = ({ navigate }: any) => {
               options={machineSelect}
             />
           </div>
-          {/* Type transaction */}
+          {/* Money */}
           <div>
+            <Input
+              className="text-gray-600"
+              width={"50%"}
+              prefix="đ"
+              suffix="VNĐ"
+              value={moneyDisplay}
+              onChange={(value: any) => handleChangeInputMoney(value)}
+            />
+          </div>
+          {/* result */}
+          <div>
+            <Select
+              showSearch
+              style={{ width: "100%" }}
+              placeholder="Chọn kết quả giao dịch"
+              optionFilterProp="label"
+              filterSort={({ optionA, optionB }: any) =>
+                (optionA?.label ?? "")
+                  .toLowerCase()
+                  .localeCompare((optionB?.label ?? "").toLowerCase())
+              }
+              onChange={(value: any) => setResult(value)}
+              options={resultSelect}
+            />
+          </div>
+          {/* Status */}
+          <div>
+            <Select
+              placeholder="Trạng thái"
+              style={{ width: "100%" }}
+              options={[
+                { value: false, label: "Thất bại" },
+                { value: true, label: "Thành công" },
+              ]}
+              onChange={(value: any) => setIsSuccess(value)}
+            />
+          </div>
+
+          {/* Type transaction */}
+          {/* <div>
             <Select
               placeholder="Chọn loại giao dịch"
               style={{ width: "100%" }}
@@ -505,35 +582,14 @@ const HomeUserPage = ({ navigate }: any) => {
               ]}
               onChange={(value: any) => setTypeTransaction(value)}
             />
-          </div>
-          {/* Money Transaction & Status Transaction */}
-          <div className=" flex justify-between gap-4 items-center">
-            {/* Money */}
-            <Input
-              className="text-gray-600"
-              width={"50%"}
-              prefix="đ"
-              suffix="VNĐ"
-              value={moneyDisplay}
-              onChange={(value: any) => handleChangeInputMoney(value)}
-            />
-            {/* Status */}
-            <Select
-              placeholder="Trạng thái"
-              style={{ width: "50%" }}
-              options={[
-                { value: false, label: "Thất bại" },
-                { value: true, label: "Thành công" },
-              ]}
-              onChange={(value: any) => setIsSuccess(value)}
-            />
-          </div>
+          </div> */}
         </div>
 
         {/* Button */}
         <div className="flex items-center justify-center">
           <div className="px-[20px] mt-4">
             <button
+              disabled={isSubmitting}
               onClick={handleUploadRecord}
               className="bg-pink_main px-[2rem] rounded-3xl text-white font-semibold flex justify-center items-center py-[0.4rem]"
             >

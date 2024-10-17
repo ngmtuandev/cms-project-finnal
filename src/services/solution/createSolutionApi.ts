@@ -4,6 +4,9 @@ import { TCreateSolution } from "../../type/TCreateSolution";
 export const createSolutionApi = async (
   createSolutionInfo?: TCreateSolution
 ) => {
-  const response = await api.post(`/admin/solution`, createSolutionInfo);
+  const response = await api.post(`/admin/solution`, {
+    ...createSolutionInfo,
+    isActive: true,
+  });
   return response;
 };

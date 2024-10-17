@@ -7,7 +7,7 @@ export const useRejectSolutionRequest = () => {
     mutationFn: (solutionId: string) => rejectSolutionRequestApi(solutionId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["all-solution-request"],
+        queryKey: ["all-solution-condition"],
       });
     },
   });

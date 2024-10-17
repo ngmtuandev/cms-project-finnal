@@ -25,7 +25,7 @@ const CreateUserPage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const CreateUserPage = () => {
         if (response?.data?.status === 200) {
           messageApi.success(MESSAGE.CREATE_USER_SUCCESS);
           setIsLoading(false);
+          reset();
         } else {
           messageApi.error(MESSAGE.CREATE_USER_FAILURE);
           setIsLoading(false);
@@ -95,7 +96,7 @@ const CreateUserPage = () => {
               validate={{
                 required: "Vui lòng nhập tên đăng nhập cho nhân viên",
               }}
-              label="Tên đăng nhập"
+              label="Tên đăng nhập (phải là duy nhất)"
             ></InputCustom>
             <InputCustom
               register={register}

@@ -7,7 +7,7 @@ import {
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Space, Table, DatePicker, Select, Image } from "antd";
-import { Loading } from "../../component";
+import { Loader, Loading } from "../../component";
 import { useFilterRecordStore } from "../../store";
 import { RESULT } from "../../utils/constant";
 import { convertTimestampToDateTime, formatCurrencyVND } from "../../helper";
@@ -50,6 +50,7 @@ const RecordTransactionPage = () => {
   const [storeSelect, setStoreSelect] = useState([]);
   const [machineSelect, setMachineSelect] = useState([]);
   const [resultSelect, setResultSelect] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     if (records) setRecordTransactionAll(records?.data);
@@ -198,6 +199,12 @@ const RecordTransactionPage = () => {
   ];
 
   useEffect(() => {
+    setStoreCode(undefined);
+    setMachineCode(undefined);
+    setTypeResult(undefined);
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [page, storeCode, endDate, startDate, machineCode, typeResult]);
 
@@ -205,75 +212,96 @@ const RecordTransactionPage = () => {
     setPage(0);
   }, [storeCode, machineCode, endDate, startDate]);
 
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 1000);
+  }, []);
+
   return (
-    <div>
-      <div className="mb-5">
-        <Space wrap className="gap-10">
-          <div className="flex flex-col">
-            <small className="text-gray-500 mb-1">Mã cửa hàng</small>
-            <Select
-              onChange={(value: string) => {
-                setStoreCode(value);
-              }}
-              defaultValue={storeCode}
-              style={{ width: 280 }}
-              allowClear
-              options={storeSelect}
-              placeholder="Lọc theo cửa hàng"
-            />
+    <>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
+          <div
+            className="xl:mb-5 lb:mb-5 -mb-20 -mt-4 w-[85%] lg:shadow-lg xl:shadow-lg shadow-none border lg:border-gray-200 xl:border-gray-200 border-none 
+            px-[12px] rounded-2xl xl:bg-white lg:bg-white
+           py-[24px] bg-none xl:fixed lg:fixed z-50"
+          >
+            <Space wrap className="gap-10">
+              <div className="flex flex-col">
+                <small className="text-gray-500 mb-1">Mã cửa hàng</small>
+                <Select
+                  onChange={(value: string) => {
+                    setStoreCode(value);
+                  }}
+                  defaultValue={storeCode}
+                  style={{ width: 180 }}
+                  allowClear
+                  options={storeSelect}
+                  placeholder="Lọc theo cửa hàng"
+                />
+              </div>
+              <div className="flex flex-col">
+                <small className="text-gray-500 mb-1">Mã máy</small>
+                <Select
+                  onChange={(value: string) => {
+                    setMachineCode(value);
+                  }}
+                  defaultValue={storeCode}
+                  style={{ width: 180 }}
+                  allowClear
+                  options={machineSelect}
+                  placeholder="Lọc theo mã máy"
+                />
+              </div>
+              <div className="flex flex-col">
+                <small className="text-gray-500 mb-1">Loại kết quả</small>
+                <Select
+                  onChange={(value: string) => {
+                    setTypeResult(value);
+                  }}
+                  defaultValue={storeCode}
+                  style={{ width: 180 }}
+                  allowClear
+                  options={resultSelect}
+                  placeholder="Lọc theo loại kết quả"
+                />
+              </div>
+              <div className="flex flex-col">
+                <small className="text-gray-500 mb-1">Lọc theo ngày</small>
+                <RangePicker
+                  style={{ width: 180 }}
+                  onChange={(_, dateString) => {
+                    setEndDate(dateString[1]);
+                    setStartDate(dateString[0]);
+                  }}
+                />
+              </div>
+            </Space>
           </div>
-          <div className="flex flex-col">
-            <small className="text-gray-500 mb-1">Mã máy</small>
-            <Select
-              onChange={(value: string) => {
-                setMachineCode(value);
-              }}
-              defaultValue={storeCode}
-              style={{ width: 280 }}
-              allowClear
-              options={machineSelect}
-              placeholder="Lọc theo mã máy"
-            />
-          </div>
-          <div className="flex flex-col">
-            <small className="text-gray-500 mb-1">Loại kết quả</small>
-            <Select
-              onChange={(value: string) => {
-                setTypeResult(value);
-              }}
-              defaultValue={storeCode}
-              style={{ width: 280 }}
-              allowClear
-              options={resultSelect}
-              placeholder="Lọc theo loại kết quả"
-            />
-          </div>
-          <div className="flex flex-col">
-            <small className="text-gray-500 mb-1">Lọc theo ngày</small>
-            <RangePicker
-              onChange={(_, dateString) => {
-                setEndDate(dateString[1]);
-                setStartDate(dateString[0]);
-              }}
-            />
-          </div>
-        </Space>
-      </div>
-      <Table
-        columns={columns}
-        dataSource={recordTransactionAll}
-        loading={isLoading}
-        pagination={{
-          current: +page + 1,
-          pageSize: +size,
-          total: +records?.totalPage * +size,
-          onChange: (page) => {
-            setPage(page - 1);
-          },
-        }}
-      />
-      {isLoading && <Loading />}
-    </div>
+          <Table
+            style={{ marginTop: 100 }}
+            columns={columns}
+            dataSource={recordTransactionAll}
+            loading={isLoading}
+            pagination={{
+              current: +page + 1,
+              pageSize: +size,
+              total: +records?.totalPage * +size,
+              onChange: (page) => {
+                setPage(page - 1);
+              },
+            }}
+          />
+          {isLoading && <Loading />}
+        </div>
+      )}
+    </>
   );
 };
 

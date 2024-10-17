@@ -7,7 +7,7 @@ export const useConfirmSolutionRequest = () => {
     mutationFn: (solutionId: string) => confirmSolutionRequestApi(solutionId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["all-solution-request", "all-solution"],
+        queryKey: ["all-solution-condition"],
       });
     },
   });

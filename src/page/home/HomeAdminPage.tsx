@@ -24,11 +24,17 @@ const HomeAdminPage = ({ navigate }: any) => {
     <div>
       {contextHolder}
       <Header />
-      <div style={{ display: "flex", height: "100vh", paddingTop: 80 }}>
-        <div style={{ width: "256px" }}>
+      <div
+        className="flex flex-col xl:flex-row lg:flex-row"
+        style={{ display: "flex", height: "100vh", paddingTop: 80, gap: 20 }}
+      >
+        <div>
           <MenuCustom />
         </div>
-        <div style={{ flex: 1, padding: "20px" }}>
+        <div
+          className="mt-2 xl:mt-0 lg:mt-0"
+          style={{ flex: 1, padding: "20px" }}
+        >
           <Outlet />
         </div>
       </div>

@@ -21,8 +21,8 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <UserOutlined />,
       label: "Nhân viên",
       children: [
-        { key: path.MANAGER_USER, label: "Quản lý nhân viên" },
-        { key: path.CREATE_USER, label: "Thêm nhân viên" },
+        { key: path.MANAGER_USER, label: "Quản lý" },
+        { key: path.CREATE_USER, label: "Thêm mới" },
       ],
     },
     {
@@ -30,8 +30,8 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <ShopOutlined />,
       label: "Cửa hàng",
       children: [
-        { key: path.MANAGER_STORE, label: "Quản lý cửa hàng" },
-        { key: path.CREATE_STORE, label: "Tạo mới cửa hàng" },
+        { key: path.MANAGER_STORE, label: "Quản lý" },
+        { key: path.CREATE_STORE, label: "Tạo mới" },
       ],
     },
     {
@@ -39,9 +39,9 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <SolutionOutlined />,
       label: "Giải pháp",
       children: [
-        { key: path.MANAGER_SOLUTION, label: "Quản lý giải pháp" },
-        { key: path.CREATE_SOLUTION, label: "Tạo mới giải pháp" },
-        { key: path.MANAGER_SOLUTION_REQUEST, label: "Yêu cầu tạo mới" },
+        { key: path.MANAGER_SOLUTION, label: "Quản lý" },
+        { key: path.CREATE_SOLUTION, label: "Tạo mới" },
+        { key: path.MANAGER_SOLUTION_REQUEST, label: "Yêu cầu" },
       ],
     },
     {
@@ -49,8 +49,8 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <MedicineBoxOutlined />,
       label: "Kết quả",
       children: [
-        { key: path.MANAGER_RESULT, label: "Quản lý kết quả" },
-        { key: path.CREATE_RESULT, label: "Tạo mới kết quả" },
+        { key: path.MANAGER_RESULT, label: "Quản lý" },
+        { key: path.CREATE_RESULT, label: "Tạo mới" },
       ],
     },
     {
@@ -58,8 +58,8 @@ const MenuCustom = ({ navigate }: any) => {
       icon: <ApiOutlined />,
       label: "Máy",
       children: [
-        { key: path.MANAGER_MACHINE, label: "Quản lý máy" },
-        { key: path.CREATE_MACHINE, label: "Tạo mới máy" },
+        { key: path.MANAGER_MACHINE, label: "Quản lý" },
+        { key: path.CREATE_MACHINE, label: "Thêm mới" },
       ],
     },
     {
@@ -69,11 +69,11 @@ const MenuCustom = ({ navigate }: any) => {
       children: [
         {
           key: path.MANAGER_RECORD_TRANSACTION,
-          label: "Quản lý giao dịch",
+          label: "Quản lý",
         },
         {
           key: path.ANALYSIS_RECORD_WITH_TYPE_RESULT,
-          label: "Phân tích theo kết quả",
+          label: "Phân tích",
         },
       ],
     },
@@ -143,7 +143,18 @@ const MenuCustom = ({ navigate }: any) => {
       defaultSelectedKeys={["231"]}
       openKeys={stateOpenKeys}
       onOpenChange={onOpenChange}
-      style={{ width: 256, height: "100%" }}
+      style={{
+        // width: "auto",
+        // height: "100%",
+        overflow: "auto",
+        top: 90,
+        bottom: 0,
+        insetInlineStart: 0,
+        scrollbarWidth: "thin",
+        scrollbarColor: "unset",
+      }}
+      className="flex w-screen xl:flex-col lg:flex-col overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
+       scroll-smooth xl:h-screen lg:h-screen min-h-[10px]"
       items={items}
     />
   );

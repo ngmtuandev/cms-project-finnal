@@ -6,6 +6,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import {
   ButtomCustom,
   InputCustom,
+  Loader,
   Loading,
   ModelCustom,
 } from "../../component";
@@ -24,6 +25,7 @@ const StorePage = () => {
   const [storeAll, setStoreAll] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [storeUpdate, setStoreUpdate] = useState<any>();
+  const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $deleteStore } = useDeleteStore();
   const { mutate: $updateStore } = useUpdateStore();
@@ -141,49 +143,67 @@ const StorePage = () => {
     },
   ];
 
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 500);
+  }, []);
+
   return (
-    <div>
-      {contextHolder}
-      <Search
-        placeholder="Tìm kiếm cửa hàng (theo mã code)"
-        onSearch={onSearch}
-        style={{ width: 300, marginBottom: 20 }}
-      />
-      <Table
-        columns={columns}
-        dataSource={storeAll}
-        loading={isLoading}
-        pagination={{
-          pageSize: 10,
-          total: setStoreAll?.length,
-        }}
-      />
-      {isLoading && <Loading />}
-      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
-        <form
-          onSubmit={handleSubmitForm(handleUpdateStore)}
-          className="flex flex-col gap-4"
-        >
-          <InputCustom
-            register={register}
-            id="storeName"
-            defaultValue={storeUpdate?.storeName}
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập tên của giải pháp" }}
-            label="Tên giải pháp"
-          ></InputCustom>
-          <InputCustom
-            register={register}
-            id="storeCode"
-            defaultValue={storeUpdate?.storeName}
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
-            label="Mô tả giải pháp"
-          ></InputCustom>
-          <ButtomCustom isLoading={isLoading} text="Cập nhập"></ButtomCustom>
-        </form>
-      </ModelCustom>
-    </div>
+    <>
+      {isLoader ? (
+        <div className="-mt-40">
+          <Loader></Loader>
+        </div>
+      ) : (
+        <div>
+          {contextHolder}
+          <Search
+            placeholder="Tìm kiếm cửa hàng (theo mã code)"
+            onSearch={onSearch}
+            style={{ width: 300, marginBottom: 20 }}
+          />
+          <Table
+            columns={columns}
+            dataSource={storeAll}
+            loading={isLoading}
+            pagination={{
+              pageSize: 10,
+              total: setStoreAll?.length,
+            }}
+          />
+          {isLoading && <Loading />}
+          <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+            <form
+              onSubmit={handleSubmitForm(handleUpdateStore)}
+              className="flex flex-col gap-4"
+            >
+              <InputCustom
+                register={register}
+                id="storeName"
+                defaultValue={storeUpdate?.storeName}
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập tên của giải pháp" }}
+                label="Tên giải pháp"
+              ></InputCustom>
+              <InputCustom
+                register={register}
+                id="storeCode"
+                defaultValue={storeUpdate?.storeName}
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
+                label="Mô tả giải pháp"
+              ></InputCustom>
+              <ButtomCustom
+                isLoading={isLoading}
+                text="Cập nhập"
+              ></ButtomCustom>
+            </form>
+          </ModelCustom>
+        </div>
+      )}
+    </>
   );
 };
 

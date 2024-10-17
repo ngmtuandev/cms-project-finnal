@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   useConfirmSolutionRequest,
-  useGetAllSolutionRequest,
   useRejectSolutionRequest,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
@@ -11,24 +10,29 @@ import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
+import { useConditionSolutionStore } from "../../store";
+import { useGetAllSolutionWithCondition } from "../../hooks/solution/useGetAllSolutionWithCondition";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
 const SolutionRequest = () => {
-  const { solutionsRequest } = useGetAllSolutionRequest();
+  const { solutionCondition } = useGetAllSolutionWithCondition();
   const [solutionAll, setSolutionAll] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const { mutate: $confirmSolutionRequest } = useConfirmSolutionRequest();
   const { mutate: $rejectSolutionRequest } = useRejectSolutionRequest();
 
+  // global state in zustand for condition
+  const { setIsActive } = useConditionSolutionStore();
+
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
-      setSolutionAll(solutionsRequest);
+      setSolutionAll(solutionCondition);
     } else {
-      const filteredSolution = solutionsRequest.filter((solution: any) =>
+      const filteredSolution = solutionCondition.filter((solution: any) =>
         solution.name.toLowerCase().includes(value.toLowerCase())
       );
       setSolutionAll(filteredSolution);
@@ -38,8 +42,9 @@ const SolutionRequest = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    if (solutionsRequest) setSolutionAll(solutionsRequest);
-  }, [solutionsRequest]);
+    setIsActive(false);
+    if (solutionCondition) setSolutionAll(solutionCondition);
+  }, [solutionCondition]);
 
   const handleConfirmSolution = (record: any) => {
     $confirmSolutionRequest(record?.id, {
@@ -133,7 +138,7 @@ const SolutionRequest = () => {
           loading={isLoading}
           pagination={{
             pageSize: 10,
-            total: solutionsRequest?.length,
+            total: solutionCondition?.length,
           }}
         />
         {isLoading && <Loading />}

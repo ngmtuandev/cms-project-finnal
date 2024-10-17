@@ -4,8 +4,6 @@ import { useFilterRecordStore } from "../../store";
 
 export const useGetAnalysisWithTypeResult = () => {
   const { startDate, endDate } = useFilterRecordStore();
-  console.log("🚀 ~ useGetAnalysisWithTypeResult ~ endDate:", endDate);
-  console.log("🚀 ~ useGetAnalysisWithTypeResult ~ startDate:", startDate);
   const { data, isLoading } = useQuery({
     queryKey: ["analysis-record", startDate, endDate],
     queryFn: () => getAnalysisWithResultApi({ startDate, endDate }),
