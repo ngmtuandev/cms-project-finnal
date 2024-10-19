@@ -30,3 +30,7 @@ export * from "./store/updateStoreApi";
 export * from "./record-transaction/getAnalysisWithTypeResult";
 export * from "./machine/getMachineByStore";
 export * from "./solution/getAllSolutionWithConditionApi";
+export * from "./record-transaction/getForDashboardErrorApi";
+export * from "./record-transaction/getForDashboardTransferApi";
+export * from "./record-transaction/getRecordOverallApi";
+export * from "./record-transaction/getSumRecordByResultApi";

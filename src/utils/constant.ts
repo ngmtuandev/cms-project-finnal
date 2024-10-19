@@ -17,6 +17,9 @@ export class RESULT {
   static NOT_PRINTE = "NOT PRINTER";
   static FAIL = "FAIL";
   static PRINTER = "PRINTER";
+  static F1 = "F1";
+  static CASH = "CASH";
+  static ERROR = "ERROR";
 }
 
 export class URL_UPLOAD_IMAGE {

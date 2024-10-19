@@ -6,4 +6,5 @@ export type TFilterRecord = {
   endDate?: string;
   machineCode?: string;
   typeResult?: string;
+  typeTransaction?: string;
 };

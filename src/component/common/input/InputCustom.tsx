@@ -54,7 +54,7 @@ const InputCustom = ({
           height: height ? height : "4.6vh",
           outline: "none",
           borderRadius: 36,
-          borderColor: "#FFA0BC",
+          // borderColor: "#FFA0BC",
           borderWidth: 1,
           paddingLeft: 10,
           paddingRight: 10,

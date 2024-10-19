@@ -1,10 +1,13 @@
 import { logo } from "../../../assets";
-import { useAuthStore } from "../../../store";
-import { LogoutOutlined } from "@ant-design/icons";
-
+import { useAuthStore, useCommonStore } from "../../../store";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 const Header = () => {
   const handleLogout = useAuthStore((state) => state.logout);
-
+  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
   return (
     <div
       className="w-screen z-50 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
@@ -18,8 +21,14 @@ const Header = () => {
       </div>
       <div>
         <span
+          className="cursor-pointer text-pink_main text-xl md:hidden xl:hidden lg:hidden"
+          onClick={() => setIsOpenMenuMobile(!isOpenMenuMobile)}
+        >
+          {isOpenMenuMobile ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+        </span>
+        <span
           onClick={() => handleLogout()}
-          className="font-semibold flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-pink_main cursor-pointer"
+          className="font-semibold hidden md:flex xl:flex lg:flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-pink_main cursor-pointer"
         >
           Đăng xuất
           <LogoutOutlined />

@@ -6,6 +6,7 @@ import {
   SolutionOutlined,
   TransactionOutlined,
   UserOutlined,
+  BarChartOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
@@ -17,12 +18,27 @@ const MenuCustom = ({ navigate }: any) => {
 
   const items: MenuItem[] = [
     {
-      key: path.MANAGER_USER,
-      icon: <UserOutlined />,
-      label: "Nhân viên",
+      key: path.DASH_BOARD,
+      icon: <BarChartOutlined />,
+      label: "Dash Board",
       children: [
-        { key: path.MANAGER_USER, label: "Quản lý" },
-        { key: path.CREATE_USER, label: "Thêm mới" },
+        { key: path.DASH_BOARD, label: "Thống kê giao dịch" },
+        // { key: path.DASH_BOARD_TRANSFER, label: "Chuyển khoản" },
+      ],
+    },
+    {
+      key: path.MANAGER_RECORD_TRANSACTION,
+      icon: <TransactionOutlined />,
+      label: "Giao dịch",
+      children: [
+        {
+          key: path.OVERALL_TRANSACTION,
+          label: "Tổng quan",
+        },
+        // {
+        //   key: path.MANAGER_RECORD_TRANSACTION,
+        //   label: "Quản lý",
+        // },
       ],
     },
     {
@@ -32,6 +48,24 @@ const MenuCustom = ({ navigate }: any) => {
       children: [
         { key: path.MANAGER_STORE, label: "Quản lý" },
         { key: path.CREATE_STORE, label: "Tạo mới" },
+      ],
+    },
+    {
+      key: path.MANAGER_USER,
+      icon: <UserOutlined />,
+      label: "Nhân viên",
+      children: [
+        { key: path.MANAGER_USER, label: "Quản lý" },
+        { key: path.CREATE_USER, label: "Thêm mới" },
+      ],
+    },
+    {
+      key: path.MANAGER_MACHINE,
+      icon: <ApiOutlined />,
+      label: "Máy",
+      children: [
+        { key: path.MANAGER_MACHINE, label: "Quản lý" },
+        { key: path.CREATE_MACHINE, label: "Thêm mới" },
       ],
     },
     {
@@ -51,30 +85,6 @@ const MenuCustom = ({ navigate }: any) => {
       children: [
         { key: path.MANAGER_RESULT, label: "Quản lý" },
         { key: path.CREATE_RESULT, label: "Tạo mới" },
-      ],
-    },
-    {
-      key: path.MANAGER_MACHINE,
-      icon: <ApiOutlined />,
-      label: "Máy",
-      children: [
-        { key: path.MANAGER_MACHINE, label: "Quản lý" },
-        { key: path.CREATE_MACHINE, label: "Thêm mới" },
-      ],
-    },
-    {
-      key: path.MANAGER_RECORD_TRANSACTION,
-      icon: <TransactionOutlined />,
-      label: "Giao dịch",
-      children: [
-        {
-          key: path.MANAGER_RECORD_TRANSACTION,
-          label: "Quản lý",
-        },
-        {
-          key: path.ANALYSIS_RECORD_WITH_TYPE_RESULT,
-          label: "Phân tích",
-        },
       ],
     },
   ];
@@ -131,32 +141,35 @@ const MenuCustom = ({ navigate }: any) => {
   // const isMobile = window.innerWidth < 768;
 
   return (
-    <Menu
-      onClick={({ key }) => {
-        if (key === "signout") {
-          return;
-        } else {
-          navigate(key);
-        }
-      }}
-      mode="inline"
-      defaultSelectedKeys={["231"]}
-      openKeys={stateOpenKeys}
-      onOpenChange={onOpenChange}
-      style={{
-        // width: "auto",
-        // height: "100%",
-        overflow: "auto",
-        top: 90,
-        bottom: 0,
-        insetInlineStart: 0,
-        scrollbarWidth: "thin",
-        scrollbarColor: "unset",
-      }}
-      className="sm:flex-col w-screen xl:flex-col lg:flex-col overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
-       scroll-smooth xl:h-screen lg:h-screen min-h-[10px]"
-      items={items}
-    />
+    <div className="bg-pink_light">
+      <Menu
+        onClick={({ key }) => {
+          if (key === "signout") {
+            return;
+          } else {
+            navigate(key);
+          }
+        }}
+        mode="inline"
+        defaultSelectedKeys={["231"]}
+        openKeys={stateOpenKeys}
+        onOpenChange={onOpenChange}
+        style={{
+          // width: "auto",
+          // height: "100%",
+          overflow: "auto",
+          top: 90,
+          bottom: 0,
+          insetInlineStart: 0,
+          scrollbarWidth: "thin",
+          scrollbarColor: "unset",
+        }}
+        className="sm:flex-col sm:flex hidden md:flex xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
+        overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
+        scroll-smooth xl:h-screen lg:h-screen min-h-[10px]"
+        items={items}
+      />
+    </div>
   );
 };
 

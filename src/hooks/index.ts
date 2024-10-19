@@ -27,3 +27,7 @@ export * from "./store/useUpdateStore";
 export * from "./record-transaction/useGetAnalysisWithTypeResult";
 export * from "./machine/useGetMachineByStore";
 export * from "./solution/useGetAllSolutionWithCondition";
+export * from "./record-transaction/useGetRecordForDashboard";
+export * from "./record-transaction/useGetRecordForDashboardTransfer";
+export * from "./record-transaction/useGetRecordOverall";
+export * from "./record-transaction/useGetSumRecordByResult";

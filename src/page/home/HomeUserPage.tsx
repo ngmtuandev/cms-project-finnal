@@ -512,7 +512,7 @@ const HomeUserPage = ({ navigate }: any) => {
           {/* Money */}
           <div>
             <Input
-              className="text-gray-600 text-pink_main"
+              className="font-semibold"
               width={"50%"}
               prefix="VNĐ"
               suffix={<img width={20} src={vn}></img>}

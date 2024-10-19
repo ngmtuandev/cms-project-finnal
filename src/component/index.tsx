@@ -7,3 +7,5 @@ export { default as HeaderMobile } from "./common/header/HeaderMobile";
 export { default as Loader } from "./common/loader/Loader";
 export { default as ModelCustom } from "./common/model/ModelCustom";
 export { default as ChartConfig } from "./chart/ChartConfig";
+export { default as RecordOverallDetail } from "./record/RecordOverallDetail";
+export { default as BoxRecord } from "./record/BoxRecord";

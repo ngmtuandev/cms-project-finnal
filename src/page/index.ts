@@ -12,6 +12,7 @@ export { default as CreateUserPage } from "./user/CreateUserPage";
 // Record Transaction
 export { default as RecordTransactionPage } from "./record-transaction/RecordTransactionPage";
 export { default as AnalysisTransactionWithTypeResult } from "./record-transaction/AnalysisTransactionWithTypeResult";
+export { default as OverallTransactionPage } from "./record-transaction/OverallTransactionPage";
 
 // Result
 export { default as ResultPage } from "./result/ResultPage";
@@ -35,3 +36,7 @@ export { default as SuccessPage } from "./success/SuccessPage";
 
 // Failure
 export { default as FailurePage } from "./failure/FailurePage";
+
+// Dashboard
+export { default as DashBoardPage } from "./dashboard/DashBoardPage";
+export { default as DashBoardTransferPage } from "./dashboard/DashBoardTransferPage";
