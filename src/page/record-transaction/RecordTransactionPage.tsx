@@ -275,6 +275,7 @@ const RecordTransactionPage = () => {
               <div className="flex flex-col">
                 <small className="text-gray-500 mb-1">Lọc theo ngày</small>
                 <RangePicker
+                  placeholder={['bắt đầu', 'kết thúc']}
                   style={{ width: 180 }}
                   onChange={(_, dateString) => {
                     setEndDate(dateString[1]);

@@ -6,7 +6,7 @@ const HeaderMobile = ({ userName }: { userName: string }) => {
   const handleLogout = useAuthStore((state) => state.logout);
 
   return (
-    <div className="w-screen h-16 flex justify-between px-[8px] items-center fixed   xl:px-[40px] lg:px-[40px] md:h-16 bg-pink-200">
+    <div className="w-screen h-16 flex justify-between px-[8px] bg-opacity-65 items-center fixed   xl:px-[40px] lg:px-[40px] md:h-16 bg-pink-200">
       <div>
         <img width={160} src={logo}></img>
       </div>

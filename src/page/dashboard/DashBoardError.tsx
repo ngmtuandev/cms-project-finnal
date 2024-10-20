@@ -59,12 +59,33 @@ const DashBoardError = () => {
   };
 
   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 12, 
+          },
+          maxRotation: 0, 
+          minRotation: 0,
+        },
+      },
       y: {
-        beginAtZero: true,
+        ticks: {
+          font: {
+            size: 14,
+          },
+        },
+        beginAtZero: true, 
       },
     },
   };
+  
 
   return (
     <div className=" w-[50%] flex flex-col justify-between bg-gray-100 p-[20px]">
@@ -75,6 +96,7 @@ const DashBoardError = () => {
         <div className="flex flex-col">
           <small className="text-gray-500 mb-1">Lọc theo ngày</small>
           <RangePicker
+            placeholder={['bắt đầu', 'kết thúc']}
             style={{ width: 240, height: 30 }}
             onChange={(_, dateString) => {
               setEndDate(dateString[1]);
@@ -95,7 +117,7 @@ const DashBoardError = () => {
           />
         </div>
       </div>
-      <div className="">
+      <div className="text-[4px]">
         <Bar height={50} width={"100%"} data={data} options={options} />
       </div>
     </div>

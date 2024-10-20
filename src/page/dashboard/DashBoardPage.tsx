@@ -31,10 +31,10 @@ const DashBoardPage = () => {
   const [isLoader, setIsLoader] = useState(false);
 
   const { sumRecordByResult } = useGetSumRecordByResult();
-  console.log("🚀 ~ DashBoardPage ~ sumRecordByResult:", sumRecordByResult);
 
   useEffect(() => {
     setIsLoader(true);
+    window.scrollTo(0, 0);
     setTimeout(() => {
       setIsLoader(false);
     }, 400);

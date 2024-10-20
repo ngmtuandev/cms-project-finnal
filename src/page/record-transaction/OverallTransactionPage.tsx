@@ -12,7 +12,6 @@ import Highlighter from "react-highlight-words";
 import { DatePicker } from "antd";
 import { useFilterRecordStore, useOverallRecordStore } from "../../store";
 import {
-  InputCustom,
   Loader,
   ModelCustom,
   RecordOverallDetail,
@@ -75,10 +74,6 @@ const OverallTransactionPage: React.FC = () => {
   ) => {
     confirm();
 
-    console.log("selectedKeys : ", selectedKeys[0]);
-    // setSearchText(() => selectedKeys[0]);
-    console.log("==== ", searchText);
-    console.log("data index : ", dataIndex);
     setSearchedColumn(dataIndex);
   };
 
@@ -87,9 +82,22 @@ const OverallTransactionPage: React.FC = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): TableColumnType<any> => ({
+
+  const [isLoader, setIsLoader] = useState(false);
+
+  useEffect(() => {
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 400);
+  }, []);
+
+  // global state
+  const { setEndDate, setStartDate } = useOverallRecordStore();
+
+  const { overallRecord } = useGetRecordOverall();
+
+  const getColumnSearchProps = (dataIndex: DataIndex): TableColumnType<DataType> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -102,21 +110,14 @@ const OverallTransactionPage: React.FC = () => {
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) => {
-            console.log("e", e.target.value);
-            setSelectedKeys(e.target.value ? [e.target.value] : []);
-          }}
-          onPressEnter={() =>
-            handleSearch(selectedKeys as string[], confirm, dataIndex)
-          }
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
           style={{ marginBottom: 8, display: "block" }}
         />
         <Space>
           <Button
             type="primary"
-            onClick={() =>
-              handleSearch(selectedKeys as string[], confirm, dataIndex)
-            }
+            onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
             icon={<SearchOutlined />}
             size="small"
             style={{ width: 90 }}
@@ -144,9 +145,7 @@ const OverallTransactionPage: React.FC = () => {
           <Button
             type="link"
             size="small"
-            onClick={() => {
-              close();
-            }}
+            onClick={() => close()}
           >
             close
           </Button>
@@ -158,7 +157,7 @@ const OverallTransactionPage: React.FC = () => {
     ),
     onFilter: (value, record) =>
       record[dataIndex]
-        .toString()
+        ?.toString()
         .toLowerCase()
         .includes((value as string).toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
@@ -178,44 +177,34 @@ const OverallTransactionPage: React.FC = () => {
         text
       ),
   });
-
-  const [isLoader, setIsLoader] = useState(false);
-
-  useEffect(() => {
-    setIsLoader(true);
-    setTimeout(() => {
-      setIsLoader(false);
-    }, 400);
-  }, []);
-
-  // global state
-  const { setEndDate, setStartDate } = useOverallRecordStore();
-
-  const { overallRecord } = useGetRecordOverall();
+  
+  
 
   const columns: TableColumnsType<any> = [
     {
-      title: "Thống kê",
+      title: <div className="py-[12px] uppercase text-pink_main text-xl">Tổng quan thống kê</div>,
       children: [
         {
-          title: "Cửa hàng",
+          title: <div className="p-[16px]">Cửa hàng</div>,
           dataIndex: "storeCode",
           key: "storeCode",
           width: 150,
-          sorter: (a, b) => a.storeCode - b.storeCode,
-          ...getColumnSearchProps("storeCode"),
+          // ...getColumnSearchProps("storeCode"),
+          // sorter: (a, b) => a.storeCode - b.storeCode,
+          // ...getColumnSearchProps("storeCode"),
         },
         {
-          title: <div className="p-0">Lỗi</div>,
+          title: <div 
+          className="header-no-padding-red">Lỗi</div>,
           children: [
             {
-              title: "Đã In Ảnh",
+              title: <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px] text-pink-300">Đã in ảnh</div>,
               dataIndex: "printer",
               key: "printer",
               width: 150,
             },
             {
-              title: "Chưa In Ảnh",
+              title: <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px] text-pink-300">Chưa in ảnh</div>,
               dataIndex: "notPrinter",
               key: "notPrinter",
               width: 150,
@@ -223,16 +212,16 @@ const OverallTransactionPage: React.FC = () => {
           ],
         },
         {
-          title: "Chuyển khoản",
+          title: <div className="header-no-padding-green">Chuyển khoản</div>,
           children: [
             {
-              title: "Tiền Mặt",
+              title: <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px] text-green-400">Tiền mặt</div>,
               dataIndex: "cash",
               key: "cash",
               width: 150,
             },
             {
-              title: "F1",
+              title: <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px] text-green-400">F1</div>,
               dataIndex: "f1",
               key: "f1",
               width: 150,
@@ -243,36 +232,48 @@ const OverallTransactionPage: React.FC = () => {
     },
   ];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
   const dataSource = overallRecord?.map((item: any) => ({
     storeCode: (
-      <span
+      <div
         onClick={() => {
           toggleModal(item);
         }}
-        className="uppercase text-sm font-semibold cursor-pointer hover:text-pink_main text-gray-800"
+        className="uppercase p-[16px] text-sm font-semibold cursor-pointer hover:text-pink_main text-gray-800"
       >
         {item?.storeCode}
-      </span>
+      </div>
     ),
     printer: (
-      <Tag className="text-sm" color="pink">
+      <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px]">
+        <Tag className="text-sm " color="pink">
         {formatCurrencyVND(item?.errorPrinter)}
       </Tag>
+      </div>
     ),
     notPrinter: (
-      <Tag className="text-sm" color="pink">
-        {formatCurrencyVND(item?.errorNotPrinter)}
-      </Tag>
+      <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px]">
+        <Tag className="text-sm" color="pink">
+          {formatCurrencyVND(item?.errorNotPrinter)}
+        </Tag>
+      </div>
     ),
     cash: (
-      <Tag className="text-sm" color="green">
-        {formatCurrencyVND(item?.transferCash)}
-      </Tag>
+      <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px]">
+        <Tag className="text-sm" color="green">
+          {formatCurrencyVND(item?.transferCash)}
+        </Tag>
+      </div>
     ),
     f1: (
-      <Tag className="text-sm" color="green">
-        {formatCurrencyVND(item?.transferF1)}
-      </Tag>
+      <div className="w-[100%] h-[100%] flex item-center justify-center py-[8px]">
+        <Tag className="text-sm" color="green">
+          {formatCurrencyVND(item?.transferF1)}
+        </Tag>
+      </div>
     ),
   }));
 
@@ -280,7 +281,6 @@ const OverallTransactionPage: React.FC = () => {
     <>
       {isLoader ? (
         <div className="-mt-16">
-          {" "}
           <Loader></Loader>
         </div>
       ) : (
@@ -289,6 +289,7 @@ const OverallTransactionPage: React.FC = () => {
             <div className="flex flex-col">
               <small className="text-gray-500 mb-1">Lọc theo ngày</small>
               <RangePicker
+                placeholder={['Bắt đầu', 'Kết thúc']}
                 style={{ width: 240 }}
                 onChange={(_, dateString) => {
                   setEndDate(dateString[1]);
@@ -301,6 +302,7 @@ const OverallTransactionPage: React.FC = () => {
             // className={styles.customTable}
             columns={columns}
             dataSource={dataSource}
+            className="custom-table-no-padding"
             bordered
             size="middle"
             // scroll={{ x: "calc(700px + 50%)", y: 47 * 5 }}

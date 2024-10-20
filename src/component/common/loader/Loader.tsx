@@ -1,9 +1,9 @@
 import { Triangle } from "react-loader-spinner";
 import { logo } from "../../../assets";
 
-const Loader = () => {
+const Loader = ({className}: any) => {
   return (
-    <div className="z-1000 w-screen xl:-ml-40 lg:-ml-40 overflow-hidden h-screen flex flex-col justify-center items-center">
+    <div className={className ? className : "z-1000 w-screen xl:-ml-40 overflow-hidden lg:-ml-40 md:ml-40 h-screen flex flex-col justify-center items-center"}>
       <img className="mb-4" src={logo}></img>
       <Triangle
         visible={true}

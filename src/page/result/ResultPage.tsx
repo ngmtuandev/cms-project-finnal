@@ -22,6 +22,10 @@ const ResultPage = () => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
   const handleDelete = (record: any) => {
     $deleteResult(record?.id, {
       onSuccess: (response) => {

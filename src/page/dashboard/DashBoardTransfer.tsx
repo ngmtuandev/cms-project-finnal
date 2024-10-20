@@ -73,6 +73,7 @@ const DashBoardTransferDetail = () => {
       <div className="flex flex-col mb-8">
         <small className="text-gray-500 mb-1">Lọc theo ngày</small>
         <RangePicker
+          placeholder={['bắt đầu', 'kết thúc']}
           style={{ width: 240 }}
           onChange={(_: any, dateString: any) => {
             setEndDate2(dateString[1]);

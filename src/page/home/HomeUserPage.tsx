@@ -357,14 +357,14 @@ const HomeUserPage = ({ navigate }: any) => {
   return (
     <>
       {contextHolder}
-      {isLoader && <Loader></Loader>}
-      <div className="w-screen pb-[40px] flex items-center flex-col min-h-screen bg-pink_light">
+      {isLoader ? <Loader className="z-1000 w-screen xl:-ml-0 overflow-hidden lg:-ml-40 md:ml-40 h-screen flex flex-col justify-center items-center"></Loader> : <>
+        <div className="w-screen pb-[40px] flex items-center flex-col min-h-screen bg-pink_light">
         <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
 
         {/* Upload Evident */}
         <div
           className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center 
-        text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px] mt-20"
+        text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px] mt-16"
         >
           <div className="w-[100%] text-6xl text-gray-500 h-[80%] py-[30px] flex justify-center items-center rounded-xl bg-white">
             {uploadedImageUrl ? (
@@ -514,7 +514,7 @@ const HomeUserPage = ({ navigate }: any) => {
             <Input
               className="font-semibold"
               width={"50%"}
-              prefix="VNĐ"
+              prefix={<span className="text-pink_main">VNĐ</span>}
               suffix={<img width={20} src={vn}></img>}
               value={moneyDisplay}
               onChange={(value: any) => handleChangeInputMoney(value)}
@@ -606,6 +606,8 @@ const HomeUserPage = ({ navigate }: any) => {
           <ButtomCustom isLoading={isLoading} text="Gửi yêu cầu"></ButtomCustom>
         </form>
       </ModelCustom>
+      </>}
+      
     </>
   );
 };

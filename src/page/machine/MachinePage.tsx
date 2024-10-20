@@ -5,7 +5,7 @@ import {
   useUpdateMachine,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table } from "antd";
+import { Popconfirm, Space, Table, Tag } from "antd";
 import {
   ButtomCustom,
   InputCustom,
@@ -32,6 +32,10 @@ const MachinePage = () => {
   const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $updateMachine } = useUpdateMachine();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   const {
     register,
@@ -109,6 +113,9 @@ const MachinePage = () => {
       title: "Mã Code (máy)",
       dataIndex: "codeMachine",
       key: "codeMachine",
+      render: (value) => {
+        return <Tag color="pink">{value}</Tag>
+      }
     },
     {
       title: "Cửa hàng",
@@ -179,7 +186,9 @@ const MachinePage = () => {
             }}
           />
           {isLoading && <Loading />}
-          <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+          <ModelCustom 
+          className="bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-[40%] md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%]"
+          isOpen={isModalOpen} onClose={toggleModal}>
             <form
               onSubmit={handleSubmitForm(handleUpdateMachine)}
               className="flex flex-col gap-4"

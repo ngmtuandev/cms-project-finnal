@@ -10,8 +10,8 @@ const Header = () => {
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
   return (
     <div
-      className="w-screen z-50 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
-        xl:items-center xl:flex flex justify-between items-center xl:justify-between md:h-20 min-h-16 lg:h-20 bg-gray-100 px-[4rem]"
+      className="w-screen z-50 bg-opacity-60 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
+        xl:items-center xl:flex flex justify-between items-center xl:justify-between md:h-20 min-h-16 lg:h-20 bg-pink_main px-[4rem]"
     >
       <div>
         <img
@@ -28,7 +28,7 @@ const Header = () => {
         </span>
         <span
           onClick={() => handleLogout()}
-          className="font-semibold hidden md:flex xl:flex lg:flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-pink_main cursor-pointer"
+          className="font-semibold hidden md:flex xl:flex lg:flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-white cursor-pointer"
         >
           Đăng xuất
           <LogoutOutlined />

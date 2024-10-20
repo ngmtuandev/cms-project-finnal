@@ -32,7 +32,6 @@ const RecordOverallDetail = () => {
     typeTransaction,
     setTypeTransaction,
   } = useFilterRecordStore();
-  console.log("🚀 ~ RecordOverallDetail ~ storeCode:", storeCode);
 
   const { isLoading, records } = useGetFilterRecord({
     page,
@@ -54,7 +53,6 @@ const RecordOverallDetail = () => {
   const [storeSelect, setStoreSelect] = useState([]);
   const [machineSelect, setMachineSelect] = useState([]);
   const [resultSelect, setResultSelect] = useState([]);
-  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     if (records) setRecordTransactionAll(records?.data);
@@ -102,30 +100,34 @@ const RecordOverallDetail = () => {
       key: "imageEvident",
       render: (url: string) => {
         return (
-          <Image src={url} width={"40%"} className="object-contain"></Image>
+          <Image src={url} width={"80%"} className="object-contain"></Image>
         );
       },
-      width: 300,
+      width: 200,
     },
-    {
-      title: "Kết quả",
-      dataIndex: ["typeTransaction"],
-      key: "typeTransaction",
-      render: (value: string) => {
-        if (value == RESULT.FAIL) return <Tag color="red">{value}</Tag>;
-        if (value == RESULT.NOT_PRINTE)
-          return <Tag color="yellow">{value}</Tag>;
-        if (value == RESULT.PENDING) return <Tag color="pink">{value}</Tag>;
-        if (value == RESULT.PRINTER) return <Tag color="purple">{value}</Tag>;
-        if (value == RESULT.SUCCESS) return <Tag color="green">{value}</Tag>;
-        if (value == RESULT.F1) return <Tag color="orange">{value}</Tag>;
-        if (value == RESULT.CASH) return <Tag color="gold">{value}</Tag>;
-      },
-    },
+    // {
+    //   title: "Kết quả",
+    //   dataIndex: ["typeTransaction"],
+    //   key: "typeTransaction",
+    //   render: (value: string) => {
+    //     if (value == RESULT.FAIL) return <Tag color="red">{value}</Tag>;
+    //     if (value == RESULT.NOT_PRINTE)
+    //       return <Tag color="yellow">{value}</Tag>;
+    //     if (value == RESULT.PENDING) return <Tag color="pink">{value}</Tag>;
+    //     if (value == RESULT.PRINTER) return <Tag color="purple">{value}</Tag>;
+    //     if (value == RESULT.SUCCESS) return <Tag color="green">{value}</Tag>;
+    //     if (value == RESULT.F1) return <Tag color="orange">{value}</Tag>;
+    //     if (value == RESULT.CASH) return <Tag color="gold">{value}</Tag>;
+    //   },
+    // },
     {
       title: "Giải pháp",
       dataIndex: ["solution", "name"],
+      sorter: (a, b) => a.solution.name.localeCompare(b.solution.name),
       key: "solution",
+      render: (value) => {
+        return <Tag color="pink">{value}</Tag>
+      }
     },
     {
       title: "Cửa hàng",
@@ -137,12 +139,13 @@ const RecordOverallDetail = () => {
       dataIndex: ["machine", "codeMachine"],
       key: "codeMachine",
       render: (value: string) => {
-        return <span className="font-bold">{value}</span>;
+        return <span className="text-pink_main">{value}</span>;
       },
     },
     {
       title: "Ngày record",
       dataIndex: "createdAt",
+      sorter: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       key: "createdAt",
       render: (value: string) => {
         return <span>{convertTimestampToDateTime(value)}</span>;
@@ -151,17 +154,13 @@ const RecordOverallDetail = () => {
     {
       title: "Số tiền",
       dataIndex: "money",
+      sorter: (a, b) => parseFloat(a.money) - parseFloat(b.money),
       key: "money",
       render: (value: string) => {
-        return <span>{formatCurrencyVND(value)}</span>;
+        return <span className="font-semibold">{formatCurrencyVND(value)}</span>;
       },
     },
   ];
-
-  // useEffect(() => {
-  //   setMachineCode(undefined);
-  //   setTypeResult(undefined);
-  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -171,24 +170,13 @@ const RecordOverallDetail = () => {
     setPage(0);
   }, [storeCode, machineCode, endDate, startDate]);
 
-  useEffect(() => {
-    setIsLoader(true);
-    setTimeout(() => {
-      setIsLoader(false);
-    }, 1000);
-  }, []);
 
   return (
     <>
-      {isLoader ? (
-        <div className="-mt-40">
-          <Loader></Loader>
-        </div>
-      ) : (
         <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
           <div
-            className="xl:mb-5 -mb-20 xl:-mt-10 lg:-mt-9 md:-mt-8 sm:mt-0 w-[85%] lg:shadow-lg xl:shadow-lg shadow-none border lg:border-gray-200 xl:border-gray-200 border-none 
-            px-[12px] rounded-2xl xl:bg-white lg:bg-white py-[24px] bg-none xl:fixed lg:fixed fixed z-50"
+            className=" w-[100%] lg:shadow-sm xl:shadow-sm shadow-none border lg:border-gray-200 xl:border-gray-200 
+            border-none px-[12px] rounded-2xl xl:bg-white lg:bg-white py-[24px] bg-none"
           >
             <Space wrap className="gap-10">
               <div className="flex flex-col">
@@ -198,7 +186,7 @@ const RecordOverallDetail = () => {
                     setStoreCode(value);
                   }}
                   defaultValue={storeCode}
-                  style={{ width: 180 }}
+                  style={{ width: 140 }}
                   allowClear
                   options={storeSelect}
                   placeholder="Lọc theo cửa hàng"
@@ -210,7 +198,7 @@ const RecordOverallDetail = () => {
                   onChange={(value: string) => {
                     setMachineCode(value);
                   }}
-                  style={{ width: 180 }}
+                  style={{ width: 140 }}
                   allowClear
                   options={machineSelect}
                   placeholder="Lọc theo mã máy"
@@ -222,7 +210,7 @@ const RecordOverallDetail = () => {
                   onChange={(value: string) => {
                     setTypeResult(value);
                   }}
-                  style={{ width: 180 }}
+                  style={{ width: 140 }}
                   allowClear
                   options={resultSelect}
                   placeholder="Lọc theo loại kết quả"
@@ -234,7 +222,7 @@ const RecordOverallDetail = () => {
                   onChange={(value: string) => {
                     setTypeTransaction(value);
                   }}
-                  style={{ width: 180 }}
+                  style={{ width: 140 }}
                   allowClear
                   defaultValue={"ERROR"}
                   options={[
@@ -253,7 +241,8 @@ const RecordOverallDetail = () => {
               <div className="flex flex-col">
                 <small className="text-gray-500 mb-1">Lọc theo ngày</small>
                 <RangePicker
-                  style={{ width: 180 }}
+                  placeholder={['bắt đầu', 'kết thúc']}
+                  style={{ width: 220 }}
                   onChange={(_, dateString) => {
                     setEndDate(dateString[1]);
                     setStartDate(dateString[0]);
@@ -263,11 +252,15 @@ const RecordOverallDetail = () => {
             </Space>
           </div>
           <Table
-            style={{ marginTop: 80 }}
+            className="custom-table"
+            style={{
+              marginTop: 20,
+            }}
             columns={columns}
             dataSource={recordTransactionAll}
             loading={isLoading}
             showHeader={true}
+            scroll={{ y: 340 }}
             pagination={{
               current: +page + 1,
               pageSize: +size,
@@ -279,7 +272,6 @@ const RecordOverallDetail = () => {
           />
           {isLoading && <Loading />}
         </div>
-      )}
     </>
   );
 };

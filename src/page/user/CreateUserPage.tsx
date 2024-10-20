@@ -13,6 +13,10 @@ const CreateUserPage = () => {
   const { stores } = useGetAllStore();
 
   const [messageApi, contextHolder] = message.useMessage();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   // state
   const [rolesSelect, setRoleSelect] = useState([]);

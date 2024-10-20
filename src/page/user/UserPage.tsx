@@ -1,7 +1,7 @@
 import { useDeleteUser, useGetAllUser } from "../../hooks";
 import { DeleteOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table } from "antd";
+import { Popconfirm, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../utils/constant";
 import { Loader, Loading } from "../../component";
@@ -21,6 +21,10 @@ const UserPage = () => {
   const [isLoader, setIsLoader] = useState(false);
 
   const { mutate: $deleteUser } = useDeleteUser();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -73,13 +77,13 @@ const UserPage = () => {
       key: "status",
       render: (status: boolean) =>
         status ? (
-          <span className="xl:bg-green_main xl:py-[4px] xl:px-[6px] xl:text-white text-green_main font-semibold rounded-2xl">
+          <Tag color="green">
             Hoạt động
-          </span>
+          </Tag>
         ) : (
-          <span className="xl:bg-red_main xl:px-[6px] xl:py-[4px] xl:text-white text-red_main font-semibold rounded-2xl">
+          <Tag color="green">
             Ngừng hoạt động
-          </span>
+          </Tag>
         ),
     },
     {
