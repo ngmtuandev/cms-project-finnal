@@ -22,7 +22,6 @@ const LoginPage = ({ navigate }: any) => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    control,
     // reset,
   } = useForm();
 

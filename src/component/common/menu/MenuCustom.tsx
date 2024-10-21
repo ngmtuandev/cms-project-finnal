@@ -158,8 +158,6 @@ const MenuCustom = ({ navigate }: any) => {
     }
   };
 
-  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
-
   // reponsive
   // const isMobile = window.innerWidth < 768;
 

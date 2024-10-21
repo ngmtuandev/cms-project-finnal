@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
 import type { TableColumnsType } from "antd";
 import { useGetRecordOverall } from "../../hooks";
@@ -32,7 +32,6 @@ const OverallTransactionPage: React.FC = () => {
   const { setStoreCode } = useFilterRecordStore();
 
   const toggleModal = (record: any) => {
-    console.log("record : ", record);
     setStoreCode(record?.storeCode);
     setIsModalOpen(!isModalOpen);
   };
@@ -64,9 +63,6 @@ const OverallTransactionPage: React.FC = () => {
           dataIndex: "storeCode",
           key: "storeCode",
           width: 150,
-          // ...getColumnSearchProps("storeCode"),
-          // sorter: (a, b) => a.storeCode - b.storeCode,
-          // ...getColumnSearchProps("storeCode"),
         },
         {
           title: <div className="header-no-padding-red">Lỗi</div>,
