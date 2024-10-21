@@ -13,7 +13,7 @@ import { Badge, Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
 import { useGetAllSolutionWithCondition } from "../../../hooks";
-import { useConditionSolutionStore } from "../../../store";
+import { useCommonStore, useConditionSolutionStore } from "../../../store";
 
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
@@ -161,36 +161,77 @@ const MenuCustom = ({ navigate }: any) => {
   // reponsive
   // const isMobile = window.innerWidth < 768;
 
+  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [isOpenMenuMobile]);
+
   return (
-    <div className="bg-pink_light">
-      <Menu
-        onClick={({ key }) => {
-          if (key === "signout") {
-            return;
-          } else {
-            navigate(key);
-          }
-        }}
-        mode="inline"
-        defaultSelectedKeys={["231"]}
-        openKeys={stateOpenKeys}
-        onOpenChange={onOpenChange}
-        style={{
-          // width: "auto",
-          // height: "100%",
-          overflow: "auto",
-          top: 90,
-          bottom: 0,
-          insetInlineStart: 0,
-          scrollbarWidth: "thin",
-          scrollbarColor: "unset",
-        }}
-        className="sm:flex-col sm:flex hidden md:flex xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
+    <>
+      {isOpenMenuMobile ? (
+        <div className="bg-pink_light">
+          <Menu
+            onClick={({ key }) => {
+              if (key === "signout") {
+                return;
+              } else {
+                navigate(key);
+                setIsOpenMenuMobile(false);
+              }
+            }}
+            mode="inline"
+            defaultSelectedKeys={["231"]}
+            openKeys={stateOpenKeys}
+            onOpenChange={onOpenChange}
+            style={{
+              // width: "auto",
+              // height: "100%",
+              overflow: "auto",
+              top: 90,
+              bottom: 0,
+              insetInlineStart: 0,
+              scrollbarWidth: "thin",
+              scrollbarColor: "unset",
+            }}
+            className="sm:flex-col md:flex xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
         overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
         scroll-smooth xl:h-screen lg:h-screen h-screen"
-        items={items}
-      />
-    </div>
+            items={items}
+          />
+        </div>
+      ) : (
+        <div className="bg-pink_light">
+          <Menu
+            onClick={({ key }) => {
+              if (key === "signout") {
+                return;
+              } else {
+                navigate(key);
+              }
+            }}
+            mode="inline"
+            defaultSelectedKeys={["231"]}
+            openKeys={stateOpenKeys}
+            onOpenChange={onOpenChange}
+            style={{
+              // width: "auto",
+              // height: "100%",
+              overflow: "auto",
+              top: 90,
+              bottom: 0,
+              insetInlineStart: 0,
+              scrollbarWidth: "thin",
+              scrollbarColor: "unset",
+            }}
+            className="sm:flex-col md:flex hidden xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
+        overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
+        scroll-smooth xl:h-screen lg:h-screen h-screen"
+            items={items}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

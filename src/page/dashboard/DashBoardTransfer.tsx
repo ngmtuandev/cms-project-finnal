@@ -66,14 +66,14 @@ const DashBoardTransferDetail = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-[50%] bg-gray-100 p-[20px]">
+    <div className="flex w-[100%] xl:w-[50%] md:w-[50%] lg:w-[50%] flex-col justify-between bg-gray-100 p-[20px]">
       <h3 className="uppercase mb-3 text-pink_main font-semibold">
         Thống kê chuyển khoản
       </h3>
       <div className="flex flex-col mb-8">
         <small className="text-gray-500 mb-1">Lọc theo ngày</small>
         <RangePicker
-          placeholder={['bắt đầu', 'kết thúc']}
+          placeholder={["bắt đầu", "kết thúc"]}
           style={{ width: 240 }}
           onChange={(_: any, dateString: any) => {
             setEndDate2(dateString[1]);

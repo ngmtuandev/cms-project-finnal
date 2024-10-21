@@ -48,7 +48,7 @@ const DashBoardPage = () => {
         </div>
       ) : (
         <div>
-          <div className="flex gap-8 mb-4 mt-6 grid-cols-4">
+          <div className="hidden xl:flex md:flex lg:flex gap-8 mb-4 mt-6 grid-cols-4">
             {sumRecordByResult?.map((item: any) => {
               if (item?.typeResult === RESULT.ERROR) {
                 return (
@@ -164,7 +164,7 @@ const DashBoardPage = () => {
               </div>
             </BoxRecord> */}
           </div>
-          <div className="flex gap-8 justify-between">
+          <div className="flex flex-col xl:flex-row md:flex-row lg:flex-row gap-8 justify-between">
             <DashBoardError></DashBoardError>
             <DashBoardTransferDetail></DashBoardTransferDetail>
           </div>

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllUserApi } from "../../services";
 
-export const useGetAllUser = () => {
+export const useGetAllUser = (pagination: any) => {
   const { data, isLoading } = useQuery({
     queryKey: ["all-user"],
-    queryFn: () => getAllUserApi(),
+    queryFn: () => getAllUserApi(pagination),
     enabled: true,
   });
   return {

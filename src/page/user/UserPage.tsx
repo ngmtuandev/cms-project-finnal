@@ -9,13 +9,19 @@ import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
+import { usePaginationStore } from "../../store";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
 const UserPage = () => {
-  const { info, isLoading } = useGetAllUser();
+  const { page, size } = usePaginationStore();
+
+  const { info, isLoading } = useGetAllUser({
+    page,
+    size,
+  });
 
   const [data, setData] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -24,7 +30,7 @@ const UserPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -77,13 +83,9 @@ const UserPage = () => {
       key: "status",
       render: (status: boolean) =>
         status ? (
-          <Tag color="green">
-            Hoạt động
-          </Tag>
+          <Tag color="green">Hoạt động</Tag>
         ) : (
-          <Tag color="green">
-            Ngừng hoạt động
-          </Tag>
+          <Tag color="green">Ngừng hoạt động</Tag>
         ),
     },
     {
@@ -157,8 +159,7 @@ const UserPage = () => {
             dataSource={data}
             loading={isLoading}
             pagination={{
-              pageSize: 8,
-              total: 300,
+              pageSize: 10,
             }}
           />
           {isLoading && <Loading />}

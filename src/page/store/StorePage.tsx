@@ -34,7 +34,7 @@ const StorePage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   const {
     register,
@@ -119,8 +119,8 @@ const StorePage = () => {
       dataIndex: "storeCode",
       key: "storeCode",
       render: (value) => {
-        return <Tag color="pink">{value}</Tag>
-      }
+        return <Tag color="pink">{value}</Tag>;
+      },
     },
     {
       title: "Hành động",
@@ -177,13 +177,14 @@ const StorePage = () => {
             loading={isLoading}
             pagination={{
               pageSize: 10,
-              total: setStoreAll?.length,
             }}
           />
           {isLoading && <Loading />}
-          <ModelCustom 
-          className="bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-[40%] md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%]"
-          isOpen={isModalOpen} onClose={toggleModal}>
+          <ModelCustom
+            className="bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-[40%] md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%]"
+            isOpen={isModalOpen}
+            onClose={toggleModal}
+          >
             <form
               onSubmit={handleSubmitForm(handleUpdateStore)}
               className="flex flex-col gap-4"

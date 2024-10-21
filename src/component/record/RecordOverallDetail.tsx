@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-  useGetAllMachine,
   useGetAllResult,
   useGetAllStore,
   useGetFilterRecord,
+  useGetMachineByStore,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Space, Table, DatePicker, Select, Image, Tag } from "antd";
@@ -44,7 +44,7 @@ const RecordOverallDetail = () => {
   });
 
   const { stores } = useGetAllStore();
-  const { machines } = useGetAllMachine();
+  const { machinesOfStore } = useGetMachineByStore(storeCode);
   const { results } = useGetAllResult();
 
   // state
@@ -66,8 +66,8 @@ const RecordOverallDetail = () => {
       setStoreSelect(storeConvert);
     }
 
-    if (machines) {
-      let machineConvert = machines?.map((item: any) => {
+    if (machinesOfStore) {
+      let machineConvert = machinesOfStore?.map((item: any) => {
         return {
           label: item?.codeMachine,
           value: item?.codeMachine,
@@ -85,7 +85,7 @@ const RecordOverallDetail = () => {
       });
       setResultSelect(resultConvert);
     }
-  }, [records, page, machines, typeResult]);
+  }, [records, page, machinesOfStore, typeResult]);
 
   const columns: TableColumnsType<any> = [
     {
@@ -104,21 +104,6 @@ const RecordOverallDetail = () => {
       },
       width: 200,
     },
-    // {
-    //   title: "Kết quả",
-    //   dataIndex: ["typeTransaction"],
-    //   key: "typeTransaction",
-    //   render: (value: string) => {
-    //     if (value == RESULT.FAIL) return <Tag color="red">{value}</Tag>;
-    //     if (value == RESULT.NOT_PRINTE)
-    //       return <Tag color="yellow">{value}</Tag>;
-    //     if (value == RESULT.PENDING) return <Tag color="pink">{value}</Tag>;
-    //     if (value == RESULT.PRINTER) return <Tag color="purple">{value}</Tag>;
-    //     if (value == RESULT.SUCCESS) return <Tag color="green">{value}</Tag>;
-    //     if (value == RESULT.F1) return <Tag color="orange">{value}</Tag>;
-    //     if (value == RESULT.CASH) return <Tag color="gold">{value}</Tag>;
-    //   },
-    // },
     {
       title: "Giải pháp",
       dataIndex: ["solution", "name"],
@@ -174,10 +159,10 @@ const RecordOverallDetail = () => {
 
   return (
     <>
-      <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
+      <div className="h-auto overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
         <div
           className=" w-[100%] lg:shadow-sm xl:shadow-sm shadow-none border lg:border-gray-200 xl:border-gray-200 
-            border-none px-[12px] rounded-2xl xl:bg-white lg:bg-white py-[24px] bg-none"
+            border-none px-[12px] rounded-2xl xl:bg-white lg:bg-white pb-[24px] bg-none"
         >
           <Space wrap className="gap-10">
             <div className="flex flex-col">
@@ -186,6 +171,7 @@ const RecordOverallDetail = () => {
                 onChange={(value: string) => {
                   setStoreCode(value);
                 }}
+                disabled
                 defaultValue={storeCode}
                 style={{ width: 140 }}
                 allowClear

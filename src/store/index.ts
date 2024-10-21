@@ -7,6 +7,7 @@ import { useDashboardRecordStore } from "./dashboardRecordStore/dashboardRecordS
 import { useOverallRecordStore } from "./overallRecordStore/overallRecordStore";
 import { useDashboardRecordTransferStore } from "./dashboardRecordStore/dashboardRecordTransferStore";
 import { useRecordByResultStore } from "./recordByResult/recordByResultStore";
+import { usePaginationStore } from "./paginationStore/paginationStore";
 
 export {
   useCommonStore,
@@ -18,4 +19,5 @@ export {
   useOverallRecordStore,
   useDashboardRecordTransferStore,
   useRecordByResultStore,
+  usePaginationStore,
 };

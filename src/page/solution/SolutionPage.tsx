@@ -41,7 +41,7 @@ const SolutionPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   // store zustand
   const { setIsActive } = useConditionSolutionStore();
@@ -194,9 +194,11 @@ const SolutionPage = () => {
             />
             {isLoading && <Loading />}
           </div>
-          <ModelCustom 
-          className="bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-[40%] md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%]"
-          isOpen={isModalOpen} onClose={toggleModal}>
+          <ModelCustom
+            className="bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-[40%] md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%]"
+            isOpen={isModalOpen}
+            onClose={toggleModal}
+          >
             <form
               onSubmit={handleSubmitForm(handleUpdateSolution)}
               className="flex flex-col gap-4"
