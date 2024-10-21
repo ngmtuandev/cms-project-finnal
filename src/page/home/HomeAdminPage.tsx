@@ -18,6 +18,8 @@ const HomeAdminPage = ({ navigate }: any) => {
       messageApi.warning(MESSAGE.NOT_AUTHORIZATION);
       handleLogout();
       navigate(path.SIGN_IN);
+    } else {
+      navigate(path.DASH_BOARD);
     }
   }, [infoCurrent]);
   return (

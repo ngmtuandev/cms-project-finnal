@@ -22,7 +22,6 @@ const CreateSolutionPage = () => {
   } = useForm();
 
   const handleCreateSolution = (value: any) => {
-    console.log("🚀 ~ handleCreateSolution ~ value:", value);
     const { name, description } = value;
     if (!name || !description) {
       toast.warn(MESSAGE.PLEASE_FILL_INPUT);

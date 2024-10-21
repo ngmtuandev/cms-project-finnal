@@ -3,7 +3,7 @@ const ModelCustom = ({
   onClose,
   children,
   isShowHeader = true,
-  className
+  className,
 }: any) => {
   if (!isOpen) return null;
 
@@ -13,7 +13,11 @@ const ModelCustom = ({
       onClick={onClose}
     >
       <div
-        className={className ? className : "bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-full max-w-sm mx-4 md:mx-0 md:w-1/2 md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%] xl:lg:min-w-[90%] md:min-w-[90%] lg:min-w-[90%]"}
+        className={
+          className
+            ? className
+            : "bg-white rounded-lg shadow-lg px-[2%] py-[2%] w-full max-w-sm mx-4 md:mx-0 md:w-1/2 md:max-h-[90%] lg:max-h-[90%] xl:max-h-[90%] xl:lg:min-w-[90%] md:min-w-[90%] lg:min-w-[90%]"
+        }
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}

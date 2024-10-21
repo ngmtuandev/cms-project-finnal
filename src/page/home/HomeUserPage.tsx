@@ -142,7 +142,7 @@ const HomeUserPage = ({ navigate }: any) => {
     formData.append("image", file);
 
     try {
-      setIsLoader(true);
+      // setIsLoader(true);
       const response = await fetch(URL_UPLOAD_IMAGE.URL, {
         method: "POST",
         body: formData,
@@ -152,13 +152,13 @@ const HomeUserPage = ({ navigate }: any) => {
         const data = await response.json();
         setUploadedImageUrl(data?.data?.url);
         messageApi.success(MESSAGE.UPLOAD_IMAGE_SUCCESS);
-        setIsLoader(false);
+        // setIsLoader(false);
       } else {
         setIsLoader(false);
         messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
       }
     } catch (err) {
-      setIsLoader(false);
+      // setIsLoader(false);
       messageApi.error(MESSAGE.UPLOAD_IMAGE_FAILURE);
     }
   };
@@ -357,200 +357,203 @@ const HomeUserPage = ({ navigate }: any) => {
   return (
     <>
       {contextHolder}
-      {isLoader ? <Loader className="z-1000 w-screen xl:-ml-0 overflow-hidden lg:-ml-40 md:ml-40 h-screen flex flex-col justify-center items-center"></Loader> : <>
-        <div className="w-screen pb-[40px] flex items-center flex-col min-h-screen bg-pink_light">
-        <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
+      {isLoader ? (
+        <Loader className="z-1000 w-screen xl:-ml-0 overflow-hidden lg:-ml-40 md:ml-40 h-screen flex flex-col justify-center items-center"></Loader>
+      ) : (
+        <>
+          <div className="w-screen pb-[40px] flex items-center flex-col min-h-screen bg-pink_light">
+            <HeaderMobile userName={infoCurrent?.userName}></HeaderMobile>
 
-        {/* Upload Evident */}
-        <div
-          className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center 
+            {/* Upload Evident */}
+            <div
+              className="md:w-[100%] lg:w-[40%] w-[100%] xl:w-[50%] flex flex-col justify-center items-center 
         text-center lg:h-[60%] xl:h-[60%] h-[40%] p-[20px] mt-16"
-        >
-          <div className="w-[100%] text-6xl text-gray-500 h-[80%] py-[30px] flex justify-center items-center rounded-xl bg-white">
-            {uploadedImageUrl ? (
-              <img
-                src={uploadedImageUrl}
-                alt="image-evident"
-                className="max-w-full max-h-full object-contain"
-              />
-            ) : isCameraOpen ? (
-              <div>
-                <Webcam
-                  audio={false}
-                  ref={webcamRef}
-                  screenshotFormat="image/jpeg"
-                  videoConstraints={videoConstraints}
-                />{" "}
-                <div className="w-full mt-5 md:w-1/2 flex justify-center items-center flex-wrap">
-                  {image ? (
-                    <button
-                      className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                      onClick={retake}
-                    >
-                      Chụp lại
-                    </button>
-                  ) : (
-                    <>
-                      <button
-                        className="bg-pink_main text-white text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                        onClick={switchCamera}
-                      >
-                        Lật máy ảnh
-                      </button>
-                      <button
-                        className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
-                        onClick={capture}
-                      >
-                        Chụp
-                      </button>
-                    </>
-                  )}
+            >
+              <div className="w-[100%] text-6xl text-gray-500 h-[80%] py-[30px] flex justify-center items-center rounded-xl bg-white">
+                {uploadedImageUrl ? (
+                  <img
+                    src={uploadedImageUrl}
+                    alt="image-evident"
+                    className="max-w-full max-h-full object-contain"
+                  />
+                ) : isCameraOpen ? (
+                  <div>
+                    <Webcam
+                      audio={false}
+                      ref={webcamRef}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={videoConstraints}
+                    />{" "}
+                    <div className="w-full mt-5 md:w-1/2 flex justify-center items-center flex-wrap">
+                      {image ? (
+                        <button
+                          className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                          onClick={retake}
+                        >
+                          Chụp lại
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            className="bg-pink_main text-white text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                            onClick={switchCamera}
+                          >
+                            Lật máy ảnh
+                          </button>
+                          <button
+                            className="bg-pink_light text-gray-900 text-sm py-[8px] px-[20px] rounded me-2 mb-2"
+                            onClick={capture}
+                          >
+                            Chụp
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center items-center">
+                    <img
+                      src={success}
+                      alt="image-evident"
+                      className="w-[30%] md:w-[40%] xl:w-[40%] lg:w-[40%] object-contain"
+                    />
+                    <span className="text-pink_main text-sm md:text-xl xl:text-xl lg:text-xl">
+                      Tải hình ảnh giao dịch!
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Test open camera */}
+              <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
+                <div className="w-full">
+                  <div className="flex justify-center mt-2"></div>
                 </div>
               </div>
-            ) : (
-              <div className="flex flex-col justify-center items-center">
-                <img
-                  src={success}
-                  alt="image-evident"
-                  className="w-[30%] md:w-[40%] xl:w-[40%] lg:w-[40%] object-contain"
-                />
-                <span className="text-pink_main text-sm md:text-xl xl:text-xl lg:text-xl">
-                  Tải hình ảnh giao dịch!
-                </span>
+
+              <div className="flex justify-center gap-4 items-center my-4">
+                <div>
+                  <Upload
+                    customRequest={customUpload}
+                    onChange={handleChange}
+                    showUploadList={false}
+                  >
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                  </Upload>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => setIsCameraOpen(true)}
+                    icon={<CameraOutlined />}
+                  >
+                    Chụp
+                  </Button>
+                </div>
               </div>
-            )}
-          </div>
-
-          {/* Test open camera */}
-          <div className="flex flex-col items-center pt-3 mx-auto max-w-6xl">
-            <div className="w-full">
-              <div className="flex justify-center mt-2"></div>
             </div>
-          </div>
 
-          <div className="flex justify-center gap-4 items-center my-4">
-            <div>
-              <Upload
-                customRequest={customUpload}
-                onChange={handleChange}
-                showUploadList={false}
-              >
-                <Button icon={<UploadOutlined />}>Upload</Button>
-              </Upload>
-            </div>
-            <div>
-              <Button
-                onClick={() => setIsCameraOpen(true)}
-                icon={<CameraOutlined />}
-              >
-                Chụp
-              </Button>
-            </div>
-          </div>
-        </div>
+            {/* Select Component */}
+            <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] flex gap-4 flex-col">
+              {/* type transaction */}
+              <div className="flex gap-10">
+                <Checkbox
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "normal",
+                    color: "gray",
+                    marginLeft: 10,
+                  }}
+                  value={"ERROR"}
+                  checked={typeTransaction == "ERROR"}
+                  onChange={() => setTypeTransaction("ERROR")}
+                  className="custom-checkbox"
+                >
+                  Giao dịch lỗi
+                </Checkbox>
+                <Checkbox
+                  style={{ fontSize: 16, fontWeight: "normal", color: "gray" }}
+                  value={"TRANSFER"}
+                  checked={typeTransaction == "TRANSFER"}
+                  onChange={() => setTypeTransaction("TRANSFER")}
+                  className="custom-checkbox"
+                >
+                  Chuyển khoản
+                </Checkbox>
+              </div>
+              {/* solution */}
+              <div>
+                <Select
+                  onChange={(value: any) => setSolution(value)}
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Chọn giải pháp"
+                  optionFilterProp="label"
+                  filterSort={({ optionA, optionB }: any) =>
+                    (optionA?.label ?? "")
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? "").toLowerCase())
+                  }
+                  options={solutionSelect}
+                />
+              </div>
+              {/* Machine */}
+              <div>
+                <Select
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Chọn mã máy"
+                  optionFilterProp="label"
+                  filterSort={({ optionA, optionB }: any) =>
+                    (optionA?.label ?? "")
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? "").toLowerCase())
+                  }
+                  onChange={(value: any) => setMachine(value)}
+                  options={machineSelect}
+                />
+              </div>
+              {/* Money */}
+              <div>
+                <Input
+                  className="font-semibold"
+                  width={"50%"}
+                  prefix={<span className="text-pink_main">VNĐ</span>}
+                  suffix={<img width={20} src={vn}></img>}
+                  value={moneyDisplay}
+                  onChange={(value: any) => handleChangeInputMoney(value)}
+                />
+              </div>
+              {/* result */}
+              <div>
+                <Select
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Chọn kết quả giao dịch"
+                  optionFilterProp="label"
+                  filterSort={({ optionA, optionB }: any) =>
+                    (optionA?.label ?? "")
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? "").toLowerCase())
+                  }
+                  onChange={(value: any) => setResult(value)}
+                  options={resultSelect}
+                />
+              </div>
+              {/* Status */}
+              <div>
+                <Select
+                  placeholder="Trạng thái"
+                  style={{ width: "100%" }}
+                  options={[
+                    { value: false, label: "Thất bại" },
+                    { value: true, label: "Thành công" },
+                  ]}
+                  onChange={(value: any) => setIsSuccess(value)}
+                />
+              </div>
 
-        {/* Select Component */}
-        <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] flex gap-4 flex-col">
-          {/* type transaction */}
-          <div className="flex gap-10">
-            <Checkbox
-              style={{
-                fontSize: 16,
-                fontWeight: "normal",
-                color: "gray",
-                marginLeft: 10,
-              }}
-              value={"ERROR"}
-              checked={typeTransaction == "ERROR"}
-              onChange={() => setTypeTransaction("ERROR")}
-              className="custom-checkbox"
-            >
-              Giao dịch lỗi
-            </Checkbox>
-            <Checkbox
-              style={{ fontSize: 16, fontWeight: "normal", color: "gray" }}
-              value={"TRANSFER"}
-              checked={typeTransaction == "TRANSFER"}
-              onChange={() => setTypeTransaction("TRANSFER")}
-              className="custom-checkbox"
-            >
-              Chuyển khoản
-            </Checkbox>
-          </div>
-          {/* solution */}
-          <div>
-            <Select
-              onChange={(value: any) => setSolution(value)}
-              showSearch
-              style={{ width: "100%" }}
-              placeholder="Chọn giải pháp"
-              optionFilterProp="label"
-              filterSort={({ optionA, optionB }: any) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={solutionSelect}
-            />
-          </div>
-          {/* Machine */}
-          <div>
-            <Select
-              showSearch
-              style={{ width: "100%" }}
-              placeholder="Chọn mã máy"
-              optionFilterProp="label"
-              filterSort={({ optionA, optionB }: any) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              onChange={(value: any) => setMachine(value)}
-              options={machineSelect}
-            />
-          </div>
-          {/* Money */}
-          <div>
-            <Input
-              className="font-semibold"
-              width={"50%"}
-              prefix={<span className="text-pink_main">VNĐ</span>}
-              suffix={<img width={20} src={vn}></img>}
-              value={moneyDisplay}
-              onChange={(value: any) => handleChangeInputMoney(value)}
-            />
-          </div>
-          {/* result */}
-          <div>
-            <Select
-              showSearch
-              style={{ width: "100%" }}
-              placeholder="Chọn kết quả giao dịch"
-              optionFilterProp="label"
-              filterSort={({ optionA, optionB }: any) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              onChange={(value: any) => setResult(value)}
-              options={resultSelect}
-            />
-          </div>
-          {/* Status */}
-          <div>
-            <Select
-              placeholder="Trạng thái"
-              style={{ width: "100%" }}
-              options={[
-                { value: false, label: "Thất bại" },
-                { value: true, label: "Thành công" },
-              ]}
-              onChange={(value: any) => setIsSuccess(value)}
-            />
-          </div>
-
-          {/* Type transaction */}
-          {/* <div>
+              {/* Type transaction */}
+              {/* <div>
             <Select
               placeholder="Chọn loại giao dịch"
               style={{ width: "100%" }}
@@ -561,53 +564,56 @@ const HomeUserPage = ({ navigate }: any) => {
               onChange={(value: any) => setTypeTransaction(value)}
             />
           </div> */}
-        </div>
+            </div>
 
-        {/* Button */}
-        <div className="flex items-center justify-center">
-          <div className="px-[20px] mt-4">
-            <button
-              disabled={isSubmitting}
-              onClick={handleUploadRecord}
-              className="bg-pink_main px-[2rem] rounded-3xl text-white font-semibold flex justify-center items-center py-[0.4rem]"
-            >
-              Lưu
-            </button>
+            {/* Button */}
+            <div className="flex items-center justify-center">
+              <div className="px-[20px] mt-4">
+                <button
+                  disabled={isSubmitting}
+                  onClick={handleUploadRecord}
+                  className="bg-pink_main px-[2rem] rounded-3xl text-white font-semibold flex justify-center items-center py-[0.4rem]"
+                >
+                  Lưu
+                </button>
+              </div>
+              <div className="px-[20px] mt-4">
+                <button
+                  onClick={toggleModal}
+                  className="text-gray-500 text-sm rounded-3xl font-semibold flex justify-center items-center"
+                >
+                  Tạo giải pháp
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="px-[20px] mt-4">
-            <button
-              onClick={toggleModal}
-              className="text-gray-500 text-sm rounded-3xl font-semibold flex justify-center items-center"
+          <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
+            <form
+              onSubmit={handleSubmitForm(handleCreateSolution)}
+              className="flex flex-col gap-4"
             >
-              Tạo giải pháp
-            </button>
-          </div>
-        </div>
-      </div>
-      <ModelCustom isOpen={isModalOpen} onClose={toggleModal}>
-        <form
-          onSubmit={handleSubmitForm(handleCreateSolution)}
-          className="flex flex-col gap-4"
-        >
-          <InputCustom
-            register={register}
-            id="name"
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập tên của giải pháp" }}
-            label="Tên giải pháp"
-          ></InputCustom>
-          <InputCustom
-            register={register}
-            id="description"
-            errors={formErrors}
-            validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
-            label="Mô tả giải pháp"
-          ></InputCustom>
-          <ButtomCustom isLoading={isLoading} text="Gửi yêu cầu"></ButtomCustom>
-        </form>
-      </ModelCustom>
-      </>}
-      
+              <InputCustom
+                register={register}
+                id="name"
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập tên của giải pháp" }}
+                label="Tên giải pháp"
+              ></InputCustom>
+              <InputCustom
+                register={register}
+                id="description"
+                errors={formErrors}
+                validate={{ required: "Vui lòng nhập mô tả giải pháp" }}
+                label="Mô tả giải pháp"
+              ></InputCustom>
+              <ButtomCustom
+                isLoading={isLoading}
+                text="Gửi yêu cầu"
+              ></ButtomCustom>
+            </form>
+          </ModelCustom>
+        </>
+      )}
     </>
   );
 };
