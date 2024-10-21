@@ -13,15 +13,17 @@ const CreateUserPage = () => {
   const { stores } = useGetAllStore();
 
   const [messageApi, contextHolder] = message.useMessage();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   // state
   const [rolesSelect, setRoleSelect] = useState([]);
   const [storeSelect, setStoreSelect] = useState([]);
-  const [roleSelected, setRoleSelected] = useState();
+  const [roleSelected, setRoleSelected] = useState(
+    "31d756b7-7296-444a-88f5-1436a155542d"
+  );
   const [storeSelected, setStoreSelected] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -132,6 +134,8 @@ const CreateUserPage = () => {
                 onChange={(value) => {
                   setRoleSelected(value);
                 }}
+                defaultValue={roleSelected}
+                disabled
                 options={rolesSelect}
                 style={{ width: 200, height: 44 }}
               />

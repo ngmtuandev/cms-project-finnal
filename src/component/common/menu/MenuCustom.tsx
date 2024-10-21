@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ApiOutlined,
   MedicineBoxOutlined,
@@ -9,12 +9,24 @@ import {
   BarChartOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Menu } from "antd";
+import { Badge, Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
+import { useGetAllSolutionWithCondition } from "../../../hooks";
+import { useCommonStore, useConditionSolutionStore } from "../../../store";
 
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
+
+  const { solutionCondition } = useGetAllSolutionWithCondition();
+  const [solutionAll, setSolutionAll] = useState<[]>([]);
+  // global state in zustand for condition
+  const { setIsActive } = useConditionSolutionStore();
+
+  useEffect(() => {
+    setIsActive(false);
+    if (solutionCondition) setSolutionAll(solutionCondition);
+  }, [solutionCondition]);
 
   const items: MenuItem[] = [
     {
@@ -75,7 +87,16 @@ const MenuCustom = ({ navigate }: any) => {
       children: [
         { key: path.MANAGER_SOLUTION, label: "Quản lý" },
         { key: path.CREATE_SOLUTION, label: "Tạo mới" },
-        { key: path.MANAGER_SOLUTION_REQUEST, label: "Yêu cầu" },
+        {
+          key: path.MANAGER_SOLUTION_REQUEST,
+          label: (
+            <div>
+              <Badge size="small" count={solutionAll?.length!}>
+                Yêu cầu
+              </Badge>
+            </div>
+          ),
+        },
       ],
     },
     {
@@ -137,6 +158,8 @@ const MenuCustom = ({ navigate }: any) => {
     }
   };
 
+  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
+
   // reponsive
   // const isMobile = window.innerWidth < 768;
 
@@ -166,7 +189,7 @@ const MenuCustom = ({ navigate }: any) => {
         }}
         className="sm:flex-col sm:flex hidden md:flex xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
         overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
-        scroll-smooth xl:h-screen lg:h-screen min-h-[10px]"
+        scroll-smooth xl:h-screen lg:h-screen h-screen"
         items={items}
       />
     </div>

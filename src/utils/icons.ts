@@ -6,6 +6,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { MdRemoveRedEye } from "react-icons/md";
 import { CiTrash } from "react-icons/ci";
+import { FaFileExport } from "react-icons/fa6";
 
 const icons = {
   CiTrash,
@@ -22,6 +23,7 @@ const icons = {
   CiShoppingCart,
   MdAccessTimeFilled,
   MdRemoveRedEye,
+  FaFileExport,
 };
 
 export default icons;

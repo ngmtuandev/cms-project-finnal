@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDeleteResult, useGetAllResult } from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table } from "antd";
+import { Popconfirm, Space, Table, Tag } from "antd";
 import { Loader, Loading } from "../../component";
 import { MESSAGE } from "../../utils/message";
 import { message } from "antd";
@@ -24,7 +24,7 @@ const ResultPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   const handleDelete = (record: any) => {
     $deleteResult(record?.id, {
@@ -61,6 +61,9 @@ const ResultPage = () => {
       title: "Loại kết quả (giao dịch)",
       dataIndex: "typeResult",
       key: "typeResult",
+      render: (value) => {
+        return <Tag color="pink">{value}</Tag>;
+      },
     },
     {
       title: "Mã kết quả (Giao dịch)",

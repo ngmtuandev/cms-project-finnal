@@ -10,7 +10,7 @@ const Header = () => {
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
   return (
     <div
-      className="w-screen z-50 bg-opacity-60 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
+      className="w-screen z-50 bg-opacity-80 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
         xl:items-center xl:flex flex justify-between items-center xl:justify-between md:h-20 min-h-16 lg:h-20 bg-pink_main px-[4rem]"
     >
       <div>
@@ -21,7 +21,7 @@ const Header = () => {
       </div>
       <div>
         <span
-          className="cursor-pointer text-pink_main text-xl md:hidden xl:hidden lg:hidden"
+          className="cursor-pointer text-white text-xl md:hidden xl:hidden lg:hidden"
           onClick={() => setIsOpenMenuMobile(!isOpenMenuMobile)}
         >
           {isOpenMenuMobile ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}

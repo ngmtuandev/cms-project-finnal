@@ -7,9 +7,8 @@ import {
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
 import { Space, Table, DatePicker, Select, Image, Tag } from "antd";
-import { Loader, Loading } from "../../component";
+import { Loading } from "../../component";
 import { useFilterRecordStore } from "../../store";
-import { RESULT } from "../../utils/constant";
 import { convertTimestampToDateTime, formatCurrencyVND } from "../../helper";
 
 const { RangePicker } = DatePicker;
@@ -126,8 +125,8 @@ const RecordOverallDetail = () => {
       sorter: (a, b) => a.solution.name.localeCompare(b.solution.name),
       key: "solution",
       render: (value) => {
-        return <Tag color="pink">{value}</Tag>
-      }
+        return <Tag color="pink">{value}</Tag>;
+      },
     },
     {
       title: "Cửa hàng",
@@ -145,7 +144,8 @@ const RecordOverallDetail = () => {
     {
       title: "Ngày record",
       dataIndex: "createdAt",
-      sorter: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      sorter: (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       key: "createdAt",
       render: (value: string) => {
         return <span>{convertTimestampToDateTime(value)}</span>;
@@ -157,7 +157,9 @@ const RecordOverallDetail = () => {
       sorter: (a, b) => parseFloat(a.money) - parseFloat(b.money),
       key: "money",
       render: (value: string) => {
-        return <span className="font-semibold">{formatCurrencyVND(value)}</span>;
+        return (
+          <span className="font-semibold">{formatCurrencyVND(value)}</span>
+        );
       },
     },
   ];
@@ -170,108 +172,107 @@ const RecordOverallDetail = () => {
     setPage(0);
   }, [storeCode, machineCode, endDate, startDate]);
 
-
   return (
     <>
-        <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
-          <div
-            className=" w-[100%] lg:shadow-sm xl:shadow-sm shadow-none border lg:border-gray-200 xl:border-gray-200 
+      <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
+        <div
+          className=" w-[100%] lg:shadow-sm xl:shadow-sm shadow-none border lg:border-gray-200 xl:border-gray-200 
             border-none px-[12px] rounded-2xl xl:bg-white lg:bg-white py-[24px] bg-none"
-          >
-            <Space wrap className="gap-10">
-              <div className="flex flex-col">
-                <small className="text-gray-500 mb-1">Mã cửa hàng</small>
-                <Select
-                  onChange={(value: string) => {
-                    setStoreCode(value);
-                  }}
-                  defaultValue={storeCode}
-                  style={{ width: 140 }}
-                  allowClear
-                  options={storeSelect}
-                  placeholder="Lọc theo cửa hàng"
-                />
-              </div>
-              <div className="flex flex-col">
-                <small className="text-gray-500 mb-1">Mã máy</small>
-                <Select
-                  onChange={(value: string) => {
-                    setMachineCode(value);
-                  }}
-                  style={{ width: 140 }}
-                  allowClear
-                  options={machineSelect}
-                  placeholder="Lọc theo mã máy"
-                />
-              </div>
-              <div className="flex flex-col">
-                <small className="text-gray-500 mb-1">Loại kết quả</small>
-                <Select
-                  onChange={(value: string) => {
-                    setTypeResult(value);
-                  }}
-                  style={{ width: 140 }}
-                  allowClear
-                  options={resultSelect}
-                  placeholder="Lọc theo loại kết quả"
-                />
-              </div>
-              <div className="flex flex-col">
-                <small className="text-gray-500 mb-1">Loại giao dịch</small>
-                <Select
-                  onChange={(value: string) => {
-                    setTypeTransaction(value);
-                  }}
-                  style={{ width: 140 }}
-                  allowClear
-                  defaultValue={"ERROR"}
-                  options={[
-                    {
-                      label: "Chuyển khoản",
-                      value: "TRANSFER",
-                    },
-                    {
-                      label: "Lỗi",
-                      value: "ERROR",
-                    },
-                  ]}
-                  placeholder="Lọc theo loại kết quả"
-                />
-              </div>
-              <div className="flex flex-col">
-                <small className="text-gray-500 mb-1">Lọc theo ngày</small>
-                <RangePicker
-                  placeholder={['bắt đầu', 'kết thúc']}
-                  style={{ width: 220 }}
-                  onChange={(_, dateString) => {
-                    setEndDate(dateString[1]);
-                    setStartDate(dateString[0]);
-                  }}
-                />
-              </div>
-            </Space>
-          </div>
-          <Table
-            className="custom-table"
-            style={{
-              marginTop: 20,
-            }}
-            columns={columns}
-            dataSource={recordTransactionAll}
-            loading={isLoading}
-            showHeader={true}
-            scroll={{ y: 340 }}
-            pagination={{
-              current: +page + 1,
-              pageSize: +size,
-              total: +records?.totalPage * +size,
-              onChange: (page) => {
-                setPage(page - 1);
-              },
-            }}
-          />
-          {isLoading && <Loading />}
+        >
+          <Space wrap className="gap-10">
+            <div className="flex flex-col">
+              <small className="text-gray-500 mb-1">Mã cửa hàng</small>
+              <Select
+                onChange={(value: string) => {
+                  setStoreCode(value);
+                }}
+                defaultValue={storeCode}
+                style={{ width: 140 }}
+                allowClear
+                options={storeSelect}
+                placeholder="Lọc theo cửa hàng"
+              />
+            </div>
+            <div className="flex flex-col">
+              <small className="text-gray-500 mb-1">Mã máy</small>
+              <Select
+                onChange={(value: string) => {
+                  setMachineCode(value);
+                }}
+                style={{ width: 140 }}
+                allowClear
+                options={machineSelect}
+                placeholder="Lọc theo mã máy"
+              />
+            </div>
+            <div className="flex flex-col">
+              <small className="text-gray-500 mb-1">Loại kết quả</small>
+              <Select
+                onChange={(value: string) => {
+                  setTypeResult(value);
+                }}
+                style={{ width: 140 }}
+                allowClear
+                options={resultSelect}
+                placeholder="Lọc theo loại kết quả"
+              />
+            </div>
+            <div className="flex flex-col">
+              <small className="text-gray-500 mb-1">Loại giao dịch</small>
+              <Select
+                onChange={(value: string) => {
+                  setTypeTransaction(value);
+                }}
+                style={{ width: 140 }}
+                allowClear
+                defaultValue={"ERROR"}
+                options={[
+                  {
+                    label: "Chuyển khoản",
+                    value: "TRANSFER",
+                  },
+                  {
+                    label: "Lỗi",
+                    value: "ERROR",
+                  },
+                ]}
+                placeholder="Lọc theo loại kết quả"
+              />
+            </div>
+            <div className="flex flex-col">
+              <small className="text-gray-500 mb-1">Lọc theo ngày</small>
+              <RangePicker
+                placeholder={["Bắt đầu", "Kết thúc"]}
+                style={{ width: 220 }}
+                onChange={(_, dateString) => {
+                  setEndDate(dateString[1]);
+                  setStartDate(dateString[0]);
+                }}
+              />
+            </div>
+          </Space>
         </div>
+        <Table
+          className="custom-table"
+          style={{
+            marginTop: 20,
+          }}
+          columns={columns}
+          dataSource={recordTransactionAll}
+          loading={isLoading}
+          showHeader={true}
+          scroll={{ y: 340 }}
+          pagination={{
+            current: +page + 1,
+            pageSize: +size,
+            total: +records?.totalPage * +size,
+            onChange: (page) => {
+              setPage(page - 1);
+            },
+          }}
+        />
+        {isLoading && <Loading />}
+      </div>
     </>
   );
 };
