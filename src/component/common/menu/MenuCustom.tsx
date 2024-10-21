@@ -13,7 +13,7 @@ import { Badge, Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
 import { useGetAllSolutionWithCondition } from "../../../hooks";
-import { useCommonStore, useConditionSolutionStore } from "../../../store";
+import { useConditionSolutionStore } from "../../../store";
 
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
