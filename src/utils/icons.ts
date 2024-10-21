@@ -7,6 +7,7 @@ import { MdAccessTimeFilled } from "react-icons/md";
 import { MdRemoveRedEye } from "react-icons/md";
 import { CiTrash } from "react-icons/ci";
 import { FaFileExport } from "react-icons/fa6";
+import { MdOutlineLogout } from "react-icons/md";
 
 const icons = {
   CiTrash,
@@ -24,6 +25,7 @@ const icons = {
   MdAccessTimeFilled,
   MdRemoveRedEye,
   FaFileExport,
+  MdOutlineLogout,
 };
 
 export default icons;

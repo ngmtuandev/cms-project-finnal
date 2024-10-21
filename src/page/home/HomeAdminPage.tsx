@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Header, MenuCustom } from "../../component";
-import { useAuthStore } from "../../store";
+import { useAuthStore, useCommonStore } from "../../store";
 import { useEffect } from "react";
 import { ROLE } from "../../utils/constant";
 import { withRouter } from "../../hocs";
@@ -22,6 +22,9 @@ const HomeAdminPage = ({ navigate }: any) => {
       navigate(path.DASH_BOARD);
     }
   }, [infoCurrent]);
+
+  const { isOpenMenuMobile } = useCommonStore();
+
   return (
     <div>
       {contextHolder}
@@ -33,12 +36,14 @@ const HomeAdminPage = ({ navigate }: any) => {
         <div>
           <MenuCustom />
         </div>
-        <div
-          className="mt-2 xl:mt-0 lg:mt-0"
-          style={{ flex: 1, padding: "20px" }}
-        >
-          <Outlet />
-        </div>
+        {!isOpenMenuMobile && (
+          <div
+            className="mt-2 xl:mt-0 lg:mt-0"
+            style={{ flex: 1, padding: "20px" }}
+          >
+            <Outlet />
+          </div>
+        )}
       </div>
     </div>
   );

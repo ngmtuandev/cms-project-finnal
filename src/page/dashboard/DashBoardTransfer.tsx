@@ -17,7 +17,8 @@ const DashBoardTransferDetail = () => {
 
   useEffect(() => {
     const labelConvert = dashboardTransferRecord?.map((item: any) => {
-      return item?.storeCode;
+      // return item?.storeCode;
+      return item?.storeName;
     });
 
     const dataCashConvert = dashboardTransferRecord?.map((item: any) => {

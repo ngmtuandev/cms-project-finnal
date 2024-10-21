@@ -101,7 +101,7 @@ const UserPage = () => {
     },
     {
       title: "Cửa hàng",
-      dataIndex: ["store", "storeName"],
+      dataIndex: ["storeName"],
       key: "storeName",
       render: (storeName: string | undefined) =>
         storeName ? (

@@ -23,6 +23,8 @@ const MenuCustom = ({ navigate }: any) => {
   // global state in zustand for condition
   const { setIsActive } = useConditionSolutionStore();
 
+  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
+
   useEffect(() => {
     setIsActive(false);
     if (solutionCondition) setSolutionAll(solutionCondition);
@@ -108,6 +110,10 @@ const MenuCustom = ({ navigate }: any) => {
         { key: path.CREATE_RESULT, label: "Tạo mới" },
       ],
     },
+    isOpenMenuMobile && {
+      key: "LOGOUT",
+      label: <div className="text-pink_main font-semibold">Đăng xuất</div>,
+    },
   ];
 
   interface LevelKeysProps {
@@ -160,8 +166,6 @@ const MenuCustom = ({ navigate }: any) => {
 
   // reponsive
   // const isMobile = window.innerWidth < 768;
-
-  const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -46,9 +46,7 @@ const HomeUserPage = ({ navigate }: any) => {
 
   // data api
   const { machines } = useGetAllMachine();
-  const { machinesOfStore } = useGetMachineByStore(
-    infoCurrent?.store?.storeCode
-  );
+  const { machinesOfStore } = useGetMachineByStore(infoCurrent?.storeCode);
   const { solutionCondition } = useGetAllSolutionWithCondition();
   const { results } = useGetAllResult();
 
