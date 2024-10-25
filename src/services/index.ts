@@ -34,3 +34,6 @@ export * from "./record-transaction/getForDashboardErrorApi";
 export * from "./record-transaction/getForDashboardTransferApi";
 export * from "./record-transaction/getRecordOverallApi";
 export * from "./record-transaction/getSumRecordByResultApi";
+export * from "./problem/createProblemApi";
+export * from "./problem/getAllProblemApi";
+export * from "./results/getAllResultsByProblem";

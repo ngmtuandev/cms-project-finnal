@@ -46,4 +46,6 @@ export class MESSAGE {
     "Từ chối yêu cầu giải pháp mới thất bại!";
   static NOT_AUTHORIZATION = "Bạn không có quyền truy cập trang này!";
   static VALID_NUMBER = "Vui lòng nhập số tiền phù hợp!";
+  static CREATE_PROBLEM_SUCCESS = "Tạo mới vấn đề thành công!";
+  static CREATE_PROBLEM_FAILURE = "Tạo mới vấn đề thất bại!";
 }

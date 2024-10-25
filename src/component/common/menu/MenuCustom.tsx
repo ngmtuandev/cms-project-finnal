@@ -7,13 +7,18 @@ import {
   TransactionOutlined,
   UserOutlined,
   BarChartOutlined,
+  IssuesCloseOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Badge, Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
 import { useGetAllSolutionWithCondition } from "../../../hooks";
-import { useCommonStore, useConditionSolutionStore } from "../../../store";
+import {
+  useAuthStore,
+  useCommonStore,
+  useConditionSolutionStore,
+} from "../../../store";
 
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
@@ -29,6 +34,8 @@ const MenuCustom = ({ navigate }: any) => {
     setIsActive(false);
     if (solutionCondition) setSolutionAll(solutionCondition);
   }, [solutionCondition]);
+
+  const handleLogout = useAuthStore((state) => state.logout);
 
   const items: MenuItem[] = [
     {
@@ -102,6 +109,15 @@ const MenuCustom = ({ navigate }: any) => {
       ],
     },
     {
+      key: path.MANAGER_PROBLEM,
+      icon: <IssuesCloseOutlined />,
+      label: "Vấn đề",
+      children: [
+        { key: path.MANAGER_PROBLEM, label: "Quản lý" },
+        { key: path.CREATE_PROBLEM, label: "Tạo mới" },
+      ],
+    },
+    {
       key: path.MANAGER_RESULT,
       icon: <MedicineBoxOutlined />,
       label: "Kết quả",
@@ -111,8 +127,17 @@ const MenuCustom = ({ navigate }: any) => {
       ],
     },
     isOpenMenuMobile && {
-      key: "LOGOUT",
-      label: <div className="text-pink_main font-semibold">Đăng xuất</div>,
+      key: path.SIGN_IN,
+      label: (
+        <div
+          onClick={() => {
+            handleLogout();
+          }}
+          className="text-pink_main font-semibold"
+        >
+          Đăng xuất
+        </div>
+      ),
     },
   ];
 
@@ -229,7 +254,7 @@ const MenuCustom = ({ navigate }: any) => {
               scrollbarColor: "unset",
             }}
             className="sm:flex-col md:flex hidden xl:flex lg:flex xl:flex-col bg-white xl:bg-pink_light lg:bg-pink_light lg:flex-col 
-        overflow-x-auto xl:w-[200px] lg:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
+        overflow-x-auto xl:w-[200px] lg:w-[200px] md:w-[200px] scrollbar-thin scrollbar-thumb-gray-500
         scroll-smooth xl:h-screen lg:h-screen h-screen"
             items={items}
           />

@@ -12,6 +12,8 @@ const path = {
   MANAGER_SOLUTION: "manage-solution",
   MANAGER_RESULT: "manage-result",
   MANAGER_MACHINE: "manage-machine",
+  MANAGER_PROBLEM: "manage-problem",
+  CREATE_PROBLEM: "create-problem",
   DASH_BOARD: "dash-board",
   OVERALL_TRANSACTION: "overall-transaction",
   DASH_BOARD_TRANSFER: "dash-board-transfer",

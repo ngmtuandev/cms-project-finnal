@@ -31,7 +31,6 @@ const DashBoardPage = () => {
   const [isLoader, setIsLoader] = useState(false);
 
   const { sumRecordByResult } = useGetSumRecordByResult();
-  console.log("🚀 ~ DashBoardPage ~ sumRecordByResult:", sumRecordByResult);
 
   useEffect(() => {
     setIsLoader(true);
@@ -48,14 +47,14 @@ const DashBoardPage = () => {
         </div>
       ) : (
         <div>
-          <div className="hidden xl:flex md:flex lg:flex gap-8 mb-4 mt-6 grid-cols-4">
+          <div className="hidden xl:flex lg:flex gap-8 mb-4 mt-6 grid-cols-4">
             {sumRecordByResult?.map((item: any) => {
-              if (item?.typeResult === RESULT.ERROR) {
+              if (item?.typeResult === RESULT.NOT_PRINTER) {
                 return (
                   <BoxRecord>
                     <div className="flex flex-col">
                       <h3 className="font-semibold text-gray-600 text-sm uppercase">
-                        Tổng số lần GD lỗi
+                        Tổng số lần không in
                       </h3>
                       <span className="text-pink_main text-5xl">
                         {item?.count}
@@ -164,7 +163,7 @@ const DashBoardPage = () => {
               </div>
             </BoxRecord> */}
           </div>
-          <div className="flex flex-col xl:flex-row md:flex-row lg:flex-row gap-8 justify-between">
+          <div className="flex flex-col xl:flex-row md:flex-col lg:flex-row gap-8 justify-between">
             <DashBoardError></DashBoardError>
             <DashBoardTransferDetail></DashBoardTransferDetail>
           </div>

@@ -67,7 +67,7 @@ const DashBoardTransferDetail = () => {
   };
 
   return (
-    <div className="flex w-[100%] xl:w-[50%] md:w-[50%] lg:w-[50%] flex-col justify-between bg-gray-100 p-[20px]">
+    <div className="flex w-[100%] xl:w-[50%] md:w-[100%] lg:w-[50%] flex-col justify-between bg-gray-100 p-[20px]">
       <h3 className="uppercase mb-3 text-pink_main font-semibold">
         Thống kê chuyển khoản
       </h3>

@@ -1,6 +1,6 @@
 export type TRecordDashboard = {
-  typeTransaction?: string | undefined;
   typeResult?: string | number | undefined;
+  typeTransaction?: any;
   startDate?: any;
   endDate?: any;
 };

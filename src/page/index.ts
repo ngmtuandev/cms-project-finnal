@@ -40,3 +40,7 @@ export { default as FailurePage } from "./failure/FailurePage";
 // Dashboard
 export { default as DashBoardPage } from "./dashboard/DashBoardPage";
 export { default as DashBoardTransferPage } from "./dashboard/DashBoardTransferPage";
+
+// Problem
+export { default as CreateProblemPage } from "./problem/CreateProblemPage";
+export { default as ProblemPage } from "./problem/ProblemPage";

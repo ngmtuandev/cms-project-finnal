@@ -6,13 +6,13 @@ export const useGetRecordForDashboard = () => {
   const { startDate, endDate, typeResult, typeTransaction } =
     useDashboardRecordStore();
   const { data, isLoading } = useQuery({
-    queryKey: [startDate, endDate, typeResult, typeTransaction],
+    queryKey: [startDate, endDate, typeResult],
     queryFn: () =>
       getForDashboardErrorApi({
         startDate,
         endDate,
-        typeResult,
         typeTransaction,
+        typeResult,
       }),
     enabled: true,
   });

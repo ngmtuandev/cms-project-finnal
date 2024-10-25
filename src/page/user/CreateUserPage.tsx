@@ -4,10 +4,14 @@ import { useCreateUser, useGetAllRole, useGetAllStore } from "../../hooks";
 import { message, Select } from "antd";
 import { MESSAGE } from "../../utils/message";
 import { useEffect, useState } from "react";
+import { useCommonStore } from "../../store";
+import { ROLE } from "../../utils/constant";
 
 const CreateUserPage = () => {
   // api
   const { mutate: $createUser } = useCreateUser();
+
+  const { setIdRoleUser, idRoleUser } = useCommonStore();
 
   const { roles } = useGetAllRole();
   const { stores } = useGetAllStore();
@@ -21,9 +25,7 @@ const CreateUserPage = () => {
   // state
   const [rolesSelect, setRoleSelect] = useState([]);
   const [storeSelect, setStoreSelect] = useState([]);
-  const [roleSelected, setRoleSelected] = useState(
-    "31d756b7-7296-444a-88f5-1436a155542d"
-  );
+  const [roleSelected, setRoleSelected] = useState(idRoleUser);
   const [storeSelected, setStoreSelected] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,6 +44,10 @@ const CreateUserPage = () => {
           value: item?.id,
         };
       });
+
+      setIdRoleUser(
+        roleConvert?.find((item: any) => item?.label == ROLE.ROLE_USER)?.value
+      );
       setRoleSelect(roleConvert);
     }
     if (stores) {
@@ -53,7 +59,7 @@ const CreateUserPage = () => {
       });
       setStoreSelect(storeConvert);
     }
-  }, [stores, roles]);
+  }, [stores, roles, idRoleUser]);
 
   const handleCreateUser = (value: any) => {
     const dataCreateUser = {

@@ -1,17 +1,31 @@
 import { useForm } from "react-hook-form";
 import { ButtomCustom, InputCustom } from "../../component";
-import { useCreateResult } from "../../hooks";
-import { message } from "antd";
+import { useCreateResult, useGetAllProblem } from "../../hooks";
+import { message, Select } from "antd";
 import { MESSAGE } from "../../utils/message";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreateResultPage = () => {
   // api
   const { mutate: $createResult } = useCreateResult();
+  const { problem } = useGetAllProblem();
 
   const [messageApi, contextHolder] = message.useMessage();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [problemSelect, setProblemSelect] = useState();
+  const [problemIdSelected, setProblemIdSelected] = useState("");
+
+  useEffect(() => {
+    const convertProblem = problem?.map((item: any) => {
+      return {
+        label: item?.typeProblem,
+        value: item?.id,
+      };
+    });
+
+    setProblemSelect(convertProblem);
+  }, [problem]);
 
   const {
     register,
@@ -22,22 +36,25 @@ const CreateResultPage = () => {
 
   const handleCreateResult = (value: any) => {
     setIsLoading(true);
-    $createResult(value, {
-      onSuccess: (response) => {
-        if (response?.status === 200) {
-          messageApi.success(MESSAGE.CREATE_RESULT_SUCCESS);
-          setIsLoading(false);
-          reset();
-        } else {
+    $createResult(
+      { ...value, problem: problemIdSelected },
+      {
+        onSuccess: (response) => {
+          if (response?.status === 200) {
+            messageApi.success(MESSAGE.CREATE_RESULT_SUCCESS);
+            setIsLoading(false);
+            reset();
+          } else {
+            messageApi.error(MESSAGE.CREATE_RESULT_FAILURE);
+            setIsLoading(false);
+          }
+        },
+        onError() {
           messageApi.error(MESSAGE.CREATE_RESULT_FAILURE);
           setIsLoading(false);
-        }
-      },
-      onError() {
-        messageApi.error(MESSAGE.CREATE_RESULT_FAILURE);
-        setIsLoading(false);
-      },
-    });
+        },
+      }
+    );
   };
 
   return (
@@ -59,6 +76,17 @@ const CreateResultPage = () => {
               validate={{ required: "Vui lòng nhập loại kết quả" }}
               label="Tên (loại) kết quả"
             ></InputCustom>
+            <Select
+              showSearch
+              placeholder="Chọn vấn đề"
+              optionFilterProp="label"
+              onChange={(value) => {
+                setProblemIdSelected(value);
+              }}
+              style={{ width: 200, height: 44 }}
+              onSearch={() => {}}
+              options={problemSelect}
+            />
             <ButtomCustom isLoading={isLoading} text="Tạo mới"></ButtomCustom>
           </form>
         </div>

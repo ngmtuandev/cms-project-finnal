@@ -1,5 +1,4 @@
 export type TCreateRecordTransaction = {
-  typeTransaction: string;
   isSuccess: boolean;
   imageEvident: string;
   user: string;

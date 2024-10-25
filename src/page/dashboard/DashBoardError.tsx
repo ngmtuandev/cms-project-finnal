@@ -1,35 +1,59 @@
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { useGetRecordForDashboard } from "../../hooks";
+import {
+  useGetAllResultByProblem,
+  useGetRecordForDashboard,
+} from "../../hooks";
 import { DatePicker, Select } from "antd";
-import { useDashboardRecordStore } from "../../store";
+import { useDashboardRecordStore, useProblemStore } from "../../store";
+import { ID_PROBLEM_ERROR, RESULT } from "../../utils/constant";
 
 const { RangePicker } = DatePicker;
 
-const dataSelectTypeResult = [
-  {
-    label: "PRINTER",
-    value: "PRINTER",
-  },
-  {
-    label: "NO PRINTER",
-    value: "NOT PRINTER",
-  },
-];
+// const dataSelectTypeResult = [
+//   {
+//     label: "PRINTER",
+//     value: "PRINTER",
+//   },
+//   {
+//     label: "NO PRINTER",
+//     value: "NOT PRINTER",
+//   },
+// ];
 
 const DashBoardError = () => {
   const { dashboardErrorRecord } = useGetRecordForDashboard();
 
+  const { results: resultByPromblem } = useGetAllResultByProblem();
+  console.log("🚀 ~ DashBoardError ~ resultByPromblem:", resultByPromblem);
+
+  const { setProblemId, problemId } = useProblemStore();
+
+  useEffect(() => {
+    setProblemId(ID_PROBLEM_ERROR.ID);
+
+    if (resultByPromblem) {
+      const convertResult = resultByPromblem?.map((item: any) => {
+        return {
+          label: item?.typeResult,
+          value: item?.typeResult,
+        };
+      });
+      setDataSelectTypeResult(convertResult);
+    }
+  }, [resultByPromblem, problemId]);
+
   // state
   const [labels, setLabels] = useState([]);
   const [dataDashBoard, setDataDashBoard] = useState([]);
+  const [dataSelectTypeResult, setDataSelectTypeResult] = useState([]);
 
   const { setEndDate, setStartDate, setTypeResult } = useDashboardRecordStore();
 
   useEffect(() => {
     setEndDate(undefined);
     setStartDate(undefined);
-    setTypeResult(undefined);
+    // setTypeResult(RESULT.ERROR);
   }, []);
 
   useEffect(() => {
@@ -87,7 +111,7 @@ const DashBoardError = () => {
   };
 
   return (
-    <div className=" w-[100%] xl:w-[50%] md:w-[50%] lg:w-[50%] flex flex-col justify-between bg-gray-100 p-[20px]">
+    <div className=" w-[100%] xl:w-[50%] md:w-[100%] lg:w-[50%] flex flex-col justify-between bg-gray-100 p-[20px]">
       <h3 className="uppercase mb-3 text-pink_main font-semibold">
         Thống kê giao dịch lỗi
       </h3>

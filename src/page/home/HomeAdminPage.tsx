@@ -30,7 +30,7 @@ const HomeAdminPage = ({ navigate }: any) => {
       {contextHolder}
       <Header />
       <div
-        className="flex flex-col xl:flex-row lg:flex-row"
+        className="flex flex-col md:flex-row xl:flex-row lg:flex-row"
         style={{ display: "flex", height: "100vh", paddingTop: 80, gap: 20 }}
       >
         <div>

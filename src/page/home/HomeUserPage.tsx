@@ -9,13 +9,16 @@ import {
   useAuthStore,
   useConditionSolutionStore,
   useCreateRecordStore,
+  useProblemStore,
 } from "../../store";
 import { Select, Button, Upload, message, Input } from "antd";
 import {
   useCreateRecordTransaction,
   useCreateSolutionRequest,
   useGetAllMachine,
+  useGetAllProblem,
   useGetAllResult,
+  useGetAllResultByProblem,
   useGetAllSolutionWithCondition,
   useGetMachineByStore,
 } from "../../hooks";
@@ -48,7 +51,7 @@ const HomeUserPage = ({ navigate }: any) => {
   const { machines } = useGetAllMachine();
   const { machinesOfStore } = useGetMachineByStore(infoCurrent?.storeCode);
   const { solutionCondition } = useGetAllSolutionWithCondition();
-  const { results } = useGetAllResult();
+  const { problem } = useGetAllProblem();
 
   // state
   const [solutionSelect, setSolutionSelect] = useState([]);
@@ -72,12 +75,25 @@ const HomeUserPage = ({ navigate }: any) => {
     setSolution,
     setTypeTransaction,
     solution,
-    typeTransaction,
     isSuccess,
     setIsSuccess,
   } = useCreateRecordStore();
 
+  const {
+    setProblem,
+    problem: problemStore,
+    setProblemId,
+    problemId,
+  } = useProblemStore();
+
   const { setIsActive } = useConditionSolutionStore();
+
+  const { results: resultGrbab } = useGetAllResultByProblem();
+  useEffect(() => {
+    if (problem) {
+      setProblem(problem);
+    }
+  }, [problem]);
 
   useEffect(() => {
     setIsActive(true);
@@ -109,8 +125,8 @@ const HomeUserPage = ({ navigate }: any) => {
       });
       setMachineSelect(machinesConvert);
     }
-    if (results) {
-      let resultConvert = results?.map((item: any) => {
+    if (resultGrbab) {
+      let resultConvert = resultGrbab?.map((item: any) => {
         return {
           label: item?.typeResult,
           value: item?.id,
@@ -118,7 +134,7 @@ const HomeUserPage = ({ navigate }: any) => {
       });
       setResultSelect(resultConvert);
     }
-  }, [machines, solutionCondition, results]);
+  }, [machines, solutionCondition, resultGrbab]);
 
   // Upload Image
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -178,26 +194,22 @@ const HomeUserPage = ({ navigate }: any) => {
       !solution ||
       !machine ||
       !result ||
-      !typeTransaction ||
       !uploadedImageUrl ||
       !money ||
-      !typeTransaction ||
-      money == undefined ||
-      typeTransaction == undefined
+      money == undefined
     ) {
-      toast.warning("VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN !");
+      toast.warning(MESSAGE.PLEASE_FILL_INPUT);
       return;
     }
 
     const dataUploadInfo: TCreateRecordTransaction = {
       imageEvident: uploadedImageUrl,
       user: infoCurrent?.id,
-      store: infoCurrent?.store?.id,
+      store: infoCurrent?.storeCode,
       money: +money,
       solution,
       machine,
       result,
-      typeTransaction,
       isSuccess,
     };
 
@@ -454,7 +466,25 @@ const HomeUserPage = ({ navigate }: any) => {
             <div className="px-[20px] w-full lg:w-[50%] xl:w-[50%] flex gap-4 flex-col">
               {/* type transaction */}
               <div className="flex gap-10">
-                <Checkbox
+                {problemStore?.map((item: any) => {
+                  return (
+                    <Checkbox
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "normal",
+                        color: "gray",
+                        marginLeft: 10,
+                      }}
+                      value={item?.typeProblem}
+                      checked={problemId == item?.id}
+                      onChange={() => setProblemId(item?.id)}
+                      className="custom-checkbox"
+                    >
+                      {item?.typeProblem}
+                    </Checkbox>
+                  );
+                })}
+                {/* <Checkbox
                   style={{
                     fontSize: 16,
                     fontWeight: "normal",
@@ -476,7 +506,7 @@ const HomeUserPage = ({ navigate }: any) => {
                   className="custom-checkbox"
                 >
                   Chuyển khoản
-                </Checkbox>
+                </Checkbox> */}
               </div>
               {/* solution */}
               <div>

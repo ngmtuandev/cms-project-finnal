@@ -31,3 +31,7 @@ export * from "./record-transaction/useGetRecordForDashboard";
 export * from "./record-transaction/useGetRecordForDashboardTransfer";
 export * from "./record-transaction/useGetRecordOverall";
 export * from "./record-transaction/useGetSumRecordByResult";
+export * from "./problem/useGetAllProblem";
+export * from "./results/useGetAllResultByProblem";
+export * from "./problem/useCreateProblem";
+export * from "./problem/useGetAllProblem";

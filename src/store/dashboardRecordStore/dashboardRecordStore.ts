@@ -12,7 +12,7 @@ interface FilterRecordState {
 }
 
 export const useDashboardRecordStore = create<FilterRecordState>((set) => ({
-  typeTransaction: "ERROR",
+  typeTransaction: "Error",
   typeResult: undefined,
   startDate: undefined,
   endDate: undefined,
