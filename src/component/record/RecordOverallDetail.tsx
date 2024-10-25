@@ -127,6 +127,14 @@ const RecordOverallDetail = () => {
       },
     },
     {
+      title: "Kết quả",
+      dataIndex: ["result", "typeResult"],
+      key: "codeMachine",
+      render: (value: string) => {
+        return <Tag className="text-gray-600">{value}</Tag>;
+      },
+    },
+    {
       title: "Ngày record",
       dataIndex: "createdAt",
       sorter: (a, b) =>
