@@ -45,10 +45,15 @@ const CreateUserPage = () => {
         };
       });
 
-      setIdRoleUser(
-        roleConvert?.find((item: any) => item?.label == ROLE.ROLE_USER)?.value
-      );
-      setRoleSelect(roleConvert);
+      const defaultRole = roleConvert.find(
+        (item: any) => item.label === ROLE.ROLE_USER
+      )?.value;
+
+      if (defaultRole) {
+        setIdRoleUser(defaultRole);
+        setRoleSelect(roleConvert);
+        setRoleSelected(defaultRole);
+      }
     }
     if (stores) {
       const storeConvert = stores?.map((item: any) => {
@@ -135,6 +140,7 @@ const CreateUserPage = () => {
             ></InputCustom>
             <div className="flex gap-6 items-center">
               <Select
+                key={roleSelected}
                 placeholder="Chọn quyền nhân viên"
                 optionFilterProp="label"
                 onChange={(value) => {

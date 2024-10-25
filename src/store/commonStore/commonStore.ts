@@ -4,8 +4,11 @@ export const useCommonStore = create<any>((set) => ({
   isLoading: false,
   isOpenMenuMobile: false,
   idRoleUser: undefined,
+  idProblemError: undefined,
   setIsLoading: (isLoading: boolean) => set(() => ({ isLoading })),
   setIsOpenMenuMobile: (isOpenMenuMobile: boolean) =>
     set(() => ({ isOpenMenuMobile })),
   setIdRoleUser: (idRoleUser: string) => set(() => ({ idRoleUser })),
+  setIdProblemError: (idProblemError: string) =>
+    set(() => ({ idProblemError })),
 }));

@@ -104,15 +104,15 @@ const RecordOverallDetail = () => {
       },
       width: 200,
     },
-    {
-      title: "Giải pháp",
-      dataIndex: ["solution", "name"],
-      sorter: (a, b) => a.solution.name.localeCompare(b.solution.name),
-      key: "solution",
-      render: (value) => {
-        return <Tag color="pink">{value}</Tag>;
-      },
-    },
+    // {
+    //   title: "Giải pháp",
+    //   dataIndex: ["solution", "name"],
+    //   sorter: (a, b) => a.solution.name.localeCompare(b.solution.name),
+    //   key: "solution",
+    //   render: (value) => {
+    //     return <Tag color="pink">{value}</Tag>;
+    //   },
+    // },
     {
       title: "Cửa hàng",
       dataIndex: ["store", "storeName"],
@@ -131,7 +131,11 @@ const RecordOverallDetail = () => {
       dataIndex: ["result", "typeResult"],
       key: "codeMachine",
       render: (value: string) => {
-        return <Tag className="text-gray-600">{value}</Tag>;
+        return (
+          <Tag className="text-gray-600" color="pink">
+            {value}
+          </Tag>
+        );
       },
     },
     {

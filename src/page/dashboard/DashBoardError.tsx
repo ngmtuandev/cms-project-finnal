@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
+  useGetAllProblem,
   useGetAllResultByProblem,
   useGetRecordForDashboard,
 } from "../../hooks";
 import { DatePicker, Select } from "antd";
 import { useDashboardRecordStore, useProblemStore } from "../../store";
-import { ID_PROBLEM_ERROR, RESULT } from "../../utils/constant";
+import { TYPE_RESULT } from "../../utils/constant";
 
 const { RangePicker } = DatePicker;
 
@@ -23,14 +24,16 @@ const { RangePicker } = DatePicker;
 
 const DashBoardError = () => {
   const { dashboardErrorRecord } = useGetRecordForDashboard();
+  const { problem } = useGetAllProblem();
 
   const { results: resultByPromblem } = useGetAllResultByProblem();
-  console.log("🚀 ~ DashBoardError ~ resultByPromblem:", resultByPromblem);
 
   const { setProblemId, problemId } = useProblemStore();
 
   useEffect(() => {
-    setProblemId(ID_PROBLEM_ERROR.ID);
+    setProblemId(
+      problem?.find((item: any) => item?.typeProblem == TYPE_RESULT.ERROR)?.id
+    );
 
     if (resultByPromblem) {
       const convertResult = resultByPromblem?.map((item: any) => {

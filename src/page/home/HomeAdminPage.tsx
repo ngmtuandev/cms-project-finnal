@@ -1,15 +1,37 @@
 import { Outlet } from "react-router-dom";
 import { Header, MenuCustom } from "../../component";
-import { useAuthStore, useCommonStore } from "../../store";
+import {
+  useAuthStore,
+  useCommonStore,
+  useOverallRecordStore,
+  useRecordByResultStore,
+} from "../../store";
 import { useEffect } from "react";
 import { ROLE } from "../../utils/constant";
 import { withRouter } from "../../hocs";
 import path from "../../utils/path";
 import { message } from "antd";
 import { MESSAGE } from "../../utils/message";
+import { getStartAndEndOfMonth } from "../../helper";
 
 const HomeAdminPage = ({ navigate }: any) => {
+  const { endOfMonth, startOfMonth } = getStartAndEndOfMonth();
+
   const { infoCurrent } = useAuthStore();
+  const { isOpenMenuMobile } = useCommonStore();
+  const { setEndDate, setStartDate } = useOverallRecordStore();
+  const {
+    setEndDate: setEndDateOfSumRecord,
+    setStartDate: setStartDateOfSumRecord,
+  } = useRecordByResultStore();
+
+  useEffect(() => {
+    setEndDate(endOfMonth);
+    setStartDate(startOfMonth);
+    setEndDateOfSumRecord(endOfMonth);
+    setStartDateOfSumRecord(startOfMonth);
+  }, []);
+
   const [messageApi, contextHolder] = message.useMessage();
   const handleLogout = useAuthStore((state) => state.logout);
 
@@ -22,8 +44,6 @@ const HomeAdminPage = ({ navigate }: any) => {
       navigate(path.DASH_BOARD);
     }
   }, [infoCurrent]);
-
-  const { isOpenMenuMobile } = useCommonStore();
 
   return (
     <div>

@@ -22,6 +22,10 @@ export class RESULT {
   static ERROR = "ERROR";
 }
 
+export class TYPE_RESULT {
+  static ERROR = "Error";
+}
+
 export class URL_UPLOAD_IMAGE {
   static URL = "https://membershipbe.phototimevn.com/v1/upload/upload";
 }
