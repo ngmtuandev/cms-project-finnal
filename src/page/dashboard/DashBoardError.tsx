@@ -24,6 +24,7 @@ const { RangePicker } = DatePicker;
 
 const DashBoardError = () => {
   const { dashboardErrorRecord } = useGetRecordForDashboard();
+
   const { problem } = useGetAllProblem();
 
   const { results: resultByPromblem } = useGetAllResultByProblem();
@@ -61,7 +62,7 @@ const DashBoardError = () => {
 
   useEffect(() => {
     const labelConvert = dashboardErrorRecord?.map((item: any) => {
-      return item?.storeCode;
+      return item?.typeResult;
     });
     const dataErrorConvert = dashboardErrorRecord?.map((item: any) => {
       return item?.total;

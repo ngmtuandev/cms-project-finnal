@@ -278,7 +278,6 @@ const HomeUserPage = ({ navigate }: any) => {
   };
 
   // capture use webcam
-
   const webcamRef = React.useRef<any>(null);
   const [image, setImage] = useState<any>(null);
   const [videoConstraints, setVideoConstraints] =
@@ -478,7 +477,7 @@ const HomeUserPage = ({ navigate }: any) => {
                       value={item?.typeProblem}
                       checked={problemId == item?.id}
                       onChange={() => setProblemId(item?.id)}
-                      className="custom-checkbox"
+                      className="custom-checkbox uppercase font-semibold"
                     >
                       {item?.typeProblem}
                     </Checkbox>

@@ -59,8 +59,28 @@ const DashBoardTransferDetail = () => {
   };
 
   const options2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 12,
+          },
+          maxRotation: 0,
+          minRotation: 0,
+        },
+      },
       y: {
+        ticks: {
+          font: {
+            size: 14,
+          },
+        },
         beginAtZero: true,
       },
     },
