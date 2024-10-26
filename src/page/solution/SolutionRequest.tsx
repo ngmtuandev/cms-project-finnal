@@ -10,7 +10,7 @@ import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
-import { useConditionSolutionStore } from "../../store";
+import { useCommonStore, useConditionSolutionStore } from "../../store";
 import { useGetAllSolutionWithCondition } from "../../hooks/solution/useGetAllSolutionWithCondition";
 
 type SearchProps = GetProps<typeof Input.Search>;
@@ -27,6 +27,7 @@ const SolutionRequest = () => {
 
   // global state in zustand for condition
   const { setIsActive } = useConditionSolutionStore();
+  const { setFlag, flag } = useCommonStore();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -50,6 +51,7 @@ const SolutionRequest = () => {
     $confirmSolutionRequest(record?.id, {
       onSuccess: (response) => {
         if (response?.status === 200) {
+          setFlag(!flag);
           messageApi.success(MESSAGE.CONFIRM_SOLUTION_REQUEST_SUCCESS);
           setIsLoading(false);
         } else {
@@ -69,6 +71,7 @@ const SolutionRequest = () => {
       onSuccess: (response) => {
         if (response?.status === 200) {
           messageApi.success(MESSAGE.REJECT_SOLUTION_REQUEST_SUCCESS);
+          setFlag(!flag);
           setIsLoading(false);
         } else {
           messageApi.error(MESSAGE.REJECT_SOLUTION_REQUEST_FAILURE);

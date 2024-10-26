@@ -23,7 +23,7 @@ import {
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
 
-  const { solutionCondition } = useGetAllSolutionWithCondition();
+  const { solutionCondition, isLoading } = useGetAllSolutionWithCondition();
   const [solutionAll, setSolutionAll] = useState<[]>([]);
   // global state in zustand for condition
   const { setIsActive } = useConditionSolutionStore();
@@ -33,7 +33,7 @@ const MenuCustom = ({ navigate }: any) => {
   useEffect(() => {
     setIsActive(false);
     if (solutionCondition) setSolutionAll(solutionCondition);
-  }, [solutionCondition]);
+  }, [solutionCondition, isLoading]);
 
   const handleLogout = useAuthStore((state) => state.logout);
 
