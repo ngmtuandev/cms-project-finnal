@@ -15,6 +15,7 @@ import DashBoardError from "./DashBoardError";
 import DashBoardTransferDetail from "./DashBoardTransfer";
 import { useGetSumRecordByResult } from "../../hooks";
 import { RESULT } from "../../utils/constant";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -118,50 +119,6 @@ const DashBoardPage = () => {
                 );
               }
             })}
-            {/* <BoxRecord>
-              <div className="flex flex-col">
-                <h3 className="font-semibold text-gray-600 text-xl">
-                  Tổng số lần GD lỗi
-                </h3>
-                <span className="text-pink_main text-5xl">345</span>
-                <small className="text-gray-500">
-                  Dữ liệu thống kê theo tháng
-                </small>
-              </div>
-            </BoxRecord>
-            <BoxRecord>
-              <div className="flex flex-col">
-                <h3 className="font-semibold text-gray-600 text-xl">
-                  Tổng số lần chuyển khoản
-                </h3>
-                <span className="text-pink_main text-5xl">111</span>
-                <small className="text-gray-500">
-                  Dữ liệu thống kê theo tháng
-                </small>
-              </div>
-            </BoxRecord>
-            <BoxRecord>
-              <div className="flex flex-col">
-                <h3 className="font-semibold text-gray-600 text-xl">
-                  Số lần giao dịch F1
-                </h3>
-                <span className="text-pink_main text-5xl">45</span>
-                <small className="text-gray-500">
-                  Dữ liệu thống kê theo tháng
-                </small>
-              </div>
-            </BoxRecord>
-            <BoxRecord>
-              <div className="flex flex-col">
-                <h3 className="font-semibold text-gray-600 text-xl">
-                  Số lần giao dịch tiền mặt
-                </h3>
-                <span className="text-pink_main text-5xl">30</span>
-                <small className="text-gray-500">
-                  Dữ liệu thống kê theo tháng
-                </small>
-              </div>
-            </BoxRecord> */}
           </div>
           <div className="flex flex-col xl:flex-row md:flex-col lg:flex-row gap-8 justify-between">
             <DashBoardError></DashBoardError>

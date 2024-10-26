@@ -9,3 +9,4 @@ export { default as ModelCustom } from "./common/model/ModelCustom";
 export { default as ChartConfig } from "./chart/ChartConfig";
 export { default as RecordOverallDetail } from "./record/RecordOverallDetail";
 export { default as BoxRecord } from "./record/BoxRecord";
+export { default as BoxSumRecord } from "./record/BoxSumRecord";

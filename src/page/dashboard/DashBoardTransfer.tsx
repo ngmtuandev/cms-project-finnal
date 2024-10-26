@@ -3,6 +3,7 @@ import { useDashboardRecordTransferStore } from "../../store";
 import { useGetRecordForDashboardTransfer } from "../../hooks";
 import { Bar } from "react-chartjs-2";
 import { DatePicker } from "antd";
+import { LABEL_CHART } from "../../utils/constant";
 
 const { RangePicker } = DatePicker;
 const DashBoardTransferDetail = () => {
@@ -39,7 +40,7 @@ const DashBoardTransferDetail = () => {
     datasets: [
       {
         // type: "bar",
-        label: "Số lần giao dịch F1",
+        label: LABEL_CHART.NUMBER_TRANSACTION_F1,
         data: dataF1DashBoard,
         backgroundColor: "rgba(185,35,35, 0.3)",
         borderColor: "rgba(75, 192, 192, 0.5)",
@@ -48,7 +49,7 @@ const DashBoardTransferDetail = () => {
       },
       {
         // type: "bar",
-        label: "Số lần giao dịch tiền mặt",
+        label: LABEL_CHART.NUMBER_TRANSACTION_CASH,
         data: dataCashDashBoard,
         backgroundColor: "rgba(57, 176, 135, 0.5)",
         borderColor: "rgba(75, 192, 192, 0.5)",

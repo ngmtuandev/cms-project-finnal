@@ -14,7 +14,7 @@ const CreateStorePage = () => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   const handleCreateStore = (value: any) => {
@@ -22,6 +22,7 @@ const CreateStorePage = () => {
       onSuccess: (response) => {
         if (response?.status === 200) {
           messageApi.success(MESSAGE.CREATE_STORE_SUCCESS);
+          reset();
         } else {
           messageApi.error(MESSAGE.CREATE_STORE_FAILURE);
         }

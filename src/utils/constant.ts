@@ -33,3 +33,8 @@ export class URL_UPLOAD_IMAGE {
 export class ID_PROBLEM_ERROR {
   static ID = "1f8be866-26f9-4361-9d3b-e3469cd18395";
 }
+
+export class LABEL_CHART {
+  static NUMBER_TRANSACTION_F1 = "Số lần giao dịch F1";
+  static NUMBER_TRANSACTION_CASH = "Số lần giao dịch tiền mặt";
+}
