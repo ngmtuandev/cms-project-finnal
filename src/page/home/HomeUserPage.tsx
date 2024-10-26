@@ -17,7 +17,6 @@ import {
   useCreateSolutionRequest,
   useGetAllMachine,
   useGetAllProblem,
-  useGetAllResult,
   useGetAllResultByProblem,
   useGetAllSolutionWithCondition,
   useGetMachineByStore,
@@ -56,7 +55,7 @@ const HomeUserPage = ({ navigate }: any) => {
   // state
   const [solutionSelect, setSolutionSelect] = useState([]);
   const [resultSelect, setResultSelect] = useState([]);
-  const [machineSelect, setMachineSelect] = useState([]);
+  const [machineSelect, setMachineSelect] = useState<any>([]);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isLoader, setIsLoader] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -483,29 +482,6 @@ const HomeUserPage = ({ navigate }: any) => {
                     </Checkbox>
                   );
                 })}
-                {/* <Checkbox
-                  style={{
-                    fontSize: 16,
-                    fontWeight: "normal",
-                    color: "gray",
-                    marginLeft: 10,
-                  }}
-                  value={"ERROR"}
-                  checked={typeTransaction == "ERROR"}
-                  onChange={() => setTypeTransaction("ERROR")}
-                  className="custom-checkbox"
-                >
-                  Giao dịch lỗi
-                </Checkbox>
-                <Checkbox
-                  style={{ fontSize: 16, fontWeight: "normal", color: "gray" }}
-                  value={"TRANSFER"}
-                  checked={typeTransaction == "TRANSFER"}
-                  onChange={() => setTypeTransaction("TRANSFER")}
-                  className="custom-checkbox"
-                >
-                  Chuyển khoản
-                </Checkbox> */}
               </div>
               {/* solution */}
               <div>
@@ -526,6 +502,7 @@ const HomeUserPage = ({ navigate }: any) => {
               {/* Machine */}
               <div>
                 <Select
+                  key={machineSelect}
                   showSearch
                   style={{ width: "100%" }}
                   placeholder="Chọn mã máy"
@@ -578,19 +555,6 @@ const HomeUserPage = ({ navigate }: any) => {
                   onChange={(value: any) => setIsSuccess(value)}
                 />
               </div>
-
-              {/* Type transaction */}
-              {/* <div>
-            <Select
-              placeholder="Chọn loại giao dịch"
-              style={{ width: "100%" }}
-              options={[
-                { value: "ERROR", label: "GD Lỗi" },
-                { value: "TRANSFER", label: "Chuyển khoản" },
-              ]}
-              onChange={(value: any) => setTypeTransaction(value)}
-            />
-          </div> */}
             </div>
 
             {/* Button */}

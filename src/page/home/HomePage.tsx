@@ -12,6 +12,7 @@ const HomePage = ({ navigate }: any) => {
       navigate(path.ADMIN);
     }
   }, [userInfo]);
+
   return <HomeUserPage />;
 };
 

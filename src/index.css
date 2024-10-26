@@ -58,8 +58,8 @@
 
 /* Check box css */
 .custom-checkbox .ant-checkbox {
-  transform: scale(1.5); 
-  margin-right: 8px; 
+  transform: scale(1.5);
+  margin-right: 8px;
 }
 
 .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner:hover {
@@ -68,16 +68,16 @@
 
 .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
   background-color: #ffa0bc !important;
-  border: #555 !important; 
+  border: #555 !important;
 }
 
 .custom-checkbox .ant-checkbox-inner {
-  width: 16px; 
-  height: 16px; 
+  width: 16px;
+  height: 16px;
 }
 
 .custom-checkbox .ant-checkbox-wrapper {
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 .ant-checkbox-input {
@@ -143,8 +143,8 @@
 }
 
 .scroll-hidden {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .custom-table .ant-table-thead > tr > th {
@@ -178,7 +178,6 @@
   overflow-y: auto !important; /* Đảm bảo cuộn được kích hoạt */
 }
 
-
 .custom-table .ant-table-body::-webkit-scrollbar {
   width: 100px !important; /* Độ rộng thanh cuộn dọc */
   height: 8px !important; /* Độ cao thanh cuộn ngang */
@@ -201,31 +200,31 @@
 }
 
 .custom-table-no-padding .ant-table-cell {
-  padding: 0 !important; 
+  padding: 0 !important;
 }
 
 /*  =======================  CSS FOR HEADER TABLE ================= */
 
 .header-no-padding-red {
-  padding: 0 !important; 
-  background-color: rgba(243, 76, 54, 0.1); 
-  width: 100%; 
-  height: 52px; 
+  padding: 0 !important;
+  background-color: rgba(243, 76, 54, 0.1);
+  width: 100%;
+  height: 52px;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  box-sizing: border-box; 
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .header-no-padding-green {
-  padding: 0 !important; 
-  background-color: rgba(63, 241, 8, 0.1); 
-  width: 100%; 
-  height: 52px; 
+  padding: 0 !important;
+  background-color: rgba(63, 241, 8, 0.1);
+  width: 100%;
+  height: 52px;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  box-sizing: border-box; 
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .ant-table-thead th .header-no-padding {
@@ -233,7 +232,6 @@
 }
 
 /* ================ Corlor pagination table  ====== */
-
 
 /* Thay đổi màu số trang hiện tại */
 .custom-pagination .ant-pagination-item-active a {
@@ -243,27 +241,26 @@
 
 /* Thay đổi màu số trang không được chọn */
 .custom-pagination .ant-pagination-item a {
-  color: #FFA0BC !important; /* Màu chữ */
+  color: #ffa0bc !important; /* Màu chữ */
 }
 
 /* Thay đổi màu nút điều hướng (< và >) */
-.custom-pagination .ant-pagination-prev, 
+.custom-pagination .ant-pagination-prev,
 .custom-pagination .ant-pagination-next {
   color: #ff769f !important; /* Màu chữ nút điều hướng */
 }
 
 /* Thay đổi hover hiệu ứng cho số trang */
 .custom-pagination .ant-pagination-item:hover a {
-  color: #FFA0BC !important;
-  background-color: #FFA0BC !important; /* Màu nền khi hover */
+  color: #ffa0bc !important;
+  background-color: #ffa0bc !important; /* Màu nền khi hover */
 }
 
 /* Thay đổi hover cho nút điều hướng */
 .custom-pagination .ant-pagination-prev:hover,
 .custom-pagination .ant-pagination-next:hover {
-  color: #FFA0BC;
+  color: #ffa0bc;
 }
-
 
 /* :where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(
     .ant-select-customize-input
