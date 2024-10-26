@@ -10,8 +10,10 @@ const Header = () => {
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
   return (
     <div
-      className="w-screen z-50 bg-opacity-80 shadow-lg md:justify-between fixed md:items-center md:flex lg:items-center lg:flex lg:justify-between 
-        xl:items-center xl:flex flex justify-between items-center xl:justify-between md:h-20 min-h-16 lg:h-20 bg-pink_main px-[4rem]"
+      className="w-screen z-50 bg-opacity-80 shadow-lg md:justify-between fixed 
+      md:items-center md:flex lg:items-center lg:flex lg:justify-between 
+      xl:items-center xl:flex flex justify-between items-center xl:justify-between 
+      md:h-20 min-h-16 lg:h-20 bg-pink_main lg:px-[4rem] xl:px-[4rem] px-[1rem] md:px-[4rem]"
     >
       <div>
         <img

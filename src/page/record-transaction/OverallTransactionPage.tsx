@@ -222,8 +222,8 @@ const OverallTransactionPage: React.FC = () => {
   return (
     <>
       {isLoader ? (
-        <div className="-mt-16">
-          <Loader></Loader>
+        <div className="-mt-40">
+          <Loader className="z-1000 w-screen xl:-ml-40 overflow-hidden md:-ml-28 -ml-5 h-screen flex flex-col justify-center items-center"></Loader>
         </div>
       ) : (
         <div>
@@ -242,7 +242,7 @@ const OverallTransactionPage: React.FC = () => {
             <Tag
               onClick={exportToExcel}
               color="pink"
-              className="flex cursor-pointer py-[4px] px-[8px] items-center justify-center gap-2"
+              className="hidden xl:flex md:flex lg:flex cursor-pointer py-[4px] px-[8px] items-center justify-center gap-2"
             >
               <span className="text-gray-600">Xuất file</span>
               <FaFileExport size={20} />

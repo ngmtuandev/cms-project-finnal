@@ -37,3 +37,4 @@ export * from "./record-transaction/getSumRecordByResultApi";
 export * from "./problem/createProblemApi";
 export * from "./problem/getAllProblemApi";
 export * from "./results/getAllResultsByProblem";
+export * from "./user/getByStoreCodeApi";

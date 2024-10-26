@@ -172,7 +172,7 @@ const SolutionPage = () => {
     <>
       {isLoader ? (
         <div className="-mt-40">
-          <Loader></Loader>
+          <Loader className="z-1000 w-screen xl:-ml-40 overflow-hidden md:-ml-28 -ml-5 h-screen flex flex-col justify-center items-center"></Loader>
         </div>
       ) : (
         <>

@@ -222,8 +222,8 @@ const RecordTransactionPage = () => {
   return (
     <>
       {isLoader ? (
-        <div className="-mt-40">
-          <Loader></Loader>
+        <div className="-mt-32">
+          <Loader className="z-1000 w-screen xl:-ml-40 overflow-hidden md:-ml-36 h-screen flex flex-col justify-center items-center"></Loader>
         </div>
       ) : (
         <div className="h-screen overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-500">
@@ -275,7 +275,7 @@ const RecordTransactionPage = () => {
               <div className="flex flex-col">
                 <small className="text-gray-500 mb-1">Lọc theo ngày</small>
                 <RangePicker
-                  placeholder={['bắt đầu', 'kết thúc']}
+                  placeholder={["bắt đầu", "kết thúc"]}
                   style={{ width: 180 }}
                   onChange={(_, dateString) => {
                     setEndDate(dateString[1]);

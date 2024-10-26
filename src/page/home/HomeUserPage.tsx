@@ -133,7 +133,7 @@ const HomeUserPage = ({ navigate }: any) => {
       });
       setResultSelect(resultConvert);
     }
-  }, [machines, solutionCondition, resultGrbab]);
+  }, [infoCurrent, machines, solutionCondition, resultGrbab]);
 
   // Upload Image
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -475,7 +475,10 @@ const HomeUserPage = ({ navigate }: any) => {
                       }}
                       value={item?.typeProblem}
                       checked={problemId == item?.id}
-                      onChange={() => setProblemId(item?.id)}
+                      onChange={() => {
+                        setProblemId(item?.id);
+                        setResult("");
+                      }}
                       className="custom-checkbox uppercase font-semibold"
                     >
                       {item?.typeProblem}
@@ -530,10 +533,12 @@ const HomeUserPage = ({ navigate }: any) => {
               {/* result */}
               <div>
                 <Select
+                  disabled={!problemId}
                   showSearch
                   style={{ width: "100%" }}
                   placeholder="Chọn kết quả giao dịch"
                   optionFilterProp="label"
+                  value={result}
                   filterSort={({ optionA, optionB }: any) =>
                     (optionA?.label ?? "")
                       .toLowerCase()

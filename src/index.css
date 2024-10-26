@@ -262,6 +262,25 @@
   color: #ffa0bc;
 }
 
+/* Select */
+/* SelectCustom.module.css */
+.customSelect .ant-select-selector {
+  background-color: #f0f2f5;
+  border-radius: 6px !important;
+  border: 1px solid #1890ff;
+}
+
+/* .customSelect .ant-select-arrow {
+  color: #1890ff;
+} */
+
+/* :where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  border-radius: 6px !important;
+} */
+
 /* :where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(
     .ant-select-customize-input
   )

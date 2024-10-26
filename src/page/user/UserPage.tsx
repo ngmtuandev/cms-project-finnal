@@ -1,7 +1,7 @@
-import { useDeleteUser, useGetAllUser } from "../../hooks";
+import { useDeleteUser, useGetAllStore, useGetAllUser } from "../../hooks";
 import { DeleteOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table, Tag } from "antd";
+import { Popconfirm, Select, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../utils/constant";
 import { Loader, Loading } from "../../component";
@@ -9,24 +9,41 @@ import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
 import { MESSAGE } from "../../utils/message";
-import { usePaginationStore } from "../../store";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
+type TStoreSelect = {
+  value: string;
+  label: string;
+};
+
 const UserPage = () => {
-  const { page, size } = usePaginationStore();
+  // const { page, size } = usePaginationStore();
 
-  const { info, isLoading } = useGetAllUser({
-    page,
-    size,
-  });
+  const { stores } = useGetAllStore();
 
+  const [storeCode, setStoreCode] = useState<string>();
   const [data, setData] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
+  const [storeSelect, setStoreSelect] = useState<TStoreSelect[]>([]);
+
+  const { info, isLoading } = useGetAllUser(storeCode!);
 
   const { mutate: $deleteUser } = useDeleteUser();
+
+  useEffect(() => {
+    if (stores) {
+      let storeConvert = stores?.map((item: any) => {
+        return {
+          label: item?.storeName,
+          value: item?.storeCode,
+        };
+      });
+      setStoreSelect(storeConvert);
+    }
+  }, [stores]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -144,7 +161,7 @@ const UserPage = () => {
     <>
       {isLoader ? (
         <div className="-mt-40">
-          <Loader></Loader>
+          <Loader className="z-1000 w-screen xl:-ml-40 overflow-hidden md:-ml-28 -ml-5 h-screen flex flex-col justify-center items-center"></Loader>
         </div>
       ) : (
         <div>
@@ -152,7 +169,17 @@ const UserPage = () => {
           <Search
             placeholder="Tìm kiếm nhân viên (theo tên)"
             onSearch={onSearch}
-            style={{ width: 300, marginBottom: 20 }}
+            style={{ width: 300, marginBottom: 20, marginRight: 20 }}
+          />
+          <Select
+            allowClear
+            placeholder="Chọn cửa hàng"
+            className="customSelect"
+            style={{ width: 180, border: 0, marginBottom: 20 }}
+            onChange={(value) => {
+              setStoreCode(value);
+            }}
+            options={storeSelect}
           />
           <Table
             columns={columns}
