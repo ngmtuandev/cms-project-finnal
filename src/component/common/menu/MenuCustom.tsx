@@ -13,27 +13,29 @@ import type { MenuProps } from "antd";
 import { Badge, Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
-import { useGetAllSolutionWithCondition } from "../../../hooks";
 import {
   useAuthStore,
   useCommonStore,
-  useConditionSolutionStore,
+  useSolutionCountStore,
 } from "../../../store";
+import { getAllSolutionWithConditionApi } from "../../../services";
 
 const MenuCustom = ({ navigate }: any) => {
   type MenuItem = Required<MenuProps>["items"][number];
 
-  const { solutionCondition, isLoading } = useGetAllSolutionWithCondition();
-  const [solutionAll, setSolutionAll] = useState<[]>([]);
   // global state in zustand for condition
-  const { setIsActive } = useConditionSolutionStore();
+  // const { setIsActive } = useConditionSolutionStore();
+
+  const { setSolutionCount, solutionRequestCount } = useSolutionCountStore();
 
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
 
   useEffect(() => {
-    setIsActive(false);
-    if (solutionCondition) setSolutionAll(solutionCondition);
-  }, [solutionCondition, isLoading]);
+    (async () => {
+      const response = await getAllSolutionWithConditionApi(false);
+      setSolutionCount(response?.data.length);
+    })();
+  }, []);
 
   const handleLogout = useAuthStore((state) => state.logout);
 
@@ -100,7 +102,7 @@ const MenuCustom = ({ navigate }: any) => {
           key: path.MANAGER_SOLUTION_REQUEST,
           label: (
             <div>
-              <Badge size="small" count={solutionAll?.length!}>
+              <Badge size="small" count={solutionRequestCount}>
                 Yêu cầu
               </Badge>
             </div>

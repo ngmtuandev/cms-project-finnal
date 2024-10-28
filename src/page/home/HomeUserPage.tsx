@@ -251,7 +251,7 @@ const HomeUserPage = ({ navigate }: any) => {
     register,
     formState: { errors: formErrors },
     handleSubmit: handleSubmitForm,
-    // reset,
+    reset,
   } = useForm();
 
   const handleCreateSolution = (value: any) => {
@@ -261,6 +261,7 @@ const HomeUserPage = ({ navigate }: any) => {
         if (response?.status === 200) {
           messageApi.success(MESSAGE.CREATE_SOLUTION_REQUEST_SUCCESS);
           setIsLoading(false);
+          reset();
           setIsModalOpen(false);
         } else {
           messageApi.error(MESSAGE.CREATE_SOLUTION_REQUEST_FAIL);

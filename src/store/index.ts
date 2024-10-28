@@ -9,6 +9,7 @@ import { useDashboardRecordTransferStore } from "./dashboardRecordStore/dashboar
 import { useRecordByResultStore } from "./recordByResult/recordByResultStore";
 import { usePaginationStore } from "./paginationStore/paginationStore";
 import { useProblemStore } from "./problemStore/problemStore";
+import { useSolutionCountStore } from "./solutionStore/solutionCountStore";
 
 export {
   useCommonStore,
@@ -22,4 +23,5 @@ export {
   useRecordByResultStore,
   usePaginationStore,
   useProblemStore,
+  useSolutionCountStore,
 };
