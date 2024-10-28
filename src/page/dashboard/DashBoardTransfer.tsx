@@ -4,7 +4,6 @@ import { useGetRecordForDashboardTransfer } from "../../hooks";
 import { Bar } from "react-chartjs-2";
 import { DatePicker } from "antd";
 import { LABEL_CHART } from "../../utils/constant";
-
 const { RangePicker } = DatePicker;
 const DashBoardTransferDetail = () => {
   const { dashboardTransferRecord } = useGetRecordForDashboardTransfer();
@@ -74,6 +73,17 @@ const DashBoardTransferDetail = () => {
           },
           maxRotation: 0,
           minRotation: 0,
+          callback: (value: any) => {
+            const label: string = labels[value];
+            if (label) {
+              const words = label.split(" ");
+              const lines = [];
+              for (let i = 0; i < words?.length; i += 2) {
+                lines.push(words?.slice(i, i + 2).join(" "));
+              }
+              return lines;
+            }
+          },
         },
       },
       y: {

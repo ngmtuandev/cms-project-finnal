@@ -24,6 +24,10 @@ const { RangePicker } = DatePicker;
 
 const DashBoardError = () => {
   const { dashboardErrorRecord } = useGetRecordForDashboard();
+  console.log(
+    "🚀 ~ DashBoardError ~ dashboardErrorRecord:",
+    dashboardErrorRecord
+  );
 
   const { problem } = useGetAllProblem();
 
@@ -101,6 +105,17 @@ const DashBoardError = () => {
           },
           maxRotation: 0,
           minRotation: 0,
+          callback: (value: any) => {
+            const label: string = labels[value];
+            if (label) {
+              const words = label.split(" ");
+              const lines = [];
+              for (let i = 0; i < words?.length; i += 2) {
+                lines.push(words?.slice(i, i + 2).join(" "));
+              }
+              return lines;
+            }
+          },
         },
       },
       y: {
