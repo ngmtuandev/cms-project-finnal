@@ -24,10 +24,6 @@ const { RangePicker } = DatePicker;
 
 const DashBoardError = () => {
   const { dashboardErrorRecord } = useGetRecordForDashboard();
-  console.log(
-    "🚀 ~ DashBoardError ~ dashboardErrorRecord:",
-    dashboardErrorRecord
-  );
 
   const { problem } = useGetAllProblem();
 
@@ -131,7 +127,7 @@ const DashBoardError = () => {
 
   return (
     <div className=" w-[100%] xl:w-[50%] md:w-[100%] lg:w-[50%] flex flex-col justify-between bg-gray-100 p-[20px]">
-      <h3 className="uppercase mb-3 text-pink_main font-semibold">
+      <h3 className="uppercase md:text-xl text-sm mb-3 text-pink_main font-semibold">
         Thống kê giao dịch lỗi
       </h3>
       <div className="xl:flex md:flex lg:flex hidden items-center gap-8 mb-8">

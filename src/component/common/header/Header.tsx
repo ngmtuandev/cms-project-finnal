@@ -17,7 +17,7 @@ const Header = () => {
     >
       <div>
         <img
-          className="md:w-[200px] lg:w-[200px] xl:w-[200px] w-[140px] sm:w-[140px] "
+          className="md:w-[200px] w-[100px] sm:w-[100px] "
           src={logo}
         ></img>
       </div>

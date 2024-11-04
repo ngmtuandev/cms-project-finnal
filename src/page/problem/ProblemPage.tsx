@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  useDeleteResult,
   useGetAllProblem,
-  useGetAllResult,
 } from "../../hooks";
 import type { TableColumnsType } from "antd";
-import { Popconfirm, Space, Table, Tag } from "antd";
+import { Table, Tag } from "antd";
 import { Loader, Loading } from "../../component";
-import { MESSAGE } from "../../utils/message";
-import { message } from "antd";
 import { Input } from "antd";
 import type { GetProps } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 
 type SearchProps = GetProps<typeof Input.Search>;
 

@@ -135,7 +135,7 @@ const MenuCustom = ({ navigate }: any) => {
           onClick={() => {
             handleLogout();
           }}
-          className="text-pink_main font-semibold"
+          className="bg-pink_main flex justify-end px-[4px] py-[1px] rounded-2xl text-white font-semibold"
         >
           Đăng xuất
         </div>

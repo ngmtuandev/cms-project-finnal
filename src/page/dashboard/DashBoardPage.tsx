@@ -48,7 +48,7 @@ const DashBoardPage = () => {
         </div>
       ) : (
         <div>
-          <div className="hidden xl:flex lg:flex gap-8 mb-4 mt-6 grid-cols-4">
+          <div className="hidden md:flex gap-8 mb-4 mt-6 grid-cols-4">
             {sumRecordByResult?.map((item: any) => {
               if (item?.typeResult === RESULT.NOT_PRINTER) {
                 return (

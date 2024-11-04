@@ -138,7 +138,7 @@ const RecordTransactionPage = () => {
               {value}
             </span>
           );
-        if (value == RESULT.NOT_PRINTE)
+        if (value == RESULT.NOT_PRINTER)
           return (
             <span className="text-yellow-400 font-semibold text-sm">
               {value}
