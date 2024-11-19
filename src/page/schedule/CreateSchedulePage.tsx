@@ -113,7 +113,7 @@ const CreateSchedulePage = () => {
                 placeholder={["bắt đầu", "kết thúc"]}
                 style={{ width: 240 }}
                 format="HH:mm" // Chỉ hiển thị giờ:phút trong picker
-                onChange={(values, dateStrings) => {
+                onChange={(values) => {
                   if (values) {
                     const start = values[0]!.format("HH:mm"); // Lấy giờ:phút của thời gian bắt đầu
                     const end = values[1]!.format("HH:mm"); // Lấy giờ:phút của thời gian kết thúc
