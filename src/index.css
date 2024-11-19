@@ -90,7 +90,7 @@
 :where(.css-dev-only-do-not-override-vryruh).ant-menu-light
   > .ant-menu
   .ant-menu-item-selected {
-  background-color: #fcb1c8;
+  background-color: #ffffff;
 }
 
 :where(.css-dev-only-do-not-override-vryruh).ant-menu-light
@@ -117,7 +117,7 @@
   > .ant-menu
   .ant-menu-submenu-selected
   > .ant-menu-submenu-title {
-  color: #fd78a0;
+  color: #420417;
 }
 
 :where(.css-dev-only-do-not-override-vryruh).ant-menu-light

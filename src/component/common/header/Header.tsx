@@ -1,12 +1,12 @@
-import { logo } from "../../../assets";
-import { useAuthStore, useCommonStore } from "../../../store";
+// import { logo } from "../../../assets";
+import { useCommonStore } from "../../../store";
 import {
-  LogoutOutlined,
+  // LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 const Header = () => {
-  const handleLogout = useAuthStore((state) => state.logout);
+  // const handleLogout = useAuthStore((state) => state.logout);
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
   return (
     <div
@@ -16,10 +16,7 @@ const Header = () => {
       md:h-20 min-h-16 lg:h-20 bg-pink_main lg:px-[4rem] xl:px-[4rem] px-[1rem] md:px-[4rem]"
     >
       <div>
-        <img
-          className="md:w-[200px] w-[100px] sm:w-[100px] "
-          src={logo}
-        ></img>
+        <span className="text-2xl font-bold text-black">MANAGE LAB</span>
       </div>
       <div>
         <span
@@ -28,13 +25,13 @@ const Header = () => {
         >
           {isOpenMenuMobile ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
         </span>
-        <span
+        {/* <span
           onClick={() => handleLogout()}
           className="font-semibold hidden md:flex xl:flex lg:flex items-center gap-2 md:text-[16px] lg:text-[16px] xl:text-[16px] text-white cursor-pointer"
         >
           Đăng xuất
           <LogoutOutlined />
-        </span>
+        </span> */}
       </div>
     </div>
   );

@@ -1,28 +1,16 @@
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { useAuthStore } from "../store";
 import { useEffect } from "react";
 import { withRouter } from "../hocs";
 import path from "../utils/path";
-import { USER_LOCAL } from "../utils/constant";
 
 const Layout = ({ navigate }: any) => {
   const queryClient = new QueryClient();
-  const token = useAuthStore((state) => state.token);
-
-  const tokenUser = JSON.parse(localStorage.getItem(USER_LOCAL.KEY)!)?.state
-    ?.token;
 
   useEffect(() => {
-    if (!tokenUser || !token) {
-      // Authentication
-      navigate(path.SIGN_IN);
-
-      // test deploy
-      // navigate(path.HOME);
-    }
-  }, [token, tokenUser]);
+    navigate(path.ADMIN);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

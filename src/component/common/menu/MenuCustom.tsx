@@ -40,94 +40,94 @@ const MenuCustom = ({ navigate }: any) => {
   const handleLogout = useAuthStore((state) => state.logout);
 
   const items: MenuItem[] = [
-    {
-      key: path.DASH_BOARD,
-      icon: <BarChartOutlined />,
-      label: "Dash Board",
-      children: [
-        { key: path.DASH_BOARD, label: "Thống kê giao dịch" },
-        // { key: path.DASH_BOARD_TRANSFER, label: "Chuyển khoản" },
-      ],
-    },
-    {
-      key: path.MANAGER_RECORD_TRANSACTION,
-      icon: <TransactionOutlined />,
-      label: "Giao dịch",
-      children: [
-        {
-          key: path.OVERALL_TRANSACTION,
-          label: "Tổng quan",
-        },
-        // {
-        //   key: path.MANAGER_RECORD_TRANSACTION,
-        //   label: "Quản lý",
-        // },
-      ],
-    },
-    {
-      key: path.MANAGER_STORE,
-      icon: <ShopOutlined />,
-      label: "Cửa hàng",
-      children: [
-        { key: path.MANAGER_STORE, label: "Quản lý" },
-        { key: path.CREATE_STORE, label: "Tạo mới" },
-      ],
-    },
+    // {
+    //   key: path.DASH_BOARD,
+    //   icon: <BarChartOutlined />,
+    //   label: "Dash Board",
+    //   children: [
+    //     { key: path.DASH_BOARD, label: "Thống kê giao dịch" },
+    //     // { key: path.DASH_BOARD_TRANSFER, label: "Chuyển khoản" },
+    //   ],
+    // },
+    // {
+    //   key: path.MANAGER_RECORD_TRANSACTION,
+    //   icon: <TransactionOutlined />,
+    //   label: "Giao dịch",
+    //   children: [
+    //     {
+    //       key: path.OVERALL_TRANSACTION,
+    //       label: "Tổng quan",
+    //     },
+    //     // {
+    //     //   key: path.MANAGER_RECORD_TRANSACTION,
+    //     //   label: "Quản lý",
+    //     // },
+    //   ],
+    // },
+    // {
+    //   key: path.MANAGER_STORE,
+    //   icon: <ShopOutlined />,
+    //   label: "Cửa hàng",
+    //   children: [
+    //     { key: path.MANAGER_STORE, label: "Quản lý" },
+    //     { key: path.CREATE_STORE, label: "Tạo mới" },
+    //   ],
+    // },
     {
       key: path.MANAGER_USER,
       icon: <UserOutlined />,
-      label: "Nhân viên",
+      label: "Giáo viên",
       children: [
         { key: path.MANAGER_USER, label: "Quản lý" },
         { key: path.CREATE_USER, label: "Thêm mới" },
       ],
     },
-    {
-      key: path.MANAGER_MACHINE,
-      icon: <ApiOutlined />,
-      label: "Máy",
-      children: [
-        { key: path.MANAGER_MACHINE, label: "Quản lý" },
-        { key: path.CREATE_MACHINE, label: "Thêm mới" },
-      ],
-    },
-    {
-      key: path.MANAGER_SOLUTION,
-      icon: <SolutionOutlined />,
-      label: "Giải pháp",
-      children: [
-        { key: path.MANAGER_SOLUTION, label: "Quản lý" },
-        { key: path.CREATE_SOLUTION, label: "Tạo mới" },
-        {
-          key: path.MANAGER_SOLUTION_REQUEST,
-          label: (
-            <div>
-              <Badge size="small" count={solutionRequestCount}>
-                Yêu cầu
-              </Badge>
-            </div>
-          ),
-        },
-      ],
-    },
-    {
-      key: path.MANAGER_PROBLEM,
-      icon: <IssuesCloseOutlined />,
-      label: "Vấn đề",
-      children: [
-        { key: path.MANAGER_PROBLEM, label: "Quản lý" },
-        { key: path.CREATE_PROBLEM, label: "Tạo mới" },
-      ],
-    },
-    {
-      key: path.MANAGER_RESULT,
-      icon: <MedicineBoxOutlined />,
-      label: "Kết quả",
-      children: [
-        { key: path.MANAGER_RESULT, label: "Quản lý" },
-        { key: path.CREATE_RESULT, label: "Tạo mới" },
-      ],
-    },
+    // {
+    //   key: path.MANAGER_MACHINE,
+    //   icon: <ApiOutlined />,
+    //   label: "Máy",
+    //   children: [
+    //     { key: path.MANAGER_MACHINE, label: "Quản lý" },
+    //     { key: path.CREATE_MACHINE, label: "Thêm mới" },
+    //   ],
+    // },
+    // {
+    //   key: path.MANAGER_SOLUTION,
+    //   icon: <SolutionOutlined />,
+    //   label: "Giải pháp",
+    //   children: [
+    //     { key: path.MANAGER_SOLUTION, label: "Quản lý" },
+    //     { key: path.CREATE_SOLUTION, label: "Tạo mới" },
+    //     {
+    //       key: path.MANAGER_SOLUTION_REQUEST,
+    //       label: (
+    //         <div>
+    //           <Badge size="small" count={solutionRequestCount}>
+    //             Yêu cầu
+    //           </Badge>
+    //         </div>
+    //       ),
+    //     },
+    //   ],
+    // },
+    // {
+    //   key: path.MANAGER_PROBLEM,
+    //   icon: <IssuesCloseOutlined />,
+    //   label: "Vấn đề",
+    //   children: [
+    //     { key: path.MANAGER_PROBLEM, label: "Quản lý" },
+    //     { key: path.CREATE_PROBLEM, label: "Tạo mới" },
+    //   ],
+    // },
+    // {
+    //   key: path.MANAGER_RESULT,
+    //   icon: <MedicineBoxOutlined />,
+    //   label: "Kết quả",
+    //   children: [
+    //     { key: path.MANAGER_RESULT, label: "Quản lý" },
+    //     { key: path.CREATE_RESULT, label: "Tạo mới" },
+    //   ],
+    // },
     isOpenMenuMobile && {
       key: path.SIGN_IN,
       label: (

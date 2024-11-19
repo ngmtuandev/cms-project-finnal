@@ -1,53 +1,26 @@
-import { useDeleteUser, useGetAllStore, useGetAllUser } from "../../hooks";
-import { DeleteOutlined } from "@ant-design/icons";
-import type { TableColumnsType } from "antd";
-import { Popconfirm, Select, Space, Table, Tag } from "antd";
+import { useGetAllUser } from "../../hooks";
+import { Table, Tag } from "antd";
 import { useEffect, useState } from "react";
-import { ROLE } from "../../utils/constant";
 import { Loader, Loading } from "../../component";
 import { message } from "antd";
 import { Input } from "antd";
-import type { GetProps } from "antd";
-import { MESSAGE } from "../../utils/message";
+import type { GetProps, TableColumnsType } from "antd";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-type TStoreSelect = {
-  value: string;
-  label: string;
-};
-
 const UserPage = () => {
   // const { page, size } = usePaginationStore();
 
-  const { stores } = useGetAllStore();
-
-  const [storeCode, setStoreCode] = useState<string>();
   const [data, setData] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
-  const [storeSelect, setStoreSelect] = useState<TStoreSelect[]>([]);
 
-  const { info, isLoading } = useGetAllUser(storeCode!);
-
-  const { mutate: $deleteUser } = useDeleteUser();
+  const { info, isLoading } = useGetAllUser();
 
   useEffect(() => {
-    if (stores) {
-      let storeConvert = stores?.map((item: any) => {
-        return {
-          label: item?.storeName,
-          value: item?.storeCode,
-        };
-      });
-      setStoreSelect(storeConvert);
-    }
-  }, [stores]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    setData(info);
+  }, [info, isLoading]);
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (!value) {
@@ -60,44 +33,28 @@ const UserPage = () => {
     }
   };
 
-  const [messageApi, contextHolder] = message.useMessage();
-
-  useEffect(() => {
-    if (info) {
-      setData(info);
-    }
-  }, [info]);
-
-  const handleDelete = (record: any) => {
-    $deleteUser(record?.id, {
-      onSuccess: (response) => {
-        if (response?.status === 200) {
-          messageApi.success(MESSAGE.DELETE_USER_SUCCESS);
-        } else {
-          messageApi.error(MESSAGE.DELETE_USER_FAILURE);
-        }
-      },
-      onError() {
-        messageApi.error(MESSAGE.DELETE_USER_FAILURE);
-      },
-    });
-  };
+  const [_, contextHolder] = message.useMessage();
 
   const columns: TableColumnsType<any> = [
     {
-      title: "Tên đăng nhập",
+      title: "Mã",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Tên giáo viên",
       dataIndex: "userName",
       key: "userName",
     },
     {
-      title: "Tên nhân viên",
-      dataIndex: "name",
-      key: "name",
+      title: "Số điện thoại",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
     },
     {
       title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "isActive",
+      key: "isActive",
       render: (status: boolean) =>
         status ? (
           <Tag color="green">Hoạt động</Tag>
@@ -106,47 +63,14 @@ const UserPage = () => {
         ),
     },
     {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
       title: "Vai trò",
-      dataIndex: ["role", "roleName"],
-      key: "roleName",
-      render: (role: string) =>
-        role == ROLE.ROLE_ADMIN ? (
-          <span>Quản lý</span>
-        ) : (
-          <span className="font-semibold">Nhân viên</span>
-        ),
-    },
-    {
-      title: "Cửa hàng",
-      dataIndex: ["storeName"],
-      key: "storeName",
-      render: (storeName: string | undefined) =>
-        storeName ? (
-          <span className="font-semibold">{storeName}</span>
-        ) : (
-          <span className="font-semibold text-red_main">Không có cửa hàng</span>
-        ),
-    },
-    {
-      title: "Hành động",
-      dataIndex: "",
-      key: "actions",
-      render: (_, record: any) =>
-        record?.role?.roleName == ROLE.ROLE_USER && (
-          <Space size="middle">
-            <Popconfirm
-              title="Xóa người dùng"
-              description="Bạn có chắc muốn xóa người dùng này không?"
-              onConfirm={() => {
-                handleDelete(record);
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <DeleteOutlined className="text-xl cursor-pointer text-pink_main" />
-            </Popconfirm>
-          </Space>
-        ),
+      dataIndex: "role",
+      key: "role",
     },
   ];
 
@@ -170,16 +94,6 @@ const UserPage = () => {
             placeholder="Tìm kiếm nhân viên (theo tên)"
             onSearch={onSearch}
             style={{ width: 300, marginBottom: 20, marginRight: 20 }}
-          />
-          <Select
-            allowClear
-            placeholder="Chọn cửa hàng"
-            className="customSelect"
-            style={{ width: 180, border: 0, marginBottom: 20 }}
-            onChange={(value) => {
-              setStoreCode(value);
-            }}
-            options={storeSelect}
           />
           <Table
             columns={columns}

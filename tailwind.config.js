@@ -7,8 +7,8 @@ export default {
     },
     extend: {
       colors: {
-        pink_main: "#FFA0BC",
-        pink_light: "#FFE3EC",
+        pink_main: "#A3DDE4",
+        pink_light: "#A3DDE4",
         green_main: "#15CC48",
         red_main: "#FF4040",
       },
