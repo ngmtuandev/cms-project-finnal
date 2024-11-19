@@ -35,10 +35,7 @@ const MenuCustom = ({ navigate }: any) => {
       key: path.MANAGER_USER,
       icon: <UserOutlined />,
       label: "Giáo viên",
-      children: [
-        { key: path.MANAGER_USER, label: "Quản lý" },
-        { key: path.CREATE_USER, label: "Thêm mới" },
-      ],
+      children: [{ key: path.MANAGER_USER, label: "Quản lý" }],
     },
     {
       key: path.SCHEDULE,
