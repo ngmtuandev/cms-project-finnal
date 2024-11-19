@@ -289,6 +289,10 @@ const HomeUserPage = ({ navigate }: any) => {
     return mediaDevices.filter((device) => device.kind === "videoinput");
   };
 
+  useEffect(() => {
+    navigate(path.ADMIN);
+  }, []);
+
   const switchCamera = async () => {
     const videoInpuList = await getListOfVideoInputs();
     if (videoInpuList.length > 1) {
