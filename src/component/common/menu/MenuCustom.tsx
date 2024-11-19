@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  ApiOutlined,
-  MedicineBoxOutlined,
-  ShopOutlined,
-  SolutionOutlined,
-  TransactionOutlined,
-  UserOutlined,
-  BarChartOutlined,
-  IssuesCloseOutlined,
-} from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Badge, Menu } from "antd";
+import { Menu } from "antd";
 import path from "../../../utils/path";
 import { withRouter } from "../../../hocs";
 import {
@@ -26,7 +17,7 @@ const MenuCustom = ({ navigate }: any) => {
   // global state in zustand for condition
   // const { setIsActive } = useConditionSolutionStore();
 
-  const { setSolutionCount, solutionRequestCount } = useSolutionCountStore();
+  const { setSolutionCount } = useSolutionCountStore();
 
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
 
