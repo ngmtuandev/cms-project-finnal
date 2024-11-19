@@ -78,7 +78,7 @@ const CreateSchedulePage = () => {
     $createSchedule(dataCreateSchedule, {
       onSuccess: (response: any) => {
         if (response?.data?.data?.isSuccess) {
-          messageApi.success(MESSAGE.CREATE_USER_SUCCESS);
+          // messageApi.success(MESSAGE.CREATE_USER_SUCCESS);
           setIsLoading(false);
           reset();
         } else {
