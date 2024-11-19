@@ -12,8 +12,6 @@ import {
   DashBoardPage,
   DashBoardTransferPage,
   FailurePage,
-  HomePage,
-  LoginPage,
   MachinePage,
   OverallTransactionPage,
   ProblemPage,
@@ -33,11 +31,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout></Layout>,
     children: [
-      { path: path.SIGN_IN, element: <LoginPage /> },
-      {
-        path: path.HOME,
-        element: <HomePage />,
-      },
       {
         path: path.ADMIN,
         element: <HomeAdminPage />,
