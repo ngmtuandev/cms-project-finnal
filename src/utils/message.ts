@@ -13,8 +13,8 @@ export class MESSAGE {
   static CREATE_SOLUTION_FAILURE = "Tạo giải pháp thất bại!";
   static CREATE_MACHINE_SUCCESS = "Tạo máy mới thành công!";
   static CREATE_MACHINE_FAILURE = "Tạo máy mới thất bại!";
-  static CREATE_USER_SUCCESS = "Tạo mới người dùng thành công!";
-  static CREATE_USER_FAILURE = "Tạo mới người dùng thất bại!";
+  static CREATE_USER_SUCCESS = "Tạo lịch mới thành công!";
+  static CREATE_USER_FAILURE = "Tạo lịch mới thất bại!";
   static CREATE_RESULT_SUCCESS = "Tạo mới kết quả thành công!";
   static DELETE_SOLUTION_SUCCESS = "Xóa giải pháp thành công!";
   static DELETE_SOLUTION_FAILURE = "Xóa giải pháp thất bại!";

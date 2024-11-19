@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserOutlined } from "@ant-design/icons";
+import { ScheduleOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import path from "../../../utils/path";
@@ -31,39 +31,6 @@ const MenuCustom = ({ navigate }: any) => {
   const handleLogout = useAuthStore((state) => state.logout);
 
   const items: MenuItem[] = [
-    // {
-    //   key: path.DASH_BOARD,
-    //   icon: <BarChartOutlined />,
-    //   label: "Dash Board",
-    //   children: [
-    //     { key: path.DASH_BOARD, label: "Thống kê giao dịch" },
-    //     // { key: path.DASH_BOARD_TRANSFER, label: "Chuyển khoản" },
-    //   ],
-    // },
-    // {
-    //   key: path.MANAGER_RECORD_TRANSACTION,
-    //   icon: <TransactionOutlined />,
-    //   label: "Giao dịch",
-    //   children: [
-    //     {
-    //       key: path.OVERALL_TRANSACTION,
-    //       label: "Tổng quan",
-    //     },
-    //     // {
-    //     //   key: path.MANAGER_RECORD_TRANSACTION,
-    //     //   label: "Quản lý",
-    //     // },
-    //   ],
-    // },
-    // {
-    //   key: path.MANAGER_STORE,
-    //   icon: <ShopOutlined />,
-    //   label: "Cửa hàng",
-    //   children: [
-    //     { key: path.MANAGER_STORE, label: "Quản lý" },
-    //     { key: path.CREATE_STORE, label: "Tạo mới" },
-    //   ],
-    // },
     {
       key: path.MANAGER_USER,
       icon: <UserOutlined />,
@@ -73,15 +40,15 @@ const MenuCustom = ({ navigate }: any) => {
         { key: path.CREATE_USER, label: "Thêm mới" },
       ],
     },
-    // {
-    //   key: path.MANAGER_MACHINE,
-    //   icon: <ApiOutlined />,
-    //   label: "Máy",
-    //   children: [
-    //     { key: path.MANAGER_MACHINE, label: "Quản lý" },
-    //     { key: path.CREATE_MACHINE, label: "Thêm mới" },
-    //   ],
-    // },
+    {
+      key: path.SCHEDULE,
+      icon: <ScheduleOutlined />,
+      label: "Lịch dạy",
+      children: [
+        { key: path.SCHEDULE_MANAGE, label: "Quản lý" },
+        { key: path.SCHEDULE_CREATE, label: "Thêm mới" },
+      ],
+    },
     // {
     //   key: path.MANAGER_SOLUTION,
     //   icon: <SolutionOutlined />,

@@ -38,3 +38,6 @@ export * from "./problem/createProblemApi";
 export * from "./problem/getAllProblemApi";
 export * from "./results/getAllResultsByProblem";
 export * from "./user/getByStoreCodeApi";
+export * from "./schedule/getAllScheduleOfTeacherApi";
+export * from "./lab/getAllLabApi";
+export * from "./schedule/createScheduleApi";

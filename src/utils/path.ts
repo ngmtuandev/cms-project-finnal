@@ -23,6 +23,9 @@ const path = {
   UPLOAD_RECORD_FAILURE: "/upload-record-failure",
   MANAGER_RECORD_TRANSACTION: "manage-record-transaction",
   ADMIN: "/admin",
+  SCHEDULE_MANAGE: "schedule-manage",
+  SCHEDULE: "schedule",
+  SCHEDULE_CREATE: "schedule-create",
 };
 
 export default path;

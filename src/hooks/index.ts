@@ -35,3 +35,6 @@ export * from "./problem/useGetAllProblem";
 export * from "./results/useGetAllResultByProblem";
 export * from "./problem/useCreateProblem";
 export * from "./problem/useGetAllProblem";
+export * from "./schedule/useGetAllSchedule";
+export * from "./labs/useGetAllLab";
+export * from "./schedule/useCreateSchedule";

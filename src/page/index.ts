@@ -44,3 +44,7 @@ export { default as DashBoardTransferPage } from "./dashboard/DashBoardTransferP
 // Problem
 export { default as CreateProblemPage } from "./problem/CreateProblemPage";
 export { default as ProblemPage } from "./problem/ProblemPage";
+
+// Schedule
+export { default as SchedulePage } from "./schedule/SchedulePage";
+export { default as CreateSchedulePage } from "./schedule/CreateSchedulePage";
