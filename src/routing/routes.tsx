@@ -12,6 +12,8 @@ import {
   DashBoardPage,
   DashBoardTransferPage,
   FailurePage,
+  HistoryPage,
+  HistoryTeacherPage,
   MachinePage,
   OverallTransactionPage,
   ProblemPage,
@@ -48,6 +50,12 @@ const router = createBrowserRouter([
           { path: path.SCHEDULE_MANAGE, element: <SchedulePage /> },
           { path: path.SCHEDULE_CREATE, element: <CreateSchedulePage /> },
           { path: path.MANAGER_SOLUTION, element: <SolutionPage /> },
+          // History
+          { path: path.HISTORY_MANAGE, element: <HistoryPage /> },
+          {
+            path: path.HISTORY_MANAGE_TEACHER,
+            element: <HistoryTeacherPage />,
+          },
           { path: path.MANAGER_RESULT, element: <ResultPage /> },
           { path: path.MANAGER_MACHINE, element: <MachinePage /> },
           { path: path.MANAGER_PROBLEM, element: <ProblemPage /> },

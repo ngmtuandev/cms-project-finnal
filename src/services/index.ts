@@ -41,3 +41,5 @@ export * from "./user/getByStoreCodeApi";
 export * from "./schedule/getAllScheduleOfTeacherApi";
 export * from "./lab/getAllLabApi";
 export * from "./schedule/createScheduleApi";
+export * from "./history/getAllHistoryOfLabApi";
+export * from "./history/getAllHistoryOfTeacherApi";

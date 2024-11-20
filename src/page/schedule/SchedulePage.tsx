@@ -17,7 +17,6 @@ const SchedulePage = () => {
   } = useScheduleStore();
 
   const { schedule, isLoading: isLoadingSchedule } = useGetAllSchedule();
-  console.log("🚀 ~ SchedulePage ~ schedule:", schedule);
 
   useEffect(() => {
     if (info) {

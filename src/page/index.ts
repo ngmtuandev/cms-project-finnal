@@ -48,3 +48,7 @@ export { default as ProblemPage } from "./problem/ProblemPage";
 // Schedule
 export { default as SchedulePage } from "./schedule/SchedulePage";
 export { default as CreateSchedulePage } from "./schedule/CreateSchedulePage";
+
+// History
+export { default as HistoryPage } from "./history/HistoryPage";
+export { default as HistoryTeacherPage } from "./history/HistoryTeacherPage";

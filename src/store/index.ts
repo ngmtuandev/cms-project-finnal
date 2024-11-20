@@ -12,6 +12,9 @@ import { useProblemStore } from "./problemStore/problemStore";
 import { useSolutionCountStore } from "./solutionStore/solutionCountStore";
 import { useScheduleStore } from "./schedule/scheduleStore";
 import { useCreateScheduleStore } from "./schedule/createScheduleStore";
+import { useHistoryOfLabStore } from "./historyStore/historyOfTeacherStore";
+import { useHistoryOfTeacherStore } from "./historyStore/historyOfLabStore copy";
+
 export {
   useCommonStore,
   useAuthStore,
@@ -27,4 +30,6 @@ export {
   useSolutionCountStore,
   useScheduleStore,
   useCreateScheduleStore,
+  useHistoryOfLabStore,
+  useHistoryOfTeacherStore,
 };

@@ -26,6 +26,9 @@ const path = {
   SCHEDULE_MANAGE: "schedule-manage",
   SCHEDULE: "schedule",
   SCHEDULE_CREATE: "schedule-create",
+  HISTORY: "history",
+  HISTORY_MANAGE: "history-manage",
+  HISTORY_MANAGE_TEACHER: "history-manage-teacher",
 };
 
 export default path;

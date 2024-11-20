@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { ScheduleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  HistoryOutlined,
+  ScheduleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import path from "../../../utils/path";
@@ -44,6 +48,15 @@ const MenuCustom = ({ navigate }: any) => {
       children: [
         { key: path.SCHEDULE_MANAGE, label: "Quản lý" },
         { key: path.SCHEDULE_CREATE, label: "Thêm mới" },
+      ],
+    },
+    {
+      key: path.HISTORY,
+      icon: <HistoryOutlined />,
+      label: "Lịch sử",
+      children: [
+        { key: path.HISTORY_MANAGE, label: "Lịch sử phòng" },
+        { key: path.HISTORY_MANAGE_TEACHER, label: "Lịch sử giáo viên" },
       ],
     },
     // {
