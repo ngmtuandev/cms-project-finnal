@@ -3,6 +3,7 @@ import {
   HistoryOutlined,
   ScheduleOutlined,
   UserOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
@@ -58,6 +59,12 @@ const MenuCustom = ({ navigate }: any) => {
         { key: path.HISTORY_MANAGE, label: "Lịch sử phòng" },
         { key: path.HISTORY_MANAGE_TEACHER, label: "Lịch sử giáo viên" },
       ],
+    },
+    {
+      key: path.LAB,
+      icon: <HomeOutlined />,
+      label: "Phòng học",
+      children: [{ key: path.LAB_MANAGE, label: "Quản lý phòng" }],
     },
     // {
     //   key: path.MANAGER_SOLUTION,

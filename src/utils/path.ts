@@ -29,6 +29,8 @@ const path = {
   HISTORY: "history",
   HISTORY_MANAGE: "history-manage",
   HISTORY_MANAGE_TEACHER: "history-manage-teacher",
+  LAB: "lab",
+  LAB_MANAGE: "/admin/lab-manage",
 };
 
 export default path;

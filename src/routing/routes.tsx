@@ -27,6 +27,7 @@ import {
   UserPage,
 } from "../page";
 import HomeAdminPage from "../page/home/HomeAdminPage";
+import LabManagePage from "../page/lab/LabManagePage";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
             path: path.ANALYSIS_RECORD_WITH_TYPE_RESULT,
             element: <AnalysisTransactionWithTypeResult />,
           },
+          { path: path.LAB_MANAGE, element: <LabManagePage /> },
         ],
       },
       { path: path.SIGN_UP, element: <RegisterPage /> },

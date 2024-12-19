@@ -45,6 +45,7 @@ const InputCustom = ({
         </label>
       )}
       <input
+        className="border-1 border-gray-300"
         defaultValue={defaultValue}
         type={isPasswordSibility && type === "password" ? "text" : type}
         id={id}

@@ -43,3 +43,4 @@ export * from "./lab/getAllLabApi";
 export * from "./schedule/createScheduleApi";
 export * from "./history/getAllHistoryOfLabApi";
 export * from "./history/getAllHistoryOfTeacherApi";
+export * from "./user/createNewTeacherApi";
