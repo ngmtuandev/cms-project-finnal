@@ -1,4 +1,5 @@
 // import { logo } from "../../../assets";
+import { useNavigate } from "react-router-dom";
 import { useCommonStore } from "../../../store";
 import {
   // LogoutOutlined,
@@ -8,6 +9,12 @@ import {
 const Header = () => {
   // const handleLogout = useAuthStore((state) => state.logout);
   const { isOpenMenuMobile, setIsOpenMenuMobile } = useCommonStore();
+  const setIsLoggedIn = useCommonStore((state) => state.setIsLoggedIn);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/login");
+    setIsLoggedIn(false);
+  };
   return (
     <div
       className="w-screen z-50 bg-opacity-80 shadow-lg md:justify-between fixed 
@@ -32,6 +39,12 @@ const Header = () => {
           Đăng xuất
           <LogoutOutlined />
         </span> */}
+        <div
+          onClick={handleLogout}
+          className="font-semibold p-[12px] bg-sky-600 text-white rounded-md cursor-pointer hover:bg-opacity-85"
+        >
+          Đăng xuất
+        </div>
       </div>
     </div>
   );

@@ -28,12 +28,17 @@ import {
 } from "../page";
 import HomeAdminPage from "../page/home/HomeAdminPage";
 import LabManagePage from "../page/lab/LabManagePage";
+import LoginPage from "../page/LoginPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout></Layout>,
     children: [
+      {
+        path: "/login", // Đường dẫn trực tiếp đến trang login
+        element: <LoginPage />,
+      },
       {
         path: path.ADMIN,
         element: <HomeAdminPage />,
@@ -43,6 +48,10 @@ const router = createBrowserRouter([
             path: path.DASH_BOARD_TRANSFER,
             element: <DashBoardTransferPage />,
           },
+          // {
+          //   path: path.LOGIN,
+          //   element: <LoginPage />,
+          // },
           { path: path.MANAGER_USER, element: <UserPage /> },
           {
             path: path.OVERALL_TRANSACTION,

@@ -4,12 +4,19 @@ import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { withRouter } from "../hocs";
 import path from "../utils/path";
+import { useCommonStore } from "../store";
 
 const Layout = ({ navigate }: any) => {
   const queryClient = new QueryClient();
+  const isLoggedIn = useCommonStore((state) => state.isLoggedIn);
 
   useEffect(() => {
-    navigate(path.ADMIN);
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    } else {
+      navigate(path.ADMIN);
+    }
   }, []);
 
   return (
