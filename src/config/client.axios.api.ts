@@ -3,7 +3,7 @@ import { USER_LOCAL } from "../utils/constant";
 
 const api = axios.create({
   // baseURL: `http://localhost:8888/api/v1`,
-  baseURL: `https://lab-manager-backend-production.up.railway.app`,
+  baseURL: `https://tesst-production.up.railway.app`,
 });
 
 api.interceptors.request.use(

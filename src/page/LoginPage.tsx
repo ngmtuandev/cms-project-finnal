@@ -30,7 +30,7 @@ const LoginPage = () => {
     } else {
       try {
         const response = await axios.post(
-          "https://lab-manager-backend-production.up.railway.app/auth/login",
+          "https://tesst-production.up.railway.app/auth/login",
           formData
         );
         if (response?.data) {
