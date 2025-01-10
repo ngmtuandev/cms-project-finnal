@@ -77,9 +77,11 @@ const CreateSchedulePage = () => {
     setIsLoading(true);
     $createSchedule(dataCreateSchedule, {
       onSuccess: (response: any) => {
-        if (response?.data?.data?.isSuccess) {
+        console.log("🚀 ~ handleCreateSchedule ~ response:", response);
+        if (response?.status === 201) {
           // messageApi.success(MESSAGE.CREATE_USER_SUCCESS);
           setIsLoading(false);
+          messageApi.success("Tạo lịch mới thành công");
           reset();
         } else {
           messageApi.error(
