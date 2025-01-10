@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (formData?.userName !== "tuan") {
+    if (formData?.userName !== "admin") {
       toast.warning("Bạn không có quyền truy cập");
       return;
     } else {
