@@ -62,6 +62,22 @@ const UserPage = () => {
       key: "userName",
     },
     {
+      width: "25%",
+      title: "Trạng thái đký khmặt",
+      dataIndex: "images",
+      key: "images",
+      render: (img: any) =>
+        img?.length > 0 ? (
+          <div className="flex gap-2 items-center flex-wrap">
+            {img?.map((item: any, index: number) => {
+              return <img key={index} className="w-[40px]" src={item}></img>;
+            })}
+          </div>
+        ) : (
+          <Tag color="green">Chưa đăng kí</Tag>
+        ),
+    },
+    {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
