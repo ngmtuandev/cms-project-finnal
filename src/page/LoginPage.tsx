@@ -47,20 +47,23 @@ const LoginPage = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center"
+      className="min-h-screen flex items-center bg-cover justify-center bg-no-repeat"
       style={{
-        background: "linear-gradient(135deg, #4A90E2, #9013FE)",
+        backgroundImage: `url("https://iuh.edu.vn/Resource/Upload2/Image/album/toan%20canh%20xl.JPG")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="bg-white p-[20px] rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          ADMIN
-        </h2>
-        <p className="text-sm text-gray-500 text-center mb-6">
-          Please login to your account
-        </p>
+        <div className="w-full flex justify-center flex-col items-center gap-4">
+          <img
+            className="w-[70%]"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Logo_IUH.png/800px-Logo_IUH.png"
+          ></img>
+          <p className="text-sm text-gray-500 text-center mb-6">
+            Please login to your account
+          </p>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
