@@ -131,7 +131,7 @@ const HistoryTeacherPage = () => {
           />
         </div>
         <div className="flex flex-col">
-          <small className="text-gray-500 mb-1">Chọn phòng</small>
+          <small className="text-gray-500 mb-1">Chọn giáo viên</small>
           <Select
             onChange={(value: string) => {
               setTeacherId(value);
@@ -139,7 +139,7 @@ const HistoryTeacherPage = () => {
             style={{ width: 200, height: 30 }}
             allowClear
             options={dataSelectTypeResult}
-            placeholder="Chọn phòng"
+            placeholder="Chọn giáo viên"
           />
         </div>
       </div>
